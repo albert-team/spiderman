@@ -1,0 +1,24 @@
+{
+  "name": "spiderman",
+  "version": "0.0.1",
+  "description": "Minimal web spider boilerplate for JavaScript (ES6+)",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albert-team/spiderman.git"
+  },
+  "keywords": [
+    "web",
+    "spider",
+    "boilerplate"
+  ],
+  "author": "Albert Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albert-team/spiderman/issues"
+  },
+  "homepage": "https://github.com/albert-team/spiderman#readme"
+}
