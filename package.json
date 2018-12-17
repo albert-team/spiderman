@@ -1,7 +1,7 @@
 {
   "name": "spiderman",
   "version": "0.0.1",
-  "description": "Minimal web spider boilerplate for JavaScript (ES6+)",
+  "description": "Minimal web spider boilerplate for JavaScript",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
