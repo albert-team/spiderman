@@ -39,18 +39,18 @@ class Scheduler {
    * Build URL entity from URL
    * @private
    * @param {string} url - URL
-   * @return {{ url: string, fingerprint: string, scrape: function, attempt: number }} URL entity
+   * @return {{ url: string, fingerprint: string, scraper: function, attempt: number }} URL entity
    */
   getUrlEntity(url) {
     const fingerprint = this.getUrlFingerprint(url)
-    const scrape = this.classifyUrl(url)
-    return { url, fingerprint, scrape, attempt: 0 }
+    const scraper = this.classifyUrl(url)
+    return { url, fingerprint, scraper, attempt: 0 }
   }
 
   /**
    * Schedule scraping tasks
    * @protected
-   * @param {...{ url: string, fingerprint: string, scrape: function, attempt: number }} urlEntities - URL entities
+   * @param {...{ url: string, fingerprint: string, scraper: function, attempt: number }} urlEntities - URL entities
    */
   enqueueUrlEntities = (...urlEntities) => this.urlEntityQueue.push.call(urlEntities)
 
@@ -64,7 +64,7 @@ class Scheduler {
   /**
    * Get next scraping task
    * @private
-   * @return {{ url: string, fingerprint: string, scrape: function, attempt: number }} URL entity
+   * @return {{ url: string, fingerprint: string, scraper: function, attempt: number }} URL entity
    */
   dequeueUrlEntity() {
     return this.urlEntityQueue.shift()
@@ -86,7 +86,7 @@ class Scheduler {
     do {
       const urlEntity = this.dequeueUrlEntity()
       ++urlEntity.attempt
-      const result = await urlEntity.scrape(urlEntity.url)
+      const result = await urlEntity.scraper(urlEntity.url)
       this.handleResult(result)
     } while (this.urlEntityQueue)
   }
