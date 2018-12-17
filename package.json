@@ -4,6 +4,7 @@
   "description": "Minimal web spider boilerplate for JavaScript",
   "main": "src/index.js",
   "scripts": {
+    "build:docs": "esdoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/albert-team/spiderman/issues"
   },
-  "homepage": "https://github.com/albert-team/spiderman#readme"
+  "homepage": "https://github.com/albert-team/spiderman#readme",
+  "devDependencies": {
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0"
+  }
 }
