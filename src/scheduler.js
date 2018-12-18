@@ -1,3 +1,6 @@
+const MetroHash64 = require('metrohash').MetroHash64
+
+
 /**
  * Schedule crawling tasks
  * @public
@@ -9,12 +12,9 @@ class Scheduler {
    * @param {string} initUrl - Initial URL
   */
   constructor(initUrl) {
-    /**
-     * Scraping task queue
-     * @private
-     * @type {Array<Object>}
-     */
     this.urlEntityQueue = []
+    this.hasher = new MetroHash64()
+
     this.enqueueUrls(initUrl)
   }
 
@@ -24,7 +24,10 @@ class Scheduler {
    * @param {string} url - URL
    * @return {string} Unique fingerprint
   */
-  getUrlFingerprint = (url) => url
+  getUrlFingerprint = (url) => {
+    this.hasher.update(url)
+    return this.hasher.digest()
+  }
 
   /**
    * Classify URL into its respective scraper
