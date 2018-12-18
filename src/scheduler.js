@@ -14,6 +14,8 @@ class Scheduler {
   constructor(initUrl) {
     this.urlEntityQueue = []
     this.hasher = new MetroHash64()
+    this.maxTaskCount = 8
+    this.taskCount = 0  // number of current crawling tasks
 
     this.enqueueUrls(initUrl)
   }
@@ -42,18 +44,18 @@ class Scheduler {
    * Build URL entity from URL
    * @private
    * @param {string} url - URL
-   * @return {{ url: string, fingerprint: string, scraper: function, attempt: number }} URL entity
+   * @return {{ url: string, fingerprint: string, scraper: function, attemptCount: number }} URL entity
    */
   getUrlEntity(url) {
     const fingerprint = this.getUrlFingerprint(url)
     const scraper = this.classifyUrl(url)
-    return { url, fingerprint, scraper, attempt: 0 }
+    return { url, fingerprint, scraper, attemptCount: 0 }
   }
 
   /**
    * Schedule scraping tasks
    * @protected
-   * @param {...{ url: string, fingerprint: string, scraper: function, attempt: number }} urlEntities - URL entities
+   * @param {...{ url: string, fingerprint: string, scraper: function, attemptCount: number }} urlEntities - URL entities
    */
   enqueueUrlEntities = (...urlEntities) => this.urlEntityQueue.push.call(urlEntities)
 
@@ -67,31 +69,41 @@ class Scheduler {
   /**
    * Get next scraping task
    * @private
-   * @return {{ url: string, fingerprint: string, scraper: function, attempt: number }} URL entity
+   * @return {{ url: string, fingerprint: string, scraper: function, attemptCount: number }} URL entity
    */
   dequeueUrlEntity() {
     return this.urlEntityQueue.shift()
   }
 
   /**
-   * Handle scraping result
+   * Process scraping result data
    * @protected
    * @abstract
-   * @param {Object} result - Scraping result object
+   * @param {Object} data - Scraping result data object
    */
-  handleResult(result) { }
+  async processData(data) { }
+
+  async handleTask(urlEntity) {
+    ++this.taskCount
+    ++urlEntity.attemptCount
+    const result = await urlEntity.scraper(urlEntity.url)
+    if (result.sucess) await this.processData(result.data)
+    else { /* handle failed result */ }
+    --this.taskCount
+  }
 
   /**
    * Start crawling
    * @public
    */
-  async start() {
+  start() {
     do {
-      const urlEntity = this.dequeueUrlEntity()
-      ++urlEntity.attempt
-      const result = await urlEntity.scraper(urlEntity.url)
-      this.handleResult(result)
-    } while (this.urlEntityQueue)
+      while (this.urlEntityQueue) {
+        if (this.taskCount >= this.maxTaskCount) continue
+        const urlEntity = this.dequeueUrlEntity()
+        this.handleTask(urlEntity)
+      }
+    } while (this.taskCount)
   }
 }
 

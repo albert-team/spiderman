@@ -1,6 +1,10 @@
 # TODO
 - [x] Build `Scheduler.getUrlFingerprint`
-- [ ] Build `Scraper`
-- [ ] Schedule concurrent tasks
+- [x] Schedule asynchronous crawling tasks
 - [ ] Filter duplicate URLs with bloom filter
-- [ ] Use Redis?
+- [ ] Build `Scraper`
+- [ ] Use Redis
+- [ ] Handle failed result
+- [ ] Logging
+- [ ] Multithreading/multiprocessing crawling tasks?
+- [ ] Build `DataProcessor`?
