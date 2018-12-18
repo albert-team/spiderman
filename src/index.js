@@ -1,3 +1,3 @@
 exports = {
-  Spider: require('./spider')
+  Scheduler: require('./scheduler')
 }

@@ -1,9 +1,13 @@
 {
-  "name": "spiderman",
+  "name": "spidermanjs",
   "version": "0.0.1",
-  "description": "Minimal web spider boilerplate for JavaScript (ES6+)",
+  "description": "Minimal distributed web crawler boilerplate for JavaScript",
   "main": "src/index.js",
+  "files": [
+    "/src"
+  ],
   "scripts": {
+    "build:docs": "esdoc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +24,13 @@
   "bugs": {
     "url": "https://github.com/albert-team/spiderman/issues"
   },
-  "homepage": "https://github.com/albert-team/spiderman#readme"
+  "homepage": "https://github.com/albert-team/spiderman#readme",
+  "devDependencies": {
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0"
+  },
+  "dependencies": {
+    "metrohash": "^2.5.0"
+  }
 }
