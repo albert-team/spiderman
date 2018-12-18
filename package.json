@@ -1,7 +1,7 @@
 {
-  "name": "spiderman",
+  "name": "spidermanjs",
   "version": "0.0.1",
-  "description": "Minimal web spider boilerplate for JavaScript",
+  "description": "Minimal distributed web crawler boilerplate for JavaScript",
   "main": "src/index.js",
   "files": [
     "/src"

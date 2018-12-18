@@ -1,4 +1,5 @@
 # TODO
+- [x] Build basic `Scheduler`
 - [x] Build `Scheduler.getUrlFingerprint`
 - [x] Schedule asynchronous crawling tasks
 - [ ] Filter duplicate URLs with bloom filter
