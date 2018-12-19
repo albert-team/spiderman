@@ -1,11 +1,11 @@
 # TODO
 - [x] Build basic `Scheduler`
-- [x] Build `Scheduler.getUrlFingerprint`
-- [x] Schedule asynchronous crawling tasks
+- [x] Write default `Scheduler.getUrlFingerprint` with MetroHash
+- [x] Make both scraping and data processing tasks asynchronous and independent of each other
 - [ ] Filter duplicate URLs with bloom filter
 - [ ] Build `Scraper`
+- [ ] Build `DataProcessor`
 - [ ] Use Redis
-- [ ] Handle failed result
+- [ ] Handle failed results
 - [ ] Logging
 - [ ] Multithreading/multiprocessing crawling tasks?
-- [ ] Build `DataProcessor`?
