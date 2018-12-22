@@ -90,18 +90,18 @@ class Scheduler {
     ++this.scrapers
     const urlEntity = this.dequeueUrlEntity()
     ++urlEntity.attempts
-    const result = await urlEntity.scraper.run(urlEntity.url)
-    if (result.success) this.enqueueDataEntities(new DataEntity(result.data, urlEntity.dataProcessor))
-    else { /* handle failed result */ }
+    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
+    if (success) {
+      this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
+      this.enqueueUrls(...nextUrls)
+    } else { /* handle failed result */ }
     --this.scrapers
   }
 
   async processData() {
     ++this.dataProcessors
     const dataEntity = this.dequeueDataEntity()
-    const result = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (result.success) this.enqueueUrls(...result.nextUrls)
-    else { /* handle failed result */ }
+    await dataEntity.dataProcessor.run(dataEntity.data)
     --this.dataProcessors
   }
 
@@ -113,9 +113,9 @@ class Scheduler {
     do {
       if (this.urlEntityQueue && this.scrapers < this.maxScrapers) this.scrapeData()
       if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors) this.processData()
-    } while (this.scrapers || this.dataProcessors)
+    } while (this.scrapers)
   }
 }
 
 
-exports = Scheduler
+module.exports = Scheduler

@@ -15,5 +15,13 @@ class DataEntity {
   }
 }
 
+class ProxyEntity {
+  constructor(host, port, username, password) {
+    this.host = host
+    this.port = port
+    this.auth = { username, password }
+  }
+}
 
-exports = { UrlEntity, DataEntity }
+
+module.exports = { UrlEntity, DataEntity, ProxyEntity }
