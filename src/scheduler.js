@@ -101,7 +101,8 @@ class Scheduler {
   async processData() {
     ++this.dataProcessors
     const dataEntity = this.dequeueDataEntity()
-    await dataEntity.dataProcessor.run(dataEntity.data)
+    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
+    if (!success) { /* handle failed result */ }
     --this.dataProcessors
   }
 
