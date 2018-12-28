@@ -4,6 +4,7 @@ class UrlEntity {
     this.fingerprint = fingerprint
     this.scraper = scraper
     this.dataProcessor = dataProcessor
+
     this.attempts = 0
   }
 }
@@ -12,6 +13,8 @@ class DataEntity {
   constructor(data, dataProcessor) {
     this.data = data
     this.dataProcessor = dataProcessor
+
+    this.attempts = 0
   }
 }
 
