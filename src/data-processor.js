@@ -4,7 +4,7 @@ const { wait } = require('./utils')
 class DataProcessor {
   constructor() { }
 
-  async process(data) { }
+  async process() { }
 
   async run(data) {
     for (let i = 0; i < 2; ++i) {

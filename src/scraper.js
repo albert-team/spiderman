@@ -10,7 +10,7 @@ class Scraper {
     this.axios = axios.create({ timeout: 1000 })
   }
 
-  async parse(html) { }
+  async parse() { }
 
   async run(url) {
     for (let i = 0; i < 2; ++i) {
@@ -18,7 +18,7 @@ class Scraper {
         headers: { 'User-Agent': chooseRandom(this.userAgents) },
         proxy: chooseRandom(this.proxies),
       })
-      if (data) {
+      if (html) {
         const { data, nextUrls } = await this.parse(html)
         return { success: true, data, nextUrls }
       }
