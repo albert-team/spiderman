@@ -1,6 +1,5 @@
 const { UrlEntity, DataEntity } = require('./entities')
 
-
 /**
  * Schedule crawling tasks
  * @public
@@ -10,7 +9,7 @@ class Scheduler {
    * Constructor
    * @public
    * @param {string} initUrl - Initial URL
-  */
+   */
   constructor(initUrl) {
     this.urlEntityQueue = []
     // number of running scrapers
@@ -31,8 +30,8 @@ class Scheduler {
    * @abstract
    * @param {string} url - URL
    * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
-  */
-  classifyUrl() { }
+   */
+  classifyUrl() {}
 
   /**
    * Build URL entity from URL string
@@ -95,15 +94,19 @@ class Scheduler {
    * @private
    */
   async scrapeData() {
-    ++this.scrapers
+    this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
-    ++urlEntity.attempts
-    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
+    urlEntity.attempts += 1
+    const { success, data, nextUrls } = await urlEntity.scraper.run(
+      urlEntity.url
+    )
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
-    } else { /* handle failed result */ }
-    --this.scrapers
+    } else {
+      /* handle failed result */
+    }
+    this.scrapers -= 1
   }
 
   /**
@@ -111,12 +114,14 @@ class Scheduler {
    * @private
    */
   async processData() {
-    ++this.dataProcessors
+    this.dataProcessors += 1
     const dataEntity = this.dequeueDataEntity()
-    ++dataEntity.attempts
+    dataEntity.attempts += 1
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) { /* handle failed result */ }
-    --this.dataProcessors
+    if (!success) {
+      /* handle failed result */
+    }
+    this.dataProcessors -= 1
   }
 
   /**
@@ -125,11 +130,12 @@ class Scheduler {
    */
   start() {
     do {
-      if (this.urlEntityQueue && this.scrapers < this.maxScrapers) this.scrapeData()
-      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors) this.processData()
+      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)
+        this.scrapeData()
+      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)
+        this.processData()
     } while (this.scrapers)
   }
 }
-
 
 module.exports = Scheduler
