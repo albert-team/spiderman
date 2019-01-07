@@ -1,6 +1,5 @@
 const { UrlEntity, DataEntity } = require('./entities')
 
-
 /**
  * Schedule crawling tasks
  * @public
@@ -10,10 +9,8 @@ class Scheduler {
    * Constructor
    * @public
    * @param {string} initUrl - Initial URL
-  */
+   */
   constructor(initUrl) {
-    this.hasher = new MetroHash64()
-
     this.urlEntityQueue = []
     // number of running scrapers
     this.scrapers = 0
@@ -33,8 +30,8 @@ class Scheduler {
    * @abstract
    * @param {string} url - URL
    * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
-  */
-  classifyUrl(url) { }
+   */
+  classifyUrl() {}
 
   /**
    * Build URL entity from URL string
@@ -52,50 +49,64 @@ class Scheduler {
    * @private
    * @param {...UrlEntity} urlEntities - URL entities
    */
-  enqueueUrlEntities = (...urlEntities) => this.urlEntityQueue.push(...urlEntities)
+  enqueueUrlEntities(...urlEntities) {
+    this.urlEntityQueue.push(...urlEntities)
+  }
 
   /**
    * Schedule scraping tasks
    * @private
    * @param {...string} urls - URLs
    */
-  enqueueUrls = (...urls) => this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))
+  enqueueUrls(...urls) {
+    this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))
+  }
 
   /**
    * Get next scraping task
    * @private
    * @return {UrlEntity} URL entity
    */
-  dequeueUrlEntity = () => this.urlEntityQueue.shift()
+  dequeueUrlEntity() {
+    return this.urlEntityQueue.shift()
+  }
 
   /**
    * Schedule data processing tasks
    * @private
    * @param {...DataEntity} dataEntities - Data entities
    */
-  enqueueDataEntities = (...dataEntities) => this.dataEntityQueue.push(...dataEntities)
+  enqueueDataEntities(...dataEntities) {
+    this.dataEntityQueue.push(...dataEntities)
+  }
 
   /**
    * Get next data processing task
    * @private
    * @return {DataEntity} Data entity
    */
-  dequeueDataEntity = () => this.dataEntityQueue.shift()
+  dequeueDataEntity() {
+    return this.dataEntityQueue.shift()
+  }
 
   /**
    * Run a scraping task
    * @private
    */
   async scrapeData() {
-    ++this.scrapers
+    this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
-    ++urlEntity.attempts
-    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
+    urlEntity.attempts += 1
+    const { success, data, nextUrls } = await urlEntity.scraper.run(
+      urlEntity.url
+    )
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
-    } else { /* handle failed result */ }
-    --this.scrapers
+    } else {
+      /* handle failed result */
+    }
+    this.scrapers -= 1
   }
 
   /**
@@ -103,12 +114,14 @@ class Scheduler {
    * @private
    */
   async processData() {
-    ++this.dataProcessors
+    this.dataProcessors += 1
     const dataEntity = this.dequeueDataEntity()
-    ++dataEntity.attempts
+    dataEntity.attempts += 1
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) { /* handle failed result */ }
-    --this.dataProcessors
+    if (!success) {
+      /* handle failed result */
+    }
+    this.dataProcessors -= 1
   }
 
   /**
@@ -117,11 +130,12 @@ class Scheduler {
    */
   start() {
     do {
-      if (this.urlEntityQueue && this.scrapers < this.maxScrapers) this.scrapeData()
-      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors) this.processData()
+      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)
+        this.scrapeData()
+      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)
+        this.processData()
     } while (this.scrapers)
   }
 }
-
 
 module.exports = Scheduler

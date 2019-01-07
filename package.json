@@ -28,7 +28,8 @@
   "devDependencies": {
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-standard-plugin": "^1.0.0"
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint": "^5.12.0"
   },
   "dependencies": {
     "axios": "^0.18.0",
