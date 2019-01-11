@@ -11,25 +11,7 @@
     }
   },
   "rules": {
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
-    "indent": [
-      "error",
-      2
-    ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "never"
-    ]
+    "eqeqeq": ["error", "smart"],
+    "no-console": "off"
   }
 }
