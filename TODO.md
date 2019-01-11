@@ -1,11 +1,9 @@
 # TODO
-- [x] Build basic `Scheduler`
-- [x] Write default `Scheduler.getUrlFingerprint` with MetroHash
-- [x] Make both scraping and data processing tasks asynchronous and independent of each other
-- [x] Build `Scraper`
-- [ ] Build `DataProcessor`
-- [ ] Measure performance then add auto throttle mechanism
-- [ ] Filter duplicate URLs with bloom filter
-- [ ] Use Redis
-- [ ] Handle failed results
-- [ ] Logging
+
+- Use Redis and filter duplicate URLs with bloom filter
+- Support auto throttle
+- Measure performance of scraping and data processing tasks
+- Handle failed results
+- Write log
+- Add tests
+- Use CI
