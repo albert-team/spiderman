@@ -29,7 +29,10 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/data-processor.js~DataProcessor.html">DataProcessor</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/scheduler.js~Scheduler.html">Scheduler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/scraper.js~Scraper.html">Scraper</a></span></span></li>
+</ul>
 </div>
 </nav>
 
@@ -39,30 +42,31 @@ const { UrlEntity, DataEntity } = require(&apos;./entities&apos;)
 
 /**
  * Schedule crawling tasks
- * @public
+ * @abstract
  */
 class Scheduler {
   /**
    * Constructor
-   * @public
    * @param {string} initUrl - Initial URL
    */
   constructor(initUrl) {
-
-    /**@type {Array} - URL Entity Queue */
+    /** @private
+     * @type {Array&lt;UrlEntity&gt;}
+     */
     this.urlEntityQueue = []
-
-    /**@type {number} - number of running scrapers */
+    /** @private */
     this.scrapers = 0
-    /**@type {number} */
+    /** @private */
     this.maxScrapers = 8
 
-    /**@type {Array} */
+    /** @private
+     * @type {Array&lt;DataEntity&gt;}
+     */
     this.dataEntityQueue = []
-
-    // number of running data processors
-    /**@type {number} */
+    /** @private */
     this.dataProcessors = 0
+    /** @private */
+    this.maxDataProcessors = 8
 
     /**@type {number} */
     this.maxDataProcessors = 8
@@ -78,7 +82,7 @@ class Scheduler {
    * @param {string} url - URL
    * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
    */
-  classifyUrl() {}
+  classifyUrl(url) {}
 
   /**
    * Build URL entity from URL string
@@ -173,7 +177,6 @@ class Scheduler {
 
   /**
    * Start crawling
-   * @public
    */
   start() {
     do {
