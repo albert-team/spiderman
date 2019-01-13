@@ -1,3 +1,4 @@
+/**import classes: UrlEntity, DataEntity  */
 const { UrlEntity, DataEntity } = require('./entities')
 
 /**
@@ -28,6 +29,10 @@ class Scheduler {
     /** @private */
     this.maxDataProcessors = 8
 
+    /**@type {number} */
+    this.maxDataProcessors = 8
+    /**@type {function name({string}) {
+    }} */
     this.enqueueUrls(initUrl)
   }
 
