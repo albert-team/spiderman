@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "name": "Scheduler#classifyUrl",
+    "filePath": "src/scheduler.js",
+    "lines": [
+      {
+        "lineNumber": 37,
+        "line": "  /**\r"
+      },
+      {
+        "lineNumber": 38,
+        "line": "   * Classify URL into its respective scraper and data processor\r"
+      },
+      {
+        "lineNumber": 39,
+        "line": "   * @protected\r"
+      },
+      {
+        "lineNumber": 40,
+        "line": "   * @abstract\r"
+      },
+      {
+        "lineNumber": 41,
+        "line": "   * @param {string} url - URL\r"
+      },
+      {
+        "lineNumber": 42,
+        "line": "   * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor\r"
+      },
+      {
+        "lineNumber": 43,
+        "line": "   */\r"
+      },
+      {
+        "lineNumber": 44,
+        "line": "  classifyUrl() {}\r"
+      }
+    ],
+    "codeParams": [],
+    "docParams": [
+      "url"
+    ]
+  }
+]

@@ -3,31 +3,30 @@ const { UrlEntity, DataEntity } = require('./entities')
 
 /**
  * Schedule crawling tasks
- * @abstract
+ * @public
  */
 class Scheduler {
   /**
    * Constructor
+   * @public
    * @param {string} initUrl - Initial URL
    */
   constructor(initUrl) {
-    /** @private
-     * @type {Array<UrlEntity>}
-     */
+
+    /**@type {Array} - URL Entity Queue */
     this.urlEntityQueue = []
-    /** @private */
+
+    /**@type {number} - number of running scrapers */
     this.scrapers = 0
-    /** @private */
+    /**@type {number} */
     this.maxScrapers = 8
 
-    /** @private
-     * @type {Array<DataEntity>}
-     */
+    /**@type {Array} */
     this.dataEntityQueue = []
-    /** @private */
+
+    // number of running data processors
+    /**@type {number} */
     this.dataProcessors = 0
-    /** @private */
-    this.maxDataProcessors = 8
 
     /**@type {number} */
     this.maxDataProcessors = 8
@@ -43,7 +42,7 @@ class Scheduler {
    * @param {string} url - URL
    * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
    */
-  classifyUrl(url) {}
+  classifyUrl() {}
 
   /**
    * Build URL entity from URL string
@@ -138,6 +137,7 @@ class Scheduler {
 
   /**
    * Start crawling
+   * @public
    */
   start() {
     do {
