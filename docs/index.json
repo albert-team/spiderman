@@ -576,42 +576,21 @@
   },
   {
     "__docId__": 49,
-    "kind": "variable",
-    "name": "wait",
-    "memberof": "src/data-processor.js",
-    "static": true,
-    "longname": "src/data-processor.js~wait",
-    "access": "public",
-    "export": false,
-    "importPath": "@albert-team/spiderman/src/data-processor.js",
-    "importStyle": null,
-    "description": "import wait function",
-    "lineNumber": 2,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 50,
     "kind": "class",
     "name": "DataProcessor",
     "memberof": "src/data-processor.js",
     "static": true,
     "longname": "src/data-processor.js~DataProcessor",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@albert-team/spiderman/src/data-processor.js",
-    "importStyle": null,
+    "importStyle": "DataProcessor",
     "description": "Data Processor",
     "lineNumber": 7,
-    "interface": false,
-    "ignore": true
+    "interface": false
   },
   {
-    "__docId__": 51,
+    "__docId__": 50,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/data-processor.js~DataProcessor",
@@ -630,7 +609,7 @@
     ]
   },
   {
-    "__docId__": 52,
+    "__docId__": 51,
     "kind": "method",
     "name": "process",
     "memberof": "src/data-processor.js~DataProcessor",
@@ -652,7 +631,7 @@
     "params": []
   },
   {
-    "__docId__": 53,
+    "__docId__": 52,
     "kind": "method",
     "name": "run",
     "memberof": "src/data-processor.js~DataProcessor",
@@ -685,7 +664,7 @@
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 53,
     "kind": "file",
     "name": "src/entities.js",
     "content": "/**import metrohash64 */\r\nconst metrohash64 = require('metrohash').metrohash64\r\n\r\n/**\r\n * URL entity\r\n * @public\r\n */\r\nclass UrlEntity {\r\n  /**\r\n   * @constructor\r\n   * @public\r\n   * @param {string} url - URL\r\n   * @param {Object} scraper - Scraper\r\n   * @param {Object} dataProcessor - Data processor\r\n   */\r\n  constructor(url, scraper, dataProcessor) {\r\n    \r\n    /**@type {string} */\r\n    this.url = url\r\n\r\n    /**@type {Object} */\r\n    this.scraper = scraper\r\n\r\n    /**@type {Object} */\r\n    this.dataProcessor = dataProcessor\r\n\r\n    /**@type {number} */\r\n    this.attempts = 0\r\n\r\n    /**@type {string} */\r\n    this.fingerprint = this.getFingerprint()\r\n  }\r\n\r\n  /**\r\n   * Get fingerprint\r\n   * @private\r\n   * @return {string} fingerprint\r\n   */\r\n  getFingerprint() {\r\n    return metrohash64(this.url)\r\n  }\r\n}\r\n\r\n/**\r\n * Data entity\r\n * @public\r\n */\r\nclass DataEntity {\r\n  /**\r\n   * @constructor\r\n   * @public\r\n   * @param {Object} data - Data\r\n   * @param {Object} dataProcessor - Data processor\r\n   */\r\n  constructor(data, dataProcessor) {\r\n    /**@type {Object} */\r\n    this.data = data\r\n\r\n    /**@type {Object} */\r\n    this.dataProcessor = dataProcessor\r\n\r\n    /**@type {number} */\r\n    this.attempts = 0\r\n  }\r\n}\r\n\r\n/**\r\n * Proxy entity\r\n * @public\r\n */\r\nclass ProxyEntity {\r\n  /**\r\n   * @constructor\r\n   * @public\r\n   * @param {string} host - Host\r\n   * @param {number} port - Port number\r\n   * @param {?string} [username] - Username\r\n   * @param {?string} [password] - Password\r\n   */\r\n  constructor(host, port, username, password) {\r\n    /**@type {string} */\r\n    this.host = host\r\n\r\n    /**@type {number} */\r\n    this.port = port\r\n\r\n    /**@type {Object} */\r\n    this.auth = {\r\n      username,\r\n      password\r\n    }\r\n  }\r\n}\r\n\r\nmodule.exports = {\r\n  UrlEntity,\r\n  DataEntity,\r\n  ProxyEntity\r\n}\r\n",
@@ -696,27 +675,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 55,
-    "kind": "variable",
-    "name": "metrohash64",
-    "memberof": "src/entities.js",
-    "static": true,
-    "longname": "src/entities.js~metrohash64",
-    "access": "public",
-    "export": false,
-    "importPath": "@albert-team/spiderman/src/entities.js",
-    "importStyle": null,
-    "description": "import metrohash64",
-    "lineNumber": 2,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 56,
+    "__docId__": 54,
     "kind": "class",
     "name": "UrlEntity",
     "memberof": "src/entities.js",
@@ -732,7 +691,7 @@
     "ignore": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 55,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/entities.js~UrlEntity",
@@ -783,7 +742,7 @@
     ]
   },
   {
-    "__docId__": 58,
+    "__docId__": 56,
     "kind": "member",
     "name": "url",
     "memberof": "src/entities.js~UrlEntity",
@@ -802,7 +761,7 @@
     }
   },
   {
-    "__docId__": 59,
+    "__docId__": 57,
     "kind": "member",
     "name": "scraper",
     "memberof": "src/entities.js~UrlEntity",
@@ -821,7 +780,7 @@
     }
   },
   {
-    "__docId__": 60,
+    "__docId__": 58,
     "kind": "member",
     "name": "dataProcessor",
     "memberof": "src/entities.js~UrlEntity",
@@ -840,7 +799,7 @@
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 59,
     "kind": "member",
     "name": "attempts",
     "memberof": "src/entities.js~UrlEntity",
@@ -859,7 +818,7 @@
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 60,
     "kind": "member",
     "name": "fingerprint",
     "memberof": "src/entities.js~UrlEntity",
@@ -878,7 +837,7 @@
     }
   },
   {
-    "__docId__": 63,
+    "__docId__": 61,
     "kind": "method",
     "name": "getFingerprint",
     "memberof": "src/entities.js~UrlEntity",
@@ -900,7 +859,7 @@
     "params": []
   },
   {
-    "__docId__": 64,
+    "__docId__": 62,
     "kind": "class",
     "name": "DataEntity",
     "memberof": "src/entities.js",
@@ -916,7 +875,7 @@
     "ignore": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 63,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/entities.js~DataEntity",
@@ -957,7 +916,7 @@
     ]
   },
   {
-    "__docId__": 66,
+    "__docId__": 64,
     "kind": "member",
     "name": "data",
     "memberof": "src/entities.js~DataEntity",
@@ -976,7 +935,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 65,
     "kind": "member",
     "name": "dataProcessor",
     "memberof": "src/entities.js~DataEntity",
@@ -995,7 +954,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 66,
     "kind": "member",
     "name": "attempts",
     "memberof": "src/entities.js~DataEntity",
@@ -1014,7 +973,7 @@
     }
   },
   {
-    "__docId__": 69,
+    "__docId__": 67,
     "kind": "class",
     "name": "ProxyEntity",
     "memberof": "src/entities.js",
@@ -1030,7 +989,7 @@
     "ignore": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 68,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/entities.js~ProxyEntity",
@@ -1091,7 +1050,7 @@
     ]
   },
   {
-    "__docId__": 71,
+    "__docId__": 69,
     "kind": "member",
     "name": "host",
     "memberof": "src/entities.js~ProxyEntity",
@@ -1110,7 +1069,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 70,
     "kind": "member",
     "name": "port",
     "memberof": "src/entities.js~ProxyEntity",
@@ -1129,7 +1088,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 71,
     "kind": "member",
     "name": "auth",
     "memberof": "src/entities.js~ProxyEntity",
@@ -1148,7 +1107,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 72,
     "kind": "file",
     "name": "src/index.js",
     "content": "\r\nmodule.exports = {\r\n  Scheduler: require('./scheduler'),\r\n  Scraper: require('./scraper'),\r\n  DataProcessor: require('./data-processor')\r\n}\r\n",
@@ -1159,10 +1118,10 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 75,
+    "__docId__": 73,
     "kind": "file",
     "name": "src/scheduler.js",
-    "content": "/**import classes: UrlEntity, DataEntity  */\r\nconst { UrlEntity, DataEntity } = require('./entities')\r\n\r\n/**\r\n * Schedule crawling tasks\r\n * @public\r\n */\r\nclass Scheduler {\r\n  /**\r\n   * Constructor\r\n   * @public\r\n   * @param {string} initUrl - Initial URL\r\n   */\r\n  constructor(initUrl) {\r\n\r\n    /**@type {Array} - URL Entity Queue */\r\n    this.urlEntityQueue = []\r\n\r\n    /**@type {number} - number of running scrapers */\r\n    this.scrapers = 0\r\n    /**@type {number} */\r\n    this.maxScrapers = 8\r\n\r\n    /**@type {Array} */\r\n    this.dataEntityQueue = []\r\n\r\n    // number of running data processors\r\n    /**@type {number} */\r\n    this.dataProcessors = 0\r\n\r\n    /**@type {number} */\r\n    this.maxDataProcessors = 8\r\n    /**@type {function name({string}) {\r\n    }} */\r\n    this.enqueueUrls(initUrl)\r\n  }\r\n\r\n  /**\r\n   * Classify URL into its respective scraper and data processor\r\n   * @protected\r\n   * @abstract\r\n   * @param {string} url - URL\r\n   * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor\r\n   */\r\n  classifyUrl() {}\r\n\r\n  /**\r\n   * Build URL entity from URL string\r\n   * @private\r\n   * @param {string} url - URL\r\n   * @return {UrlEntity} URL entity\r\n   */\r\n  getUrlEntity(url) {\r\n    const { scraper, dataProcessor } = this.classifyUrl(url)\r\n    return new UrlEntity(url, scraper, dataProcessor)\r\n  }\r\n\r\n  /**\r\n   * Schedule scraping tasks\r\n   * @private\r\n   * @param {...UrlEntity} urlEntities - URL entities\r\n   */\r\n  enqueueUrlEntities(...urlEntities) {\r\n    this.urlEntityQueue.push(...urlEntities)\r\n  }\r\n\r\n  /**\r\n   * Schedule scraping tasks\r\n   * @private\r\n   * @param {...string} urls - URLs\r\n   */\r\n  enqueueUrls(...urls) {\r\n    this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))\r\n  }\r\n\r\n  /**\r\n   * Get next scraping task\r\n   * @private\r\n   * @return {UrlEntity} URL entity\r\n   */\r\n  dequeueUrlEntity() {\r\n    return this.urlEntityQueue.shift()\r\n  }\r\n\r\n  /**\r\n   * Schedule data processing tasks\r\n   * @private\r\n   * @param {...DataEntity} dataEntities - Data entities\r\n   */\r\n  enqueueDataEntities(...dataEntities) {\r\n    this.dataEntityQueue.push(...dataEntities)\r\n  }\r\n\r\n  /**\r\n   * Get next data processing task\r\n   * @private\r\n   * @return {DataEntity} Data entity\r\n   */\r\n  dequeueDataEntity() {\r\n    return this.dataEntityQueue.shift()\r\n  }\r\n\r\n  /**\r\n   * Run a scraping task\r\n   * @private\r\n   */\r\n  async scrapeData() {\r\n    this.scrapers += 1\r\n    const urlEntity = this.dequeueUrlEntity()\r\n    urlEntity.attempts += 1\r\n    const { success, data, nextUrls } = await urlEntity.scraper.run(\r\n      urlEntity.url\r\n    )\r\n    if (success) {\r\n      this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))\r\n      this.enqueueUrls(...nextUrls)\r\n    } else {\r\n      /* handle failed result */\r\n    }\r\n    this.scrapers -= 1\r\n  }\r\n\r\n  /**\r\n   * Run a data processing task\r\n   * @private\r\n   */\r\n  async processData() {\r\n    this.dataProcessors += 1\r\n    const dataEntity = this.dequeueDataEntity()\r\n    dataEntity.attempts += 1\r\n    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)\r\n    if (!success) {\r\n      /* handle failed result */\r\n    }\r\n    this.dataProcessors -= 1\r\n  }\r\n\r\n  /**\r\n   * Start crawling\r\n   * @public\r\n   */\r\n  start() {\r\n    do {\r\n      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)\r\n        this.scrapeData()\r\n      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)\r\n        this.processData()\r\n    } while (this.scrapers)\r\n  }\r\n}\r\n\r\nmodule.exports = Scheduler\r\n",
+    "content": "/**import classes: UrlEntity, DataEntity  */\r\nconst { UrlEntity, DataEntity } = require('./entities')\r\n\r\n/**\r\n * Schedule crawling tasks\r\n * @abstract\r\n */\r\nclass Scheduler {\r\n  /**\r\n   * Constructor\r\n   * @param {string} initUrl - Initial URL\r\n   */\r\n  constructor(initUrl) {\r\n    /** @private\r\n     * @type {Array<UrlEntity>}\r\n     */\r\n    this.urlEntityQueue = []\r\n    /** @private */\r\n    this.scrapers = 0\r\n    /** @private */\r\n    this.maxScrapers = 8\r\n\r\n    /** @private\r\n     * @type {Array<DataEntity>}\r\n     */\r\n    this.dataEntityQueue = []\r\n    /** @private */\r\n    this.dataProcessors = 0\r\n    /** @private */\r\n    this.maxDataProcessors = 8\r\n\r\n    /**@type {number} */\r\n    this.maxDataProcessors = 8\r\n    /**@type {function name({string}) {\r\n    }} */\r\n    this.enqueueUrls(initUrl)\r\n  }\r\n\r\n  /**\r\n   * Classify URL into its respective scraper and data processor\r\n   * @protected\r\n   * @abstract\r\n   * @param {string} url - URL\r\n   * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor\r\n   */\r\n  classifyUrl(url) {}\r\n\r\n  /**\r\n   * Build URL entity from URL string\r\n   * @private\r\n   * @param {string} url - URL\r\n   * @return {UrlEntity} URL entity\r\n   */\r\n  getUrlEntity(url) {\r\n    const { scraper, dataProcessor } = this.classifyUrl(url)\r\n    return new UrlEntity(url, scraper, dataProcessor)\r\n  }\r\n\r\n  /**\r\n   * Schedule scraping tasks\r\n   * @private\r\n   * @param {...UrlEntity} urlEntities - URL entities\r\n   */\r\n  enqueueUrlEntities(...urlEntities) {\r\n    this.urlEntityQueue.push(...urlEntities)\r\n  }\r\n\r\n  /**\r\n   * Schedule scraping tasks\r\n   * @private\r\n   * @param {...string} urls - URLs\r\n   */\r\n  enqueueUrls(...urls) {\r\n    this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))\r\n  }\r\n\r\n  /**\r\n   * Get next scraping task\r\n   * @private\r\n   * @return {UrlEntity} URL entity\r\n   */\r\n  dequeueUrlEntity() {\r\n    return this.urlEntityQueue.shift()\r\n  }\r\n\r\n  /**\r\n   * Schedule data processing tasks\r\n   * @private\r\n   * @param {...DataEntity} dataEntities - Data entities\r\n   */\r\n  enqueueDataEntities(...dataEntities) {\r\n    this.dataEntityQueue.push(...dataEntities)\r\n  }\r\n\r\n  /**\r\n   * Get next data processing task\r\n   * @private\r\n   * @return {DataEntity} Data entity\r\n   */\r\n  dequeueDataEntity() {\r\n    return this.dataEntityQueue.shift()\r\n  }\r\n\r\n  /**\r\n   * Run a scraping task\r\n   * @private\r\n   */\r\n  async scrapeData() {\r\n    this.scrapers += 1\r\n    const urlEntity = this.dequeueUrlEntity()\r\n    urlEntity.attempts += 1\r\n    const { success, data, nextUrls } = await urlEntity.scraper.run(\r\n      urlEntity.url\r\n    )\r\n    if (success) {\r\n      this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))\r\n      this.enqueueUrls(...nextUrls)\r\n    } else {\r\n      /* handle failed result */\r\n    }\r\n    this.scrapers -= 1\r\n  }\r\n\r\n  /**\r\n   * Run a data processing task\r\n   * @private\r\n   */\r\n  async processData() {\r\n    this.dataProcessors += 1\r\n    const dataEntity = this.dequeueDataEntity()\r\n    dataEntity.attempts += 1\r\n    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)\r\n    if (!success) {\r\n      /* handle failed result */\r\n    }\r\n    this.dataProcessors -= 1\r\n  }\r\n\r\n  /**\r\n   * Start crawling\r\n   */\r\n  start() {\r\n    do {\r\n      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)\r\n        this.scrapeData()\r\n      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)\r\n        this.processData()\r\n    } while (this.scrapers)\r\n  }\r\n}\r\n\r\nmodule.exports = Scheduler\r\n",
     "static": true,
     "longname": "E:/NodeJS Example/spiderman/src/scheduler.js",
     "access": "public",
@@ -1170,43 +1129,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 76,
-    "kind": "variable",
-    "name": "UrlEntity",
-    "memberof": "src/scheduler.js",
-    "static": true,
-    "longname": "src/scheduler.js~UrlEntity",
-    "access": "public",
-    "export": false,
-    "importPath": "@albert-team/spiderman/src/scheduler.js",
-    "importStyle": null,
-    "description": "import classes: UrlEntity, DataEntity",
-    "lineNumber": 2,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 77,
+    "__docId__": 74,
     "kind": "class",
     "name": "Scheduler",
     "memberof": "src/scheduler.js",
     "static": true,
     "longname": "src/scheduler.js~Scheduler",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@albert-team/spiderman/src/scheduler.js",
-    "importStyle": null,
+    "importStyle": "Scheduler",
     "description": "Schedule crawling tasks",
     "lineNumber": 8,
-    "interface": false,
-    "ignore": true
+    "abstract": true,
+    "interface": false
   },
   {
-    "__docId__": 78,
+    "__docId__": 75,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1216,7 +1155,7 @@
     "longname": "src/scheduler.js~Scheduler#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 14,
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
@@ -1231,19 +1170,70 @@
     ]
   },
   {
-    "__docId__": 79,
+    "__docId__": 76,
     "kind": "member",
     "name": "urlEntityQueue",
     "memberof": "src/scheduler.js~Scheduler",
     "static": false,
     "longname": "src/scheduler.js~Scheduler#urlEntityQueue",
-    "access": "public",
+    "access": "private",
     "description": null,
     "lineNumber": 17,
     "type": {
       "nullable": null,
       "types": [
-        "Array"
+        "Array<UrlEntity>"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "member",
+    "name": "scrapers",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#scrapers",
+    "access": "private",
+    "description": null,
+    "lineNumber": 19,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "name": "maxScrapers",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#maxScrapers",
+    "access": "private",
+    "description": null,
+    "lineNumber": 21,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "member",
+    "name": "dataEntityQueue",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#dataEntityQueue",
+    "access": "private",
+    "description": null,
+    "lineNumber": 26,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array<DataEntity>"
       ],
       "spread": false,
       "description": null
@@ -1252,100 +1242,37 @@
   {
     "__docId__": 80,
     "kind": "member",
-    "name": "scrapers",
+    "name": "dataProcessors",
     "memberof": "src/scheduler.js~Scheduler",
     "static": false,
-    "longname": "src/scheduler.js~Scheduler#scrapers",
-    "access": "public",
+    "longname": "src/scheduler.js~Scheduler#dataProcessors",
+    "access": "private",
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 28,
     "type": {
-      "nullable": null,
       "types": [
         "number"
-      ],
-      "spread": false,
-      "description": null
+      ]
     }
   },
   {
     "__docId__": 81,
     "kind": "member",
-    "name": "maxScrapers",
-    "memberof": "src/scheduler.js~Scheduler",
-    "static": false,
-    "longname": "src/scheduler.js~Scheduler#maxScrapers",
-    "access": "public",
-    "description": null,
-    "lineNumber": 22,
-    "type": {
-      "nullable": null,
-      "types": [
-        "number"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 82,
-    "kind": "member",
-    "name": "dataEntityQueue",
-    "memberof": "src/scheduler.js~Scheduler",
-    "static": false,
-    "longname": "src/scheduler.js~Scheduler#dataEntityQueue",
-    "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "type": {
-      "nullable": null,
-      "types": [
-        "Array"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 83,
-    "kind": "member",
-    "name": "dataProcessors",
-    "memberof": "src/scheduler.js~Scheduler",
-    "static": false,
-    "longname": "src/scheduler.js~Scheduler#dataProcessors",
-    "access": "public",
-    "description": null,
-    "lineNumber": 29,
-    "type": {
-      "nullable": null,
-      "types": [
-        "number"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 84,
-    "kind": "member",
     "name": "maxDataProcessors",
     "memberof": "src/scheduler.js~Scheduler",
     "static": false,
     "longname": "src/scheduler.js~Scheduler#maxDataProcessors",
-    "access": "public",
+    "access": "private",
     "description": null,
-    "lineNumber": 32,
+    "lineNumber": 30,
     "type": {
-      "nullable": null,
       "types": [
         "number"
-      ],
-      "spread": false,
-      "description": null
+      ]
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 83,
     "kind": "method",
     "name": "classifyUrl",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1355,7 +1282,7 @@
     "longname": "src/scheduler.js~Scheduler#classifyUrl",
     "access": "protected",
     "description": "Classify URL into its respective scraper and data processor",
-    "lineNumber": 45,
+    "lineNumber": 46,
     "params": [
       {
         "nullable": null,
@@ -1379,7 +1306,7 @@
     "abstract": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 84,
     "kind": "method",
     "name": "getUrlEntity",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1389,7 +1316,7 @@
     "longname": "src/scheduler.js~Scheduler#getUrlEntity",
     "access": "private",
     "description": "Build URL entity from URL string",
-    "lineNumber": 53,
+    "lineNumber": 54,
     "params": [
       {
         "nullable": null,
@@ -1412,7 +1339,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 85,
     "kind": "method",
     "name": "enqueueUrlEntities",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1422,7 +1349,7 @@
     "longname": "src/scheduler.js~Scheduler#enqueueUrlEntities",
     "access": "private",
     "description": "Schedule scraping tasks",
-    "lineNumber": 63,
+    "lineNumber": 64,
     "params": [
       {
         "nullable": null,
@@ -1438,7 +1365,7 @@
     "return": null
   },
   {
-    "__docId__": 88,
+    "__docId__": 86,
     "kind": "method",
     "name": "enqueueUrls",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1448,7 +1375,7 @@
     "longname": "src/scheduler.js~Scheduler#enqueueUrls",
     "access": "private",
     "description": "Schedule scraping tasks",
-    "lineNumber": 72,
+    "lineNumber": 73,
     "params": [
       {
         "nullable": null,
@@ -1464,7 +1391,7 @@
     "return": null
   },
   {
-    "__docId__": 89,
+    "__docId__": 87,
     "kind": "method",
     "name": "dequeueUrlEntity",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1474,7 +1401,7 @@
     "longname": "src/scheduler.js~Scheduler#dequeueUrlEntity",
     "access": "private",
     "description": "Get next scraping task",
-    "lineNumber": 81,
+    "lineNumber": 82,
     "return": {
       "nullable": null,
       "types": [
@@ -1486,7 +1413,7 @@
     "params": []
   },
   {
-    "__docId__": 90,
+    "__docId__": 88,
     "kind": "method",
     "name": "enqueueDataEntities",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1496,7 +1423,7 @@
     "longname": "src/scheduler.js~Scheduler#enqueueDataEntities",
     "access": "private",
     "description": "Schedule data processing tasks",
-    "lineNumber": 90,
+    "lineNumber": 91,
     "params": [
       {
         "nullable": null,
@@ -1512,7 +1439,7 @@
     "return": null
   },
   {
-    "__docId__": 91,
+    "__docId__": 89,
     "kind": "method",
     "name": "dequeueDataEntity",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1522,7 +1449,7 @@
     "longname": "src/scheduler.js~Scheduler#dequeueDataEntity",
     "access": "private",
     "description": "Get next data processing task",
-    "lineNumber": 99,
+    "lineNumber": 100,
     "return": {
       "nullable": null,
       "types": [
@@ -1534,7 +1461,7 @@
     "params": []
   },
   {
-    "__docId__": 92,
+    "__docId__": 90,
     "kind": "method",
     "name": "scrapeData",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1544,12 +1471,12 @@
     "longname": "src/scheduler.js~Scheduler#scrapeData",
     "access": "private",
     "description": "Run a scraping task",
-    "lineNumber": 107,
+    "lineNumber": 108,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 95,
+    "__docId__": 93,
     "kind": "method",
     "name": "processData",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1559,12 +1486,12 @@
     "longname": "src/scheduler.js~Scheduler#processData",
     "access": "private",
     "description": "Run a data processing task",
-    "lineNumber": 127,
+    "lineNumber": 128,
     "params": [],
     "return": null
   },
   {
-    "__docId__": 98,
+    "__docId__": 96,
     "kind": "method",
     "name": "start",
     "memberof": "src/scheduler.js~Scheduler",
@@ -1579,7 +1506,7 @@
     "return": null
   },
   {
-    "__docId__": 99,
+    "__docId__": 97,
     "kind": "file",
     "name": "src/scraper.js",
     "content": "/**@type {Object} - import axios */\r\nconst axios = require('axios')\r\n/** import { chooseRandom, wait } from \"./utils\"; */\r\nconst { chooseRandom, wait } = require('./utils')\r\n\r\n/**\r\n * Scraper\r\n * @public\r\n */\r\nclass Scraper {\r\n  /**\r\n   * @constructor\r\n   * @public\r\n   * @param {string[]} userAgents - User Agents\r\n   * @param {Object[]} proxies - Proxies\r\n   */\r\n  constructor(userAgents = [], proxies = []) {\r\n    /**@type {Array} */\r\n    this.userAgents = userAgents\r\n    /**@type {Array} */\r\n    this.proxies = proxies\r\n\r\n    /**@type {Object} */\r\n    this.axios = axios.create({\r\n      timeout: 1000\r\n    })\r\n  }\r\n\r\n  /**\r\n   * parse data from html\r\n   * @public\r\n   */\r\n  async parse() {}\r\n\r\n  /**\r\n   * Scraping URL\r\n   * @public\r\n   * @param {string} url - URL\r\n   * @return {Object} - scraped status, data and next URLs if successful, otherwise return an error\r\n   */\r\n  async run(url) {\r\n    for (let i = 0; i < 2; ++i) {\r\n      const { data: html } = await this.axios.get(url, {\r\n        headers: {\r\n          'User-Agent': chooseRandom(this.userAgents)\r\n        },\r\n        proxy: chooseRandom(this.proxies)\r\n      })\r\n      if (html) {\r\n        const { data, nextUrls } = await this.parse(html)\r\n        return {\r\n          success: true,\r\n          data,\r\n          nextUrls\r\n        }\r\n      }\r\n      await wait(1000)\r\n    }\r\n    return {\r\n      success: false,\r\n      error: ''\r\n    }\r\n  }\r\n}\r\n\r\nmodule.exports = Scraper\r\n",
@@ -1590,66 +1517,22 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 100,
-    "kind": "variable",
-    "name": "axios",
-    "memberof": "src/scraper.js",
-    "static": true,
-    "longname": "src/scraper.js~axios",
-    "access": "public",
-    "export": false,
-    "importPath": "@albert-team/spiderman/src/scraper.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "type": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": null
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 101,
-    "kind": "variable",
-    "name": "chooseRandom",
-    "memberof": "src/scraper.js",
-    "static": true,
-    "longname": "src/scraper.js~chooseRandom",
-    "access": "public",
-    "export": false,
-    "importPath": "@albert-team/spiderman/src/scraper.js",
-    "importStyle": null,
-    "description": "import { chooseRandom, wait } from \"./utils\";",
-    "lineNumber": 4,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 102,
+    "__docId__": 98,
     "kind": "class",
     "name": "Scraper",
     "memberof": "src/scraper.js",
     "static": true,
     "longname": "src/scraper.js~Scraper",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "@albert-team/spiderman/src/scraper.js",
-    "importStyle": null,
+    "importStyle": "Scraper",
     "description": "Scraper",
     "lineNumber": 10,
-    "interface": false,
-    "ignore": true
+    "interface": false
   },
   {
-    "__docId__": 103,
+    "__docId__": 99,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/scraper.js~Scraper",
@@ -1690,7 +1573,7 @@
     ]
   },
   {
-    "__docId__": 104,
+    "__docId__": 100,
     "kind": "member",
     "name": "userAgents",
     "memberof": "src/scraper.js~Scraper",
@@ -1709,7 +1592,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 101,
     "kind": "member",
     "name": "proxies",
     "memberof": "src/scraper.js~Scraper",
@@ -1728,7 +1611,7 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 102,
     "kind": "member",
     "name": "axios",
     "memberof": "src/scraper.js~Scraper",
@@ -1747,7 +1630,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 103,
     "kind": "method",
     "name": "parse",
     "memberof": "src/scraper.js~Scraper",
@@ -1762,7 +1645,7 @@
     "return": null
   },
   {
-    "__docId__": 108,
+    "__docId__": 104,
     "kind": "method",
     "name": "run",
     "memberof": "src/scraper.js~Scraper",
@@ -1795,7 +1678,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 105,
     "kind": "file",
     "name": "src/utils.js",
     "content": "/**@type {function} */\r\nconst chooseRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]\r\n/**@type {function} */\r\nconst wait = async (ms) => new Promise((done) => setTimeout(done, ms))\r\n/** \r\n * export two function \r\n */\r\nmodule.exports = {\r\n  chooseRandom,\r\n  wait\r\n}\r\n",
@@ -1806,7 +1689,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 110,
+    "__docId__": 106,
     "kind": "function",
     "name": "chooseRandom",
     "memberof": "src/utils.js",
@@ -1840,7 +1723,7 @@
     "ignore": true
   },
   {
-    "__docId__": 111,
+    "__docId__": 107,
     "kind": "function",
     "name": "wait",
     "memberof": "src/utils.js",
@@ -1883,7 +1766,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"@albert-team/spiderman\",\r\n  \"description\": \"Minimal distributed web crawler for JavaScript\",\r\n  \"version\": \"0.1.0\",\r\n  \"main\": \"src/index.js\",\r\n  \"files\": [\r\n    \"/src\"\r\n  ],\r\n  \"scripts\": {\r\n    \"build:docs\": \"esdoc\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/albert-team/spiderman.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"minimal\",\r\n    \"web\",\r\n    \"distributed\",\r\n    \"crawler\"\r\n  ],\r\n  \"author\": \"Albert Team\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/albert-team/spiderman/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/albert-team/spiderman\",\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"eslint\": \"^5.12.0\"\r\n  },\r\n  \"dependencies\": {\r\n    \"axios\": \"^0.18.0\",\r\n    \"metrohash\": \"^2.5.0\"\r\n  }\r\n}\r\n",
+    "content": "{\n  \"name\": \"@albert-team/spiderman\",\n  \"description\": \"Minimal distributed web crawler for JavaScript\",\n  \"version\": \"0.1.0\",\n  \"main\": \"src/index.js\",\n  \"files\": [\n    \"/src\"\n  ],\n  \"scripts\": {\n    \"build:docs\": \"esdoc\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/albert-team/spiderman.git\"\n  },\n  \"keywords\": [\n    \"minimal\",\n    \"web\",\n    \"distributed\",\n    \"crawler\"\n  ],\n  \"author\": \"Albert Team\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/albert-team/spiderman/issues\"\n  },\n  \"homepage\": \"https://github.com/albert-team/spiderman\",\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-node\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^5.12.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\",\n    \"metrohash\": \"^2.5.0\"\n  }\n}\n",
     "longname": "E:\\NodeJS Example\\spiderman\\package.json",
     "name": "package.json",
     "static": true,

@@ -1,5 +1,23 @@
 window.esdocSearchIndex = [
   [
+    "@albert-team/spiderman/src/data-processor.js~dataprocessor",
+    "class/src/data-processor.js~DataProcessor.html",
+    "<span>DataProcessor</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/data-processor.js</span>",
+    "class"
+  ],
+  [
+    "@albert-team/spiderman/src/scheduler.js~scheduler",
+    "class/src/scheduler.js~Scheduler.html",
+    "<span>Scheduler</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/scheduler.js</span>",
+    "class"
+  ],
+  [
+    "@albert-team/spiderman/src/scraper.js~scraper",
+    "class/src/scraper.js~Scraper.html",
+    "<span>Scraper</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/scraper.js</span>",
+    "class"
+  ],
+  [
     "src/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "src/.external-ecmascript.js~Array",
@@ -288,6 +306,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/data-processor.js~dataprocessor#constructor",
+    "class/src/data-processor.js~DataProcessor.html#instance-constructor-constructor",
+    "src/data-processor.js~DataProcessor#constructor",
+    "method"
+  ],
+  [
+    "src/data-processor.js~dataprocessor#process",
+    "class/src/data-processor.js~DataProcessor.html#instance-method-process",
+    "src/data-processor.js~DataProcessor#process",
+    "method"
+  ],
+  [
+    "src/data-processor.js~dataprocessor#run",
+    "class/src/data-processor.js~DataProcessor.html#instance-method-run",
+    "src/data-processor.js~DataProcessor#run",
+    "method"
+  ],
+  [
     "src/entities.js",
     "file/src/entities.js.html",
     "src/entities.js",
@@ -306,10 +342,148 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/scheduler.js~scheduler#classifyurl",
+    "class/src/scheduler.js~Scheduler.html#instance-method-classifyUrl",
+    "src/scheduler.js~Scheduler#classifyUrl",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#constructor",
+    "class/src/scheduler.js~Scheduler.html#instance-constructor-constructor",
+    "src/scheduler.js~Scheduler#constructor",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#dataentityqueue",
+    "class/src/scheduler.js~Scheduler.html#instance-member-dataEntityQueue",
+    "src/scheduler.js~Scheduler#dataEntityQueue",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#dataprocessors",
+    "class/src/scheduler.js~Scheduler.html#instance-member-dataProcessors",
+    "src/scheduler.js~Scheduler#dataProcessors",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#dequeuedataentity",
+    "class/src/scheduler.js~Scheduler.html#instance-method-dequeueDataEntity",
+    "src/scheduler.js~Scheduler#dequeueDataEntity",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#dequeueurlentity",
+    "class/src/scheduler.js~Scheduler.html#instance-method-dequeueUrlEntity",
+    "src/scheduler.js~Scheduler#dequeueUrlEntity",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#enqueuedataentities",
+    "class/src/scheduler.js~Scheduler.html#instance-method-enqueueDataEntities",
+    "src/scheduler.js~Scheduler#enqueueDataEntities",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#enqueueurlentities",
+    "class/src/scheduler.js~Scheduler.html#instance-method-enqueueUrlEntities",
+    "src/scheduler.js~Scheduler#enqueueUrlEntities",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#enqueueurls",
+    "class/src/scheduler.js~Scheduler.html#instance-method-enqueueUrls",
+    "src/scheduler.js~Scheduler#enqueueUrls",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#geturlentity",
+    "class/src/scheduler.js~Scheduler.html#instance-method-getUrlEntity",
+    "src/scheduler.js~Scheduler#getUrlEntity",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#maxdataprocessors",
+    "class/src/scheduler.js~Scheduler.html#instance-member-maxDataProcessors",
+    "src/scheduler.js~Scheduler#maxDataProcessors",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#maxscrapers",
+    "class/src/scheduler.js~Scheduler.html#instance-member-maxScrapers",
+    "src/scheduler.js~Scheduler#maxScrapers",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#processdata",
+    "class/src/scheduler.js~Scheduler.html#instance-method-processData",
+    "src/scheduler.js~Scheduler#processData",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#scrapedata",
+    "class/src/scheduler.js~Scheduler.html#instance-method-scrapeData",
+    "src/scheduler.js~Scheduler#scrapeData",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#scrapers",
+    "class/src/scheduler.js~Scheduler.html#instance-member-scrapers",
+    "src/scheduler.js~Scheduler#scrapers",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#start",
+    "class/src/scheduler.js~Scheduler.html#instance-method-start",
+    "src/scheduler.js~Scheduler#start",
+    "method"
+  ],
+  [
+    "src/scheduler.js~scheduler#urlentityqueue",
+    "class/src/scheduler.js~Scheduler.html#instance-member-urlEntityQueue",
+    "src/scheduler.js~Scheduler#urlEntityQueue",
+    "member"
+  ],
+  [
     "src/scraper.js",
     "file/src/scraper.js.html",
     "src/scraper.js",
     "file"
+  ],
+  [
+    "src/scraper.js~scraper#axios",
+    "class/src/scraper.js~Scraper.html#instance-member-axios",
+    "src/scraper.js~Scraper#axios",
+    "member"
+  ],
+  [
+    "src/scraper.js~scraper#constructor",
+    "class/src/scraper.js~Scraper.html#instance-constructor-constructor",
+    "src/scraper.js~Scraper#constructor",
+    "method"
+  ],
+  [
+    "src/scraper.js~scraper#parse",
+    "class/src/scraper.js~Scraper.html#instance-method-parse",
+    "src/scraper.js~Scraper#parse",
+    "method"
+  ],
+  [
+    "src/scraper.js~scraper#proxies",
+    "class/src/scraper.js~Scraper.html#instance-member-proxies",
+    "src/scraper.js~Scraper#proxies",
+    "member"
+  ],
+  [
+    "src/scraper.js~scraper#run",
+    "class/src/scraper.js~Scraper.html#instance-method-run",
+    "src/scraper.js~Scraper#run",
+    "method"
+  ],
+  [
+    "src/scraper.js~scraper#useragents",
+    "class/src/scraper.js~Scraper.html#instance-member-userAgents",
+    "src/scraper.js~Scraper#userAgents",
+    "member"
   ],
   [
     "src/utils.js",
