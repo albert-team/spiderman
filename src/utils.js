@@ -1,11 +1,14 @@
-/**@type {function} */
-const chooseRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]
-/**@type {function} */
-const wait = async (ms) => new Promise((done) => setTimeout(done, ms))
-/** 
- * export two function 
+/**
+ * Choose a random element from an array
+ * @param {Array} arr - Array
+ * @return {*} An element from the array
  */
-module.exports = {
-  chooseRandom,
-  wait
-}
+const chooseRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]
+
+/**
+ * Wait for a period of time
+ * @param {number} ms - Time to wait, in milliseconds
+ */
+const wait = async (ms) => new Promise((done) => setTimeout(done, ms))
+
+module.exports = { chooseRandom, wait }

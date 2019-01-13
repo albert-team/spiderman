@@ -1,4 +1,3 @@
-/**import classes: UrlEntity, DataEntity  */
 const { UrlEntity, DataEntity } = require('./entities')
 
 /**
@@ -11,28 +10,38 @@ class Scheduler {
    * @param {string} initUrl - Initial URL
    */
   constructor(initUrl) {
-    /** @private
+    /**
+     * @private
      * @type {Array<UrlEntity>}
      */
     this.urlEntityQueue = []
-    /** @private */
+    /**
+     * @private
+     * @type {number}
+     */
     this.scrapers = 0
-    /** @private */
+    /**
+     * @private
+     * @type {number}
+     */
     this.maxScrapers = 8
 
-    /** @private
+    /**
+     * @private
      * @type {Array<DataEntity>}
      */
     this.dataEntityQueue = []
-    /** @private */
+    /**
+     * @private
+     * @type {number}
+     */
     this.dataProcessors = 0
-    /** @private */
+    /**
+     * @private
+     * @type {number}
+     */
     this.maxDataProcessors = 8
 
-    /**@type {number} */
-    this.maxDataProcessors = 8
-    /**@type {function name({string}) {
-    }} */
     this.enqueueUrls(initUrl)
   }
 
