@@ -118,9 +118,7 @@ class Scheduler {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
     urlEntity.attempts += 1
-    const { success, data, nextUrls } = await urlEntity.scraper.run(
-      urlEntity.url
-    )
+    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)

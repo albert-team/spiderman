@@ -30,23 +30,23 @@ class Scraper {
   }
 
   /**
-   * Parse data from HTML
+   * Parse result from HTML
+   * @protected
+   * @abstract
    * @param {string} html - HTML
    * @return {Object} Result
    */
   async parse(html) {}
 
   /**
-   * Scraping URL
+   * Run
    * @param {string} url - URL
    * @return {Object} - Result
    */
   async run(url) {
     for (let i = 0; i < 2; ++i) {
       const { data: html } = await this.axios.get(url, {
-        headers: {
-          'User-Agent': chooseRandom(this.userAgents)
-        },
+        headers: { 'User-Agent': chooseRandom(this.userAgents) },
         proxy: chooseRandom(this.proxies)
       })
       if (html) {
