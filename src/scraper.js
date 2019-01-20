@@ -26,7 +26,7 @@ class Scraper {
      * @private
      * @type {Object}
      */
-    this.axios = axios.create({ timeout: 1000 })
+    this.axios = axios.create({ timeout: 10000 })
   }
 
   /**

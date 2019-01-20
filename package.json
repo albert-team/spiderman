@@ -1,7 +1,7 @@
 {
   "name": "@albert-team/spiderman",
   "description": "Minimal distributed web crawler for JavaScript",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "src/index.js",
   "files": [
     "/src"
@@ -33,7 +33,7 @@
     "eslint": "^5.12.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0-beta.1",
     "metrohash": "^2.5.0"
   }
 }
