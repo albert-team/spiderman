@@ -25,7 +25,6 @@ class Scheduler {
      * @type {number}
      */
     this.maxScrapers = 8
-
     /**
      * @private
      * @type {Array<DataEntity>}

@@ -13,16 +13,12 @@ class UrlEntity {
   constructor(url, scraper, dataProcessor) {
     /** @type {string} */
     this.url = url
-
     /** @type {Object} */
     this.scraper = scraper
-
     /** @type {Object} */
     this.dataProcessor = dataProcessor
-
     /** @type {number} */
     this.attempts = 0
-
     /** @type {string} */
     this.fingerprint = this.getFingerprint()
   }
@@ -49,10 +45,8 @@ class DataEntity {
   constructor(data, dataProcessor) {
     /** @type {Object} */
     this.data = data
-
     /** @type {Object} */
     this.dataProcessor = dataProcessor
-
     /** @type {number} */
     this.attempts = 0
   }
@@ -72,10 +66,8 @@ class ProxyEntity {
   constructor(host, port, username, password) {
     /** @type {string} */
     this.host = host
-
     /** @type {number} */
     this.port = port
-
     /** @type {Object} */
     this.auth = { username, password }
   }

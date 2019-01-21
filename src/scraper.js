@@ -21,7 +21,6 @@ class Scraper {
      * @type {Object[]}
      */
     this.proxies = proxies
-
     /**
      * @private
      * @type {Object}
