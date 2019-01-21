@@ -2,23 +2,44 @@ const { UrlEntity, DataEntity } = require('./entities')
 
 /**
  * Schedule crawling tasks
- * @public
+ * @abstract
  */
 class Scheduler {
   /**
    * Constructor
-   * @public
    * @param {string} initUrl - Initial URL
    */
   constructor(initUrl) {
+    /**
+     * @private
+     * @type {Array<UrlEntity>}
+     */
     this.urlEntityQueue = []
-    // number of running scrapers
+    /**
+     * @private
+     * @type {number}
+     */
     this.scrapers = 0
+    /**
+     * @private
+     * @type {number}
+     */
     this.maxScrapers = 8
 
+    /**
+     * @private
+     * @type {Array<DataEntity>}
+     */
     this.dataEntityQueue = []
-    // number of running data processors
+    /**
+     * @private
+     * @type {number}
+     */
     this.dataProcessors = 0
+    /**
+     * @private
+     * @type {number}
+     */
     this.maxDataProcessors = 8
 
     this.enqueueUrls(initUrl)
@@ -31,7 +52,7 @@ class Scheduler {
    * @param {string} url - URL
    * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
    */
-  classifyUrl() {}
+  classifyUrl(url) {}
 
   /**
    * Build URL entity from URL string
@@ -97,9 +118,7 @@ class Scheduler {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
     urlEntity.attempts += 1
-    const { success, data, nextUrls } = await urlEntity.scraper.run(
-      urlEntity.url
-    )
+    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
@@ -126,7 +145,6 @@ class Scheduler {
 
   /**
    * Start crawling
-   * @public
    */
   start() {
     do {

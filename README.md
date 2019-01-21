@@ -1,2 +1,3 @@
-# SpidermanJS
-> Minimal distributed web crawler boilerplate for JavaScript
+# SPIDERMAN
+
+> Minimal distributed web crawler for JavaScript
