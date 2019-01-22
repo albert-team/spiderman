@@ -11,10 +11,12 @@ class DataProcessor {
 
   /**
    * Process data
-   * @private
+   * @protected
+   * @abstract
+   * @param {Object} data - Data
    * @return {Object} Result
    */
-  async process() {}
+  async process(data) {}
 
   /**
    * Run
