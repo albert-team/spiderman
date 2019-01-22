@@ -1,4 +1,4 @@
-const metrohash64 = require('metrohash').metrohash64
+const xxhash = require('xxhashjs')
 
 /**
  * URL entity
@@ -29,7 +29,7 @@ class UrlEntity {
    * @return {string} Fingerprint
    */
   getFingerprint() {
-    return metrohash64(this.url)
+    return xxhash.h64(this.url, 0).toString()
   }
 }
 
