@@ -1,13 +1,18 @@
 # CHANGELOG
 
+## v0.3.0 (Canary)
+
+- NEW: Deploy documentation to GitHub Pages
+- CHANGED: Use xxhashjs instead of metrohash to get URL fingerprint by default
+
 ## v0.2.0 (Canary)
 
 - CHANGED: Increase the default timeout of `Scraper` request from 1s to 10s
-- FIXED: Proxies won't work
+- FIXED: HTTP proxies won't work with HTTPS websites
 
 ## v0.1.1 (Canary)
 
-- FIXED: Now export entity classes too
+- FIXED: Entities not exported
 
 ## v0.1.0 (Canary)
 
