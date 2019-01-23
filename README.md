@@ -1,6 +1,6 @@
-![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)
-![](https://img.shields.io/npm/v/@albert-team/spiderman/canary.svg?style=flat-square)
-![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)
+[![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)](https://github.com/albert-team/spiderman)
+[![](https://img.shields.io/npm/v/@albert-team/spiderman/canary.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
+[![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
 
 # SPIDERMAN
 
@@ -14,8 +14,17 @@
 
 ### Instructions
 
-- With npm: `npm i @albert-team/spiderman@canary`
-- With yarn: `yarn add @albert-team/spiderman@canary`
+- With npm:
+
+```bash
+npm i @albert-team/spiderman@canary
+```
+
+- With yarn:
+
+```bash
+yarn add @albert-team/spiderman@canary
+```
 
 ## Usage
 
