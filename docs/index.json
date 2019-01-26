@@ -1,0 +1,1787 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/data-processor.js",
+    "content": "const { wait } = require('./utils')\n\n/**\n * Data Processor\n */\nclass DataProcessor {\n  /**\n   * Constructor\n   */\n  constructor() {}\n\n  /**\n   * Process data\n   * @protected\n   * @abstract\n   * @param {Object} data - Data\n   * @return {Object} Result\n   */\n  async process(data) {}\n\n  /**\n   * Run\n   * @param {Object} data - Data\n   * @return {Object} Result\n   */\n  async run(data) {\n    for (let i = 0; i < 2; ++i) {\n      const { success } = await this.process(data)\n      if (success) return { success: true }\n      await wait(1000)\n    }\n    return { success: false, error: '' }\n  }\n}\n\nmodule.exports = DataProcessor\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/data-processor.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "DataProcessor",
+    "memberof": "src/data-processor.js",
+    "static": true,
+    "longname": "src/data-processor.js~DataProcessor",
+    "access": "public",
+    "export": true,
+    "importPath": "@albert-team/spiderman/src/data-processor.js",
+    "importStyle": "DataProcessor",
+    "description": "Data Processor",
+    "lineNumber": 6,
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/data-processor.js~DataProcessor",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/data-processor.js~DataProcessor#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 10
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "process",
+    "memberof": "src/data-processor.js~DataProcessor",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/data-processor.js~DataProcessor#process",
+    "access": "protected",
+    "description": "Process data",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "Data"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Result"
+    },
+    "abstract": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "name": "run",
+    "memberof": "src/data-processor.js~DataProcessor",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/data-processor.js~DataProcessor#run",
+    "access": "public",
+    "description": "Run",
+    "lineNumber": 26,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "Data"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Result"
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "name": "src/entities.js",
+    "content": "const xxhash = require('xxhashjs')\n\n/**\n * URL entity\n */\nclass UrlEntity {\n  /**\n   * Constructor\n   * @param {string} url - URL\n   * @param {Object} scraper - Scraper\n   * @param {Object} dataProcessor - Data processor\n   */\n  constructor(url, scraper, dataProcessor) {\n    /** @type {string} */\n    this.url = url\n    /** @type {Object} */\n    this.scraper = scraper\n    /** @type {Object} */\n    this.dataProcessor = dataProcessor\n    /** @type {number} */\n    this.attempts = 0\n    /** @type {string} */\n    this.fingerprint = this.getFingerprint()\n  }\n\n  /**\n   * Get fingerprint\n   * @private\n   * @return {string} Fingerprint\n   */\n  getFingerprint() {\n    return xxhash.h64(this.url, 0).toString()\n  }\n}\n\n/**\n * Data entity\n */\nclass DataEntity {\n  /**\n   * Constructor\n   * @param {Object} data - Data\n   * @param {Object} dataProcessor - Data processor\n   */\n  constructor(data, dataProcessor) {\n    /** @type {Object} */\n    this.data = data\n    /** @type {Object} */\n    this.dataProcessor = dataProcessor\n    /** @type {number} */\n    this.attempts = 0\n  }\n}\n\n/**\n * Proxy entity\n */\nclass ProxyEntity {\n  /**\n   * Constructor\n   * @param {string} host - Host\n   * @param {number} port - Port number\n   * @param {?string} [username] - Username\n   * @param {?string} [password] - Password\n   */\n  constructor(host, port, username, password) {\n    /** @type {string} */\n    this.host = host\n    /** @type {number} */\n    this.port = port\n    /** @type {Object} */\n    this.auth = { username, password }\n  }\n}\n\nmodule.exports = { UrlEntity, DataEntity, ProxyEntity }\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/entities.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 54,
+    "kind": "class",
+    "name": "UrlEntity",
+    "memberof": "src/entities.js",
+    "static": true,
+    "longname": "src/entities.js~UrlEntity",
+    "access": "public",
+    "export": false,
+    "importPath": "@albert-team/spiderman/src/entities.js",
+    "importStyle": null,
+    "description": "URL entity",
+    "lineNumber": 6,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/entities.js~UrlEntity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "URL"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "scraper",
+        "description": "Scraper"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dataProcessor",
+        "description": "Data processor"
+      }
+    ]
+  },
+  {
+    "__docId__": 56,
+    "kind": "member",
+    "name": "url",
+    "memberof": "src/entities.js~UrlEntity",
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#url",
+    "access": "public",
+    "description": null,
+    "lineNumber": 15,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "member",
+    "name": "scraper",
+    "memberof": "src/entities.js~UrlEntity",
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#scraper",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "dataProcessor",
+    "memberof": "src/entities.js~UrlEntity",
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#dataProcessor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "attempts",
+    "memberof": "src/entities.js~UrlEntity",
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#attempts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "fingerprint",
+    "memberof": "src/entities.js~UrlEntity",
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#fingerprint",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "getFingerprint",
+    "memberof": "src/entities.js~UrlEntity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/entities.js~UrlEntity#getFingerprint",
+    "access": "private",
+    "description": "Get fingerprint",
+    "lineNumber": 31,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "Fingerprint"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 62,
+    "kind": "class",
+    "name": "DataEntity",
+    "memberof": "src/entities.js",
+    "static": true,
+    "longname": "src/entities.js~DataEntity",
+    "access": "public",
+    "export": false,
+    "importPath": "@albert-team/spiderman/src/entities.js",
+    "importStyle": null,
+    "description": "Data entity",
+    "lineNumber": 39,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/entities.js~DataEntity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/entities.js~DataEntity#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 45,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "Data"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dataProcessor",
+        "description": "Data processor"
+      }
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "member",
+    "name": "data",
+    "memberof": "src/entities.js~DataEntity",
+    "static": false,
+    "longname": "src/entities.js~DataEntity#data",
+    "access": "public",
+    "description": null,
+    "lineNumber": 47,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "member",
+    "name": "dataProcessor",
+    "memberof": "src/entities.js~DataEntity",
+    "static": false,
+    "longname": "src/entities.js~DataEntity#dataProcessor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 49,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "member",
+    "name": "attempts",
+    "memberof": "src/entities.js~DataEntity",
+    "static": false,
+    "longname": "src/entities.js~DataEntity#attempts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 51,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "class",
+    "name": "ProxyEntity",
+    "memberof": "src/entities.js",
+    "static": true,
+    "longname": "src/entities.js~ProxyEntity",
+    "access": "public",
+    "export": false,
+    "importPath": "@albert-team/spiderman/src/entities.js",
+    "importStyle": null,
+    "description": "Proxy entity",
+    "lineNumber": 58,
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/entities.js~ProxyEntity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/entities.js~ProxyEntity#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 66,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "host",
+        "description": "Host"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "port",
+        "description": "Port number"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "username",
+        "description": "Username"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "password",
+        "description": "Password"
+      }
+    ]
+  },
+  {
+    "__docId__": 69,
+    "kind": "member",
+    "name": "host",
+    "memberof": "src/entities.js~ProxyEntity",
+    "static": false,
+    "longname": "src/entities.js~ProxyEntity#host",
+    "access": "public",
+    "description": null,
+    "lineNumber": 68,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "member",
+    "name": "port",
+    "memberof": "src/entities.js~ProxyEntity",
+    "static": false,
+    "longname": "src/entities.js~ProxyEntity#port",
+    "access": "public",
+    "description": null,
+    "lineNumber": 70,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/entities.js~ProxyEntity",
+    "static": false,
+    "longname": "src/entities.js~ProxyEntity#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 72,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "module.exports = {\n  DataProcessor: require('./data-processor'),\n  Scheduler: require('./scheduler'),\n  Scraper: require('./scraper'),\n  entities: require('./entities')\n}\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 73,
+    "kind": "file",
+    "name": "src/scheduler.js",
+    "content": "const { UrlEntity, DataEntity } = require('./entities')\n\n/**\n * Schedule crawling tasks\n * @abstract\n */\nclass Scheduler {\n  /**\n   * Constructor\n   * @param {string} initUrl - Initial URL\n   */\n  constructor(initUrl) {\n    /**\n     * @private\n     * @type {Array<UrlEntity>}\n     */\n    this.urlEntityQueue = []\n    /**\n     * @private\n     * @type {number}\n     */\n    this.scrapers = 0\n    /**\n     * @private\n     * @type {number}\n     */\n    this.maxScrapers = 8\n    /**\n     * @private\n     * @type {Array<DataEntity>}\n     */\n    this.dataEntityQueue = []\n    /**\n     * @private\n     * @type {number}\n     */\n    this.dataProcessors = 0\n    /**\n     * @private\n     * @type {number}\n     */\n    this.maxDataProcessors = 8\n\n    this.enqueueUrls(initUrl)\n  }\n\n  /**\n   * Classify URL into its respective scraper and data processor\n   * @protected\n   * @abstract\n   * @param {string} url - URL\n   * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor\n   */\n  classifyUrl(url) {}\n\n  /**\n   * Build URL entity from URL string\n   * @private\n   * @param {string} url - URL\n   * @return {UrlEntity} URL entity\n   */\n  getUrlEntity(url) {\n    const { scraper, dataProcessor } = this.classifyUrl(url)\n    return new UrlEntity(url, scraper, dataProcessor)\n  }\n\n  /**\n   * Schedule scraping tasks\n   * @private\n   * @param {...UrlEntity} urlEntities - URL entities\n   */\n  enqueueUrlEntities(...urlEntities) {\n    this.urlEntityQueue.push(...urlEntities)\n  }\n\n  /**\n   * Schedule scraping tasks\n   * @private\n   * @param {...string} urls - URLs\n   */\n  enqueueUrls(...urls) {\n    this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))\n  }\n\n  /**\n   * Get next scraping task\n   * @private\n   * @return {UrlEntity} URL entity\n   */\n  dequeueUrlEntity() {\n    return this.urlEntityQueue.shift()\n  }\n\n  /**\n   * Schedule data processing tasks\n   * @private\n   * @param {...DataEntity} dataEntities - Data entities\n   */\n  enqueueDataEntities(...dataEntities) {\n    this.dataEntityQueue.push(...dataEntities)\n  }\n\n  /**\n   * Get next data processing task\n   * @private\n   * @return {DataEntity} Data entity\n   */\n  dequeueDataEntity() {\n    return this.dataEntityQueue.shift()\n  }\n\n  /**\n   * Run a scraping task\n   * @private\n   */\n  async scrapeData() {\n    this.scrapers += 1\n    const urlEntity = this.dequeueUrlEntity()\n    urlEntity.attempts += 1\n    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)\n    if (success) {\n      this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))\n      this.enqueueUrls(...nextUrls)\n    } else {\n      /* handle failed result */\n    }\n    this.scrapers -= 1\n  }\n\n  /**\n   * Run a data processing task\n   * @private\n   */\n  async processData() {\n    this.dataProcessors += 1\n    const dataEntity = this.dequeueDataEntity()\n    dataEntity.attempts += 1\n    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)\n    if (!success) {\n      /* handle failed result */\n    }\n    this.dataProcessors -= 1\n  }\n\n  /**\n   * Start crawling\n   */\n  start() {\n    do {\n      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)\n        this.scrapeData()\n      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)\n        this.processData()\n    } while (this.scrapers)\n  }\n}\n\nmodule.exports = Scheduler\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/scheduler.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 74,
+    "kind": "class",
+    "name": "Scheduler",
+    "memberof": "src/scheduler.js",
+    "static": true,
+    "longname": "src/scheduler.js~Scheduler",
+    "access": "public",
+    "export": true,
+    "importPath": "@albert-team/spiderman/src/scheduler.js",
+    "importStyle": "Scheduler",
+    "description": "Schedule crawling tasks",
+    "lineNumber": 7,
+    "abstract": true,
+    "interface": false
+  },
+  {
+    "__docId__": 75,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "initUrl",
+        "description": "Initial URL"
+      }
+    ]
+  },
+  {
+    "__docId__": 76,
+    "kind": "member",
+    "name": "urlEntityQueue",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#urlEntityQueue",
+    "access": "private",
+    "description": "",
+    "lineNumber": 17,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array<UrlEntity>"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "member",
+    "name": "scrapers",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#scrapers",
+    "access": "private",
+    "description": "",
+    "lineNumber": 22,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "member",
+    "name": "maxScrapers",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#maxScrapers",
+    "access": "private",
+    "description": "",
+    "lineNumber": 27,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 79,
+    "kind": "member",
+    "name": "dataEntityQueue",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#dataEntityQueue",
+    "access": "private",
+    "description": "",
+    "lineNumber": 32,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Array<DataEntity>"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "member",
+    "name": "dataProcessors",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#dataProcessors",
+    "access": "private",
+    "description": "",
+    "lineNumber": 37,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "member",
+    "name": "maxDataProcessors",
+    "memberof": "src/scheduler.js~Scheduler",
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#maxDataProcessors",
+    "access": "private",
+    "description": "",
+    "lineNumber": 42,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "classifyUrl",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#classifyUrl",
+    "access": "protected",
+    "description": "Classify URL into its respective scraper and data processor",
+    "lineNumber": 54,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "URL"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "{scraper: Object, dataProcessor: Object}"
+      ],
+      "spread": false,
+      "description": "Scraper and data processor"
+    },
+    "abstract": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "getUrlEntity",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#getUrlEntity",
+    "access": "private",
+    "description": "Build URL entity from URL string",
+    "lineNumber": 62,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "URL"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "UrlEntity"
+      ],
+      "spread": false,
+      "description": "URL entity"
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "method",
+    "name": "enqueueUrlEntities",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#enqueueUrlEntities",
+    "access": "private",
+    "description": "Schedule scraping tasks",
+    "lineNumber": 72,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...UrlEntity"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "urlEntities",
+        "description": "URL entities"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "enqueueUrls",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#enqueueUrls",
+    "access": "private",
+    "description": "Schedule scraping tasks",
+    "lineNumber": 81,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...string"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "urls",
+        "description": "URLs"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "dequeueUrlEntity",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#dequeueUrlEntity",
+    "access": "private",
+    "description": "Get next scraping task",
+    "lineNumber": 90,
+    "return": {
+      "nullable": null,
+      "types": [
+        "UrlEntity"
+      ],
+      "spread": false,
+      "description": "URL entity"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "enqueueDataEntities",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#enqueueDataEntities",
+    "access": "private",
+    "description": "Schedule data processing tasks",
+    "lineNumber": 99,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...DataEntity"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "dataEntities",
+        "description": "Data entities"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "dequeueDataEntity",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#dequeueDataEntity",
+    "access": "private",
+    "description": "Get next data processing task",
+    "lineNumber": 108,
+    "return": {
+      "nullable": null,
+      "types": [
+        "DataEntity"
+      ],
+      "spread": false,
+      "description": "Data entity"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "scrapeData",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#scrapeData",
+    "access": "private",
+    "description": "Run a scraping task",
+    "lineNumber": 116,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 92,
+    "kind": "method",
+    "name": "processData",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#processData",
+    "access": "private",
+    "description": "Run a data processing task",
+    "lineNumber": 134,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "name": "start",
+    "memberof": "src/scheduler.js~Scheduler",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scheduler.js~Scheduler#start",
+    "access": "public",
+    "description": "Start crawling",
+    "lineNumber": 148,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 96,
+    "kind": "file",
+    "name": "src/scraper.js",
+    "content": "const axios = require('axios')\nconst { chooseRandom, wait } = require('./utils')\n\n/**\n * Scraper\n */\nclass Scraper {\n  /**\n   * Constructor\n   * @param {string[]} userAgents - User Agents\n   * @param {Object[]} proxies - Proxies\n   */\n  constructor(userAgents = [], proxies = []) {\n    /**\n     * @private\n     * @type {string[]}\n     */\n    this.userAgents = userAgents\n    /**\n     * @private\n     * @type {Object[]}\n     */\n    this.proxies = proxies\n    /**\n     * @private\n     * @type {Object}\n     */\n    this.axios = axios.create({ timeout: 10000 })\n  }\n\n  /**\n   * Parse result from HTML\n   * @protected\n   * @abstract\n   * @param {string} html - HTML\n   * @return {Object} Result\n   */\n  async parse(html) {}\n\n  /**\n   * Run\n   * @param {string} url - URL\n   * @return {Object} - Result\n   */\n  async run(url) {\n    for (let i = 0; i < 2; ++i) {\n      const { data: html } = await this.axios.get(url, {\n        headers: { 'User-Agent': chooseRandom(this.userAgents) },\n        proxy: chooseRandom(this.proxies)\n      })\n      if (html) {\n        const { data, nextUrls } = await this.parse(html)\n        return { success: true, data, nextUrls }\n      }\n      await wait(1000)\n    }\n    return { success: false, error: '' }\n  }\n}\n\nmodule.exports = Scraper\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/scraper.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 97,
+    "kind": "class",
+    "name": "Scraper",
+    "memberof": "src/scraper.js",
+    "static": true,
+    "longname": "src/scraper.js~Scraper",
+    "access": "public",
+    "export": true,
+    "importPath": "@albert-team/spiderman/src/scraper.js",
+    "importStyle": "Scraper",
+    "description": "Scraper",
+    "lineNumber": 7,
+    "interface": false
+  },
+  {
+    "__docId__": 98,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/scraper.js~Scraper",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/scraper.js~Scraper#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userAgents",
+        "description": "User Agents"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "proxies",
+        "description": "Proxies"
+      }
+    ]
+  },
+  {
+    "__docId__": 99,
+    "kind": "member",
+    "name": "userAgents",
+    "memberof": "src/scraper.js~Scraper",
+    "static": false,
+    "longname": "src/scraper.js~Scraper#userAgents",
+    "access": "private",
+    "description": "",
+    "lineNumber": 18,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "member",
+    "name": "proxies",
+    "memberof": "src/scraper.js~Scraper",
+    "static": false,
+    "longname": "src/scraper.js~Scraper#proxies",
+    "access": "private",
+    "description": "",
+    "lineNumber": 23,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object[]"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "member",
+    "name": "axios",
+    "memberof": "src/scraper.js~Scraper",
+    "static": false,
+    "longname": "src/scraper.js~Scraper#axios",
+    "access": "private",
+    "description": "",
+    "lineNumber": 28,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "method",
+    "name": "parse",
+    "memberof": "src/scraper.js~Scraper",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/scraper.js~Scraper#parse",
+    "access": "protected",
+    "description": "Parse result from HTML",
+    "lineNumber": 38,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "html",
+        "description": "HTML"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Result"
+    },
+    "abstract": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "method",
+    "name": "run",
+    "memberof": "src/scraper.js~Scraper",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "src/scraper.js~Scraper#run",
+    "access": "public",
+    "description": "Run",
+    "lineNumber": 45,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "URL"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "Result"
+    }
+  },
+  {
+    "__docId__": 104,
+    "kind": "file",
+    "name": "src/utils.js",
+    "content": "/**\n * Choose a random element from an array\n * @param {Array} arr - Array\n * @return {*} An element from the array\n */\nconst chooseRandom = (arr) => arr[Math.floor(Math.random() * arr.length)]\n\n/**\n * Wait for a period of time\n * @param {number} ms - Time to wait, in milliseconds\n */\nconst wait = async (ms) => new Promise((done) => setTimeout(done, ms))\n\nmodule.exports = { chooseRandom, wait }\n",
+    "static": true,
+    "longname": "/home/light/Projects/spiderman/src/utils.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 105,
+    "kind": "function",
+    "name": "chooseRandom",
+    "memberof": "src/utils.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/utils.js~chooseRandom",
+    "access": "public",
+    "export": false,
+    "importPath": "@albert-team/spiderman/src/utils.js",
+    "importStyle": null,
+    "description": "Choose a random element from an array",
+    "lineNumber": 6,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "arr",
+        "description": "Array"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": "An element from the array"
+    },
+    "ignore": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "function",
+    "name": "wait",
+    "memberof": "src/utils.js",
+    "generator": false,
+    "async": true,
+    "static": true,
+    "longname": "src/utils.js~wait",
+    "access": "public",
+    "export": false,
+    "importPath": "@albert-team/spiderman/src/utils.js",
+    "importStyle": null,
+    "description": "Wait for a period of time",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ms",
+        "description": "Time to wait, in milliseconds"
+      }
+    ],
+    "return": null,
+    "ignore": true
+  },
+  {
+    "kind": "index",
+    "content": "[![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)](https://github.com/albert-team/spiderman)\n[![](https://img.shields.io/npm/v/@albert-team/spiderman/canary.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)\n[![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)\n\n# SPIDERMAN\n\n> Minimal distributed web crawler for JavaScript\n\n## Installation\n\n### Requirements\n\n- Node.js >= 8.0.0\n\n### Instructions\n\n- With npm:\n\n```bash\nnpm i @albert-team/spiderman@canary\n```\n\n- With yarn:\n\n```bash\nyarn add @albert-team/spiderman@canary\n```\n\n## Usage\n\n## Documentation\n\nRead more [here](https://albert-team.github.io/spiderman).\n\n## Changelog\n\nRead more [here](https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md).\n\n## Todo\n\nRead more [here](https://github.com/albert-team/spiderman/blob/master/TODO.md).\n",
+    "longname": "/home/light/Projects/spiderman/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"@albert-team/spiderman\",\n  \"description\": \"Minimal distributed web crawler for JavaScript\",\n  \"version\": \"0.3.0\",\n  \"main\": \"src/index.js\",\n  \"files\": [\n    \"/src\"\n  ],\n  \"scripts\": {\n    \"build:docs\": \"esdoc\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/albert-team/spiderman.git\"\n  },\n  \"keywords\": [\n    \"minimal\",\n    \"web\",\n    \"distributed\",\n    \"crawler\"\n  ],\n  \"author\": \"Albert Team\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/albert-team/spiderman/issues\"\n  },\n  \"homepage\": \"https://github.com/albert-team/spiderman\",\n  \"devDependencies\": {\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-node\": \"^1.0.4\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^5.12.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.19.0-beta.1\",\n    \"xxhashjs\": \"^0.2.2\"\n  }\n}\n",
+    "longname": "/home/light/Projects/spiderman/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
