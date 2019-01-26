@@ -40,7 +40,7 @@ class Scraper {
   /**
    * Run
    * @param {string} url - URL
-   * @return {Object} - Result
+   * @return {Object} - Final result
    */
   async run(url) {
     for (let i = 0; i < 2; ++i) {
