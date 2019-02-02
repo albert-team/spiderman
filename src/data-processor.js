@@ -21,7 +21,7 @@ class DataProcessor {
   /**
    * Run
    * @param {Object} data - Data
-   * @return {Object} Result
+   * @return {Object} Final result
    */
   async run(data) {
     for (let i = 0; i < 2; ++i) {

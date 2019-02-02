@@ -117,7 +117,9 @@ class Scheduler {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
     urlEntity.attempts += 1
-    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
+    const { success, data, nextUrls } = await urlEntity.scraper.run(
+      urlEntity.url
+    )
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
@@ -146,12 +148,16 @@ class Scheduler {
    * Start crawling
    */
   start() {
-    do {
-      if (this.urlEntityQueue && this.scrapers < this.maxScrapers)
+    const timer = setInterval(() => {
+      if (this.urlEntityQueue.length && this.scrapers < this.maxScrapers)
         this.scrapeData()
-      if (this.dataEntityQueue && this.dataProcessors < this.maxDataProcessors)
+      if (
+        this.dataEntityQueue.length &&
+        this.dataProcessors < this.maxDataProcessors
+      )
         this.processData()
-    } while (this.scrapers)
+      if (!this.scrapers && !this.urlEntityQueue.length) clearInterval(timer)
+    }, 1)
   }
 }
 
