@@ -8,9 +8,19 @@
       "actualCount": 4,
       "undocumentLines": []
     },
-    "src/entities.js": {
-      "expectCount": 18,
-      "actualCount": 18,
+    "src/entities/data-entity.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/entities/proxy-entity.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
+    },
+    "src/entities/url-entity.js": {
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/scheduler.js": {
@@ -23,9 +33,14 @@
       "actualCount": 7,
       "undocumentLines": []
     },
-    "src/utils.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+    "src/utils/choose-random.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/utils/wait.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     }
   }

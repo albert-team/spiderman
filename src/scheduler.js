@@ -49,7 +49,7 @@ class Scheduler {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @return {{scraper: Object, dataProcessor: Object}} Scraper and data processor
+   * @return {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
    */
   classifyUrl(url) {}
 
