@@ -4,7 +4,8 @@
   "version": "0.3.1",
   "main": "src/index.js",
   "files": [
-    "/src"
+    "src",
+    "entities.js"
   ],
   "scripts": {
     "build:docs": "esdoc"
@@ -30,7 +31,7 @@
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^5.12.0"
+    "eslint": "^5.14.1"
   },
   "dependencies": {
     "axios": "^0.19.0-beta.1",

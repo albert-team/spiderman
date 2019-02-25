@@ -1,8 +1,20 @@
 window.esdocSearchIndex = [
   [
+    "@albert-team/spiderman/src/entities/data-entity.js~dataentity",
+    "class/src/entities/data-entity.js~DataEntity.html",
+    "<span>DataEntity</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/entities/data-entity.js</span>",
+    "class"
+  ],
+  [
     "@albert-team/spiderman/src/data-processor.js~dataprocessor",
     "class/src/data-processor.js~DataProcessor.html",
     "<span>DataProcessor</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/data-processor.js</span>",
+    "class"
+  ],
+  [
+    "@albert-team/spiderman/src/entities/proxy-entity.js~proxyentity",
+    "class/src/entities/proxy-entity.js~ProxyEntity.html",
+    "<span>ProxyEntity</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/entities/proxy-entity.js</span>",
     "class"
   ],
   [
@@ -16,6 +28,24 @@ window.esdocSearchIndex = [
     "class/src/scraper.js~Scraper.html",
     "<span>Scraper</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/scraper.js</span>",
     "class"
+  ],
+  [
+    "@albert-team/spiderman/src/entities/url-entity.js~urlentity",
+    "class/src/entities/url-entity.js~UrlEntity.html",
+    "<span>UrlEntity</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/entities/url-entity.js</span>",
+    "class"
+  ],
+  [
+    "@albert-team/spiderman/src/utils/choose-random.js~chooserandom",
+    "function/index.html#static-function-chooseRandom",
+    "<span>chooseRandom</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/utils/choose-random.js</span>",
+    "function"
+  ],
+  [
+    "@albert-team/spiderman/src/utils/wait.js~wait",
+    "function/index.html#static-function-wait",
+    "<span>wait</span> <span class=\"search-result-import-path\">@albert-team/spiderman/src/utils/wait.js</span>",
+    "function"
   ],
   [
     "src/.external-ecmascript.js~array",
@@ -324,10 +354,118 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/entities.js",
-    "file/src/entities.js.html",
-    "src/entities.js",
+    "src/entities/data-entity.js",
+    "file/src/entities/data-entity.js.html",
+    "src/entities/data-entity.js",
     "file"
+  ],
+  [
+    "src/entities/data-entity.js~dataentity#attempts",
+    "class/src/entities/data-entity.js~DataEntity.html#instance-member-attempts",
+    "src/entities/data-entity.js~DataEntity#attempts",
+    "member"
+  ],
+  [
+    "src/entities/data-entity.js~dataentity#constructor",
+    "class/src/entities/data-entity.js~DataEntity.html#instance-constructor-constructor",
+    "src/entities/data-entity.js~DataEntity#constructor",
+    "method"
+  ],
+  [
+    "src/entities/data-entity.js~dataentity#data",
+    "class/src/entities/data-entity.js~DataEntity.html#instance-member-data",
+    "src/entities/data-entity.js~DataEntity#data",
+    "member"
+  ],
+  [
+    "src/entities/data-entity.js~dataentity#dataprocessor",
+    "class/src/entities/data-entity.js~DataEntity.html#instance-member-dataProcessor",
+    "src/entities/data-entity.js~DataEntity#dataProcessor",
+    "member"
+  ],
+  [
+    "src/entities/index.js",
+    "file/src/entities/index.js.html",
+    "src/entities/index.js",
+    "file"
+  ],
+  [
+    "src/entities/proxy-entity.js",
+    "file/src/entities/proxy-entity.js.html",
+    "src/entities/proxy-entity.js",
+    "file"
+  ],
+  [
+    "src/entities/proxy-entity.js~proxyentity#auth",
+    "class/src/entities/proxy-entity.js~ProxyEntity.html#instance-member-auth",
+    "src/entities/proxy-entity.js~ProxyEntity#auth",
+    "member"
+  ],
+  [
+    "src/entities/proxy-entity.js~proxyentity#constructor",
+    "class/src/entities/proxy-entity.js~ProxyEntity.html#instance-constructor-constructor",
+    "src/entities/proxy-entity.js~ProxyEntity#constructor",
+    "method"
+  ],
+  [
+    "src/entities/proxy-entity.js~proxyentity#host",
+    "class/src/entities/proxy-entity.js~ProxyEntity.html#instance-member-host",
+    "src/entities/proxy-entity.js~ProxyEntity#host",
+    "member"
+  ],
+  [
+    "src/entities/proxy-entity.js~proxyentity#port",
+    "class/src/entities/proxy-entity.js~ProxyEntity.html#instance-member-port",
+    "src/entities/proxy-entity.js~ProxyEntity#port",
+    "member"
+  ],
+  [
+    "src/entities/url-entity.js",
+    "file/src/entities/url-entity.js.html",
+    "src/entities/url-entity.js",
+    "file"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#attempts",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-member-attempts",
+    "src/entities/url-entity.js~UrlEntity#attempts",
+    "member"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#constructor",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-constructor-constructor",
+    "src/entities/url-entity.js~UrlEntity#constructor",
+    "method"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#dataprocessor",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-member-dataProcessor",
+    "src/entities/url-entity.js~UrlEntity#dataProcessor",
+    "member"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#fingerprint",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-member-fingerprint",
+    "src/entities/url-entity.js~UrlEntity#fingerprint",
+    "member"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#getfingerprint",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-method-getFingerprint",
+    "src/entities/url-entity.js~UrlEntity#getFingerprint",
+    "method"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#scraper",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-member-scraper",
+    "src/entities/url-entity.js~UrlEntity#scraper",
+    "member"
+  ],
+  [
+    "src/entities/url-entity.js~urlentity#url",
+    "class/src/entities/url-entity.js~UrlEntity.html#instance-member-url",
+    "src/entities/url-entity.js~UrlEntity#url",
+    "member"
   ],
   [
     "src/index.js",
@@ -486,9 +624,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/utils.js",
-    "file/src/utils.js.html",
-    "src/utils.js",
+    "src/utils/choose-random.js",
+    "file/src/utils/choose-random.js.html",
+    "src/utils/choose-random.js",
+    "file"
+  ],
+  [
+    "src/utils/index.js",
+    "file/src/utils/index.js.html",
+    "src/utils/index.js",
+    "file"
+  ],
+  [
+    "src/utils/wait.js",
+    "file/src/utils/wait.js.html",
+    "src/utils/wait.js",
     "file"
   ]
 ]

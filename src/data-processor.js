@@ -1,20 +1,14 @@
-const { wait } = require('./utils')
-
 /**
  * Data Processor
+ * @abstract
  */
 class DataProcessor {
-  /**
-   * Constructor
-   */
-  constructor() {}
-
   /**
    * Process data
    * @protected
    * @abstract
    * @param {Object} data - Data
-   * @return {Object} Result
+   * @return {{ success: boolean }} Result
    */
   async process(data) {}
 
@@ -24,12 +18,9 @@ class DataProcessor {
    * @return {Object} Final result
    */
   async run(data) {
-    for (let i = 0; i < 2; ++i) {
-      const { success } = await this.process(data)
-      if (success) return { success: true }
-      await wait(1000)
-    }
-    return { success: false, error: '' }
+    const { success } = await this.process(data)
+    if (success) return { success: true }
+    return { success: false }
   }
 }
 

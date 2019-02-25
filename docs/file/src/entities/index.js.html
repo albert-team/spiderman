@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/utils.js | @albert-team/spiderman</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/entities/index.js | @albert-team/spiderman</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -32,25 +32,21 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/data-processor.js~DataProcessor.html">DataProcessor</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/scheduler.js~Scheduler.html">Scheduler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/scraper.js~Scraper.html">Scraper</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#entities">entities</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/entities/data-entity.js~DataEntity.html">DataEntity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/entities/url-entity.js~UrlEntity.html">UrlEntity</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-chooseRandom">chooseRandom</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-wait">wait</a></span></span></li>
 </ul>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/utils.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
- * Choose a random element from an array
- * @param {Array} arr - Array
- * @return {*} An element from the array
- */
-const chooseRandom = (arr) =&gt; arr[Math.floor(Math.random() * arr.length)]
-
-/**
- * Wait for a period of time
- * @param {number} ms - Time to wait, in milliseconds
- */
-const wait = async (ms) =&gt; new Promise((done) =&gt; setTimeout(done, ms))
-
-module.exports = { chooseRandom, wait }
+<div class="content" data-ice="content"><h1 data-ice="title">src/entities/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">module.exports = {
+  DataEntity: require(&apos;./data-entity&apos;),
+  ProxyEntity: require(&apos;./proxy-entity&apos;),
+  UrlEntity: require(&apos;./url-entity&apos;)
+}
 </code></pre>
 
 </div>
