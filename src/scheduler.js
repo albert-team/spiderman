@@ -6,10 +6,20 @@ const { UrlEntity, DataEntity } = require('./entities')
  */
 class Scheduler {
   /**
-   * Constructor
    * @param {string} initUrl - Initial URL
+   * @param {Object} [options={}] - Options
    */
-  constructor(initUrl) {
+  constructor(initUrl, options = {}) {
+    /**
+     * @private
+     * @type {Object}
+     */
+    this.options = Object.assign(
+      {
+        maxTries: 3
+      },
+      options
+    )
     /**
      * @private
      * @type {Array<UrlEntity>}
@@ -116,16 +126,14 @@ class Scheduler {
   async scrapeData() {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
-    urlEntity.attempts += 1
+    if (++urlEntity.attempts > this.options.maxTries) return
     const { success, data, nextUrls } = await urlEntity.scraper.run(
       urlEntity.url
     )
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
-    } else {
-      /* handle failed result */
-    }
+    } else this.enqueueUrlEntities(urlEntity)
     this.scrapers -= 1
   }
 
@@ -136,11 +144,9 @@ class Scheduler {
   async processData() {
     this.dataProcessors += 1
     const dataEntity = this.dequeueDataEntity()
-    dataEntity.attempts += 1
+    if (++dataEntity.attempts > this.options.maxTries) return
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) {
-      /* handle failed result */
-    }
+    if (!success) this.enqueueDataEntities(dataEntity)
     this.dataProcessors -= 1
   }
 
