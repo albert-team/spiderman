@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/albert-team/spiderman"><img width="20px" src="./image/github.png"></a></header>
+</header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -42,13 +42,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Scraper from &apos;<span><a href="file/src/scraper.js.html#lineNumber7">@albert-team/spiderman/src/scraper.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Scraper from &apos;<span><a href="file/src/scraper.js.html#lineNumber8">@albert-team/spiderman/src/scraper.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/scraper.js.html#lineNumber7">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/scraper.js.html#lineNumber8">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -101,14 +101,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(userAgents: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>, proxies: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(userAgents: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;, proxies: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span>&gt;)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Constructor</p>
-</div>
+        
       </div>
     </td>
     <td>
@@ -165,7 +164,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-member-proxies">proxies</a></span></span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-member-proxies">proxies</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -193,7 +192,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-member-userAgents">userAgents</a></span></span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-member-userAgents">userAgents</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</span>
         </p>
       </div>
       <div>
@@ -263,7 +262,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-method-parse">parse</a></span></span><span class="code" data-ice="signature">(html: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/scraper.js~Scraper.html#instance-method-parse">parse</a></span></span><span class="code" data-ice="signature">(html: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): {data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, nextUrls: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;}</span>
         </p>
       </div>
       <div>
@@ -296,7 +295,7 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(userAgents: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span>, proxies: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(userAgents: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;, proxies: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span>&gt;)</span>
     <span class="right-info">
       
       
@@ -307,8 +306,7 @@
   
   
   
-  <div data-ice="description"><p>Constructor</p>
-</div>
+  
 
   
 
@@ -322,14 +320,14 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">userAgents</td>
-      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>User Agents</p>
+      <td data-ice="description"><p>User agents</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">proxies</td>
-      <td data-ice="type" class="code"><span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Proxies</p>
 </td>
@@ -410,7 +408,7 @@
     
     
     
-    <span class="code" data-ice="name">proxies</span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></span>
+    <span class="code" data-ice="name">proxies</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="class/src/entities/proxy-entity.js~ProxyEntity.html">ProxyEntity</a></span>&gt;</span>
     <span class="right-info">
       
       
@@ -453,7 +451,7 @@
     
     
     
-    <span class="code" data-ice="name">userAgents</span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+    <span class="code" data-ice="name">userAgents</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</span>
     <span class="right-info">
       
       
@@ -575,7 +573,7 @@
     <span class="abstract" data-ice="abstract">abstract</span>
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(html: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(html: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): {data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, nextUrls: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;}</span>
     <span class="right-info">
       
       
@@ -616,7 +614,7 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-type code" data-ice="returnType">{data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, nextUrls: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;}</td>
           <td class="return-desc" data-ice="returnDescription"><p>Result</p>
 </td>
         </tr>

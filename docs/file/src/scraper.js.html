@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/albert-team/spiderman"><img width="20px" src="./image/github.png"></a></header>
+</header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -43,26 +43,26 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/scraper.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const axios = require(&apos;axios&apos;)
-const { chooseRandom, wait } = require(&apos;./utils&apos;)
+const { chooseRandom } = require(&apos;./utils&apos;)
 
 /**
  * Scraper
+ * @abstract
  */
 class Scraper {
   /**
-   * Constructor
-   * @param {string[]} userAgents - User Agents
-   * @param {Object[]} proxies - Proxies
+   * @param {Array&lt;string&gt;} userAgents - User agents
+   * @param {Array&lt;ProxyEntity&gt;} proxies - Proxies
    */
   constructor(userAgents = [], proxies = []) {
     /**
      * @private
-     * @type {string[]}
+     * @type {Array&lt;string&gt;}
      */
     this.userAgents = userAgents
     /**
      * @private
-     * @type {Object[]}
+     * @type {Array&lt;ProxyEntity&gt;}
      */
     this.proxies = proxies
     /**
@@ -77,7 +77,7 @@ class Scraper {
    * @protected
    * @abstract
    * @param {string} html - HTML
-   * @return {Object} Result
+   * @return {{ data: Object, nextUrls: Array&lt;string&gt; }} Result
    */
   async parse(html) {}
 
@@ -87,18 +87,15 @@ class Scraper {
    * @return {Object} - Final result
    */
   async run(url) {
-    for (let i = 0; i &lt; 2; ++i) {
-      const { data: html } = await this.axios.get(url, {
-        headers: { &apos;User-Agent&apos;: chooseRandom(this.userAgents) },
-        proxy: chooseRandom(this.proxies)
-      })
-      if (html) {
-        const { data, nextUrls } = await this.parse(html)
-        return { success: true, data, nextUrls }
-      }
-      await wait(1000)
+    const { data: html } = await this.axios.get(url, {
+      headers: { &apos;User-Agent&apos;: chooseRandom(this.userAgents) },
+      proxy: chooseRandom(this.proxies)
+    })
+    if (html) {
+      const { data, nextUrls } = await this.parse(html)
+      return { success: true, data, nextUrls }
     }
-    return { success: false, error: &apos;&apos; }
+    return { success: false }
   }
 }
 

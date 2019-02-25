@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/albert-team/spiderman"><img width="20px" src="./image/github.png"></a></header>
+</header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -50,10 +50,20 @@
  */
 class Scheduler {
   /**
-   * Constructor
    * @param {string} initUrl - Initial URL
+   * @param {Object} [options={}] - Options
    */
-  constructor(initUrl) {
+  constructor(initUrl, options = {}) {
+    /**
+     * @private
+     * @type {Object}
+     */
+    this.options = Object.assign(
+      {
+        maxTries: 3
+      },
+      options
+    )
     /**
      * @private
      * @type {Array&lt;UrlEntity&gt;}
@@ -160,16 +170,14 @@ class Scheduler {
   async scrapeData() {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
-    urlEntity.attempts += 1
+    if (++urlEntity.attempts &gt; this.options.maxTries) return
     const { success, data, nextUrls } = await urlEntity.scraper.run(
       urlEntity.url
     )
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
-    } else {
-      /* handle failed result */
-    }
+    } else this.enqueueUrlEntities(urlEntity)
     this.scrapers -= 1
   }
 
@@ -180,11 +188,9 @@ class Scheduler {
   async processData() {
     this.dataProcessors += 1
     const dataEntity = this.dequeueDataEntity()
-    dataEntity.attempts += 1
+    if (++dataEntity.attempts &gt; this.options.maxTries) return
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) {
-      /* handle failed result */
-    }
+    if (!success) this.enqueueDataEntities(dataEntity)
     this.dataProcessors -= 1
   }
 

@@ -4,8 +4,8 @@
   "actualCount": 49,
   "files": {
     "src/data-processor.js": {
-      "expectCount": 4,
-      "actualCount": 4,
+      "expectCount": 3,
+      "actualCount": 3,
       "undocumentLines": []
     },
     "src/entities/data-entity.js": {
@@ -24,8 +24,8 @@
       "undocumentLines": []
     },
     "src/scheduler.js": {
-      "expectCount": 18,
-      "actualCount": 18,
+      "expectCount": 19,
+      "actualCount": 19,
       "undocumentLines": []
     },
     "src/scraper.js": {

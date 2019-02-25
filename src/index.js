@@ -1,6 +1,5 @@
 module.exports = {
   DataProcessor: require('./data-processor'),
   Scheduler: require('./scheduler'),
-  Scraper: require('./scraper'),
-  entities: require('./entities') // Deprecated
+  Scraper: require('./scraper')
 }

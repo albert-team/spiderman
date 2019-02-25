@@ -336,12 +336,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/data-processor.js~dataprocessor#constructor",
-    "class/src/data-processor.js~DataProcessor.html#instance-constructor-constructor",
-    "src/data-processor.js~DataProcessor#constructor",
-    "method"
-  ],
-  [
     "src/data-processor.js~dataprocessor#process",
     "class/src/data-processor.js~DataProcessor.html#instance-method-process",
     "src/data-processor.js~DataProcessor#process",
@@ -549,6 +543,12 @@ window.esdocSearchIndex = [
     "src/scheduler.js~scheduler#maxscrapers",
     "class/src/scheduler.js~Scheduler.html#instance-member-maxScrapers",
     "src/scheduler.js~Scheduler#maxScrapers",
+    "member"
+  ],
+  [
+    "src/scheduler.js~scheduler#options",
+    "class/src/scheduler.js~Scheduler.html#instance-member-options",
+    "src/scheduler.js~Scheduler#options",
     "member"
   ],
   [

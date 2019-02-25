@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/albert-team/spiderman"><img width="20px" src="./image/github.png"></a></header>
+</header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -42,23 +42,17 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/data-processor.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const { wait } = require(&apos;./utils&apos;)
-
-/**
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
  * Data Processor
+ * @abstract
  */
 class DataProcessor {
-  /**
-   * Constructor
-   */
-  constructor() {}
-
   /**
    * Process data
    * @protected
    * @abstract
    * @param {Object} data - Data
-   * @return {Object} Result
+   * @return {{ success: boolean }} Result
    */
   async process(data) {}
 
@@ -68,12 +62,9 @@ class DataProcessor {
    * @return {Object} Final result
    */
   async run(data) {
-    for (let i = 0; i &lt; 2; ++i) {
-      const { success } = await this.process(data)
-      if (success) return { success: true }
-      await wait(1000)
-    }
-    return { success: false, error: &apos;&apos; }
+    const { success } = await this.process(data)
+    if (success) return { success: true }
+    return { success: false }
   }
 }
 
