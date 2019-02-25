@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.3.1 (Canary)
+
+- FIXED: `Scheduler` not handle asynchronous tasks properly in while loop
+
 ## v0.3.0 (Canary)
 
 - NEW: Deploy documentation to GitHub Pages

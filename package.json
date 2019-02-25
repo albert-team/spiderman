@@ -1,7 +1,7 @@
 {
   "name": "@albert-team/spiderman",
   "description": "Minimal distributed web crawler for JavaScript",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "src/index.js",
   "files": [
     "/src"
