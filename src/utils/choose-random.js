@@ -1,5 +1,6 @@
 /**
  * Choose a random element from an array
+ * @private
  * @param {Array} arr - Array
  * @returns {any} An element from the array
  */

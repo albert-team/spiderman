@@ -2,8 +2,8 @@
  * Proxy entity
  * @param {string} host - Host
  * @param {number} port - Port number
- * @param {?string} [username] - Username
- * @param {?string} [password] - Password
+ * @param {string} [username] - Username
+ * @param {string} [password] - Password
  */
 class ProxyEntity {
   constructor(host, port, username, password) {

@@ -2,6 +2,7 @@ const xxhash = require('xxhashjs')
 
 /**
  * URL entity
+ * @private
  * @param {string} url - URL
  * @param {Scraper} scraper - Scraper
  * @param {DataProcessor} dataProcessor - Data processor
@@ -16,17 +17,19 @@ class UrlEntity {
     this.dataProcessor = dataProcessor
     /** @type {number} */
     this.attempts = 0
-    /** @type {string} */
-    this.fingerprint = this.getFingerprint()
+    /**
+     * @private
+     * @type {string} */
+    this.fingerprint = ''
   }
 
   /**
    * Get fingerprint
-   * @private
    * @returns {string} Fingerprint
    */
   getFingerprint() {
-    return xxhash.h64(this.url, 0).toString()
+    if (!this.fingerprint) this.fingerprint = xxhash.h64(this.url, 0).toString()
+    return this.fingerprint
   }
 }
 
