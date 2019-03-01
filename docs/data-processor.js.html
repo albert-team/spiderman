@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: data-processor.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,8 +51,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>data-processor.js</h1>
                     </header>
                     
                     
@@ -58,46 +60,40 @@
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p><a href="https://github.com/albert-team/spiderman"><img src="https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square" alt=""></a>
-<a href="https://www.npmjs.com/package/@albert-team/spiderman"><img src="https://img.shields.io/npm/v/@albert-team/spiderman/canary.svg?style=flat-square" alt=""></a>
-<a href="https://www.npmjs.com/package/@albert-team/spiderman"><img src="https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square" alt=""></a></p>
-<h1>SPIDERMAN</h1><blockquote>
-<p>Minimalist distributed web crawler for JavaScript</p>
-</blockquote>
-<h2>Installation</h2><h3>Requirements</h3><ul>
-<li>Node.js &gt;= 8.0.0</li>
-</ul>
-<h3>Instructions</h3><ul>
-<li>With npm:</li>
-</ul>
-<pre class="prettyprint source lang-bash"><code>npm i @albert-team/spiderman@canary</code></pre><ul>
-<li>With yarn:</li>
-</ul>
-<pre class="prettyprint source lang-bash"><code>yarn add @albert-team/spiderman@canary</code></pre><h2>Usage</h2><h2>Documentation</h2><p>Read more <a href="https://albert-team.github.io/spiderman">here</a>.</p>
-<h2>Changelog</h2><p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md">here</a>.</p>
-<h2>Todo</h2><p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/TODO.md">here</a>.</p></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Data Processor
+ * @abstract
+ */
+class DataProcessor {
+  /**
+   * Process data
+   * @protected
+   * @abstract
+   * @async
+   * @param {Object} data - Data
+   * @returns {{ success: boolean }} Result
+   */
+  async process(data) {}
+
+  /**
+   * Run
+   * @async
+   * @param {Object} data - Data
+   * @returns {Object} Final result
+   */
+  async run(data) {
+    const { success } = await this.process(data)
+    if (success) return { success: true }
+    return { success: false }
+  }
+}
+
+module.exports = DataProcessor
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

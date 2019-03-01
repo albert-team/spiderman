@@ -4,12 +4,10 @@ const { chooseRandom } = require('./utils')
 /**
  * Scraper
  * @abstract
+ * @param {Array<string>} userAgents - User agents
+ * @param {Array<ProxyEntity>} proxies - Proxies
  */
 class Scraper {
-  /**
-   * @param {Array<string>} userAgents - User agents
-   * @param {Array<ProxyEntity>} proxies - Proxies
-   */
   constructor(userAgents = [], proxies = []) {
     /**
      * @private
@@ -32,15 +30,17 @@ class Scraper {
    * Parse result from HTML
    * @protected
    * @abstract
+   * @async
    * @param {string} html - HTML
-   * @return {{ data: Object, nextUrls: Array<string> }} Result
+   * @returns {{ data: Object, nextUrls: Array<string> }} Result
    */
   async parse(html) {}
 
   /**
    * Run
+   * @async
    * @param {string} url - URL
-   * @return {Object} - Final result
+   * @returns {Object} - Final result
    */
   async run(url) {
     const { data: html } = await this.axios.get(url, {

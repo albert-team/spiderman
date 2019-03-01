@@ -1,9 +1,9 @@
 # TODO
 
-- Use Redis and filter duplicate URLs with bloom filter
 - Support auto throttle
-- Measure performance of scraping and data processing tasks
-- Handle failed results
+- Use bloom filter with Redis to filter duplicate URLs
+- Handle errors and failed results better
 - Write log
 - Add tests
 - Use CI
+- Measure performance of scraping and data processing tasks

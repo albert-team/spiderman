@@ -4,7 +4,7 @@
 
 # SPIDERMAN
 
-> Minimal distributed web crawler for JavaScript
+> Minimalist distributed web crawler for JavaScript
 
 ## Installation
 

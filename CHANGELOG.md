@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.0-canary.0
+
+- NEW: `Scheduler` now supports retrying if failed
+- CHANGED: Restructure the project
+- CHANGED: Change versioning scheme
+- CHANGED: `Scraper` and `DataProcessor` don't retry once if failed
+
 ## v0.3.1 (Canary)
 
 - FIXED: `Scheduler` not handle asynchronous tasks properly in while loop

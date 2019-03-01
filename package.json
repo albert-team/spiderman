@@ -1,23 +1,29 @@
 {
   "name": "@albert-team/spiderman",
-  "description": "Minimal distributed web crawler for JavaScript",
-  "version": "0.3.1",
+  "description": "Minimalist distributed web crawler for JavaScript",
+  "version": "1.0.0-canary.0",
   "main": "src/index.js",
   "files": [
     "src",
     "entities.js"
   ],
   "scripts": {
-    "build:docs": "esdoc"
+    "build:docs": "jsdoc -c .jsdoc.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/albert-team/spiderman.git"
+  "dependencies": {
+    "axios": "^0.19.0-beta.1",
+    "xxhashjs": "^0.2.2"
   },
+  "devDependencies": {
+    "better-docs": "^1.1.5",
+    "eslint": "^5.14.1",
+    "jsdoc": "^3.5.5"
+  },
+  "repository": "github:albert-team/spiderman",
   "keywords": [
-    "minimal",
-    "web",
+    "minimalist",
     "distributed",
+    "web",
     "crawler"
   ],
   "author": "Albert Team",
@@ -25,16 +31,5 @@
   "bugs": {
     "url": "https://github.com/albert-team/spiderman/issues"
   },
-  "homepage": "https://github.com/albert-team/spiderman",
-  "devDependencies": {
-    "esdoc": "^1.1.0",
-    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-node": "^1.0.4",
-    "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^5.14.1"
-  },
-  "dependencies": {
-    "axios": "^0.19.0-beta.1",
-    "xxhashjs": "^0.2.2"
-  }
+  "homepage": "https://github.com/albert-team/spiderman"
 }

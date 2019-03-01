@@ -3,12 +3,10 @@ const { UrlEntity, DataEntity } = require('./entities')
 /**
  * Schedule crawling tasks
  * @abstract
+ * @param {string} initUrl - Initial URL
+ * @param {Object} [options={}] - Options
  */
 class Scheduler {
-  /**
-   * @param {string} initUrl - Initial URL
-   * @param {Object} [options={}] - Options
-   */
   constructor(initUrl, options = {}) {
     /**
      * @private
@@ -59,7 +57,7 @@ class Scheduler {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @return {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
+   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
    */
   classifyUrl(url) {}
 
@@ -67,7 +65,7 @@ class Scheduler {
    * Build URL entity from URL string
    * @private
    * @param {string} url - URL
-   * @return {UrlEntity} URL entity
+   * @returns {UrlEntity} URL entity
    */
   getUrlEntity(url) {
     const { scraper, dataProcessor } = this.classifyUrl(url)
@@ -95,7 +93,7 @@ class Scheduler {
   /**
    * Get next scraping task
    * @private
-   * @return {UrlEntity} URL entity
+   * @returns {UrlEntity} URL entity
    */
   dequeueUrlEntity() {
     return this.urlEntityQueue.shift()
@@ -113,7 +111,7 @@ class Scheduler {
   /**
    * Get next data processing task
    * @private
-   * @return {DataEntity} Data entity
+   * @returns {DataEntity} Data entity
    */
   dequeueDataEntity() {
     return this.dataEntityQueue.shift()
@@ -122,14 +120,13 @@ class Scheduler {
   /**
    * Run a scraping task
    * @private
+   * @async
    */
   async scrapeData() {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
     if (++urlEntity.attempts > this.options.maxTries) return
-    const { success, data, nextUrls } = await urlEntity.scraper.run(
-      urlEntity.url
-    )
+    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
       this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
       this.enqueueUrls(...nextUrls)
@@ -139,6 +136,7 @@ class Scheduler {
 
   /**
    * Run a data processing task
+   * @async
    * @private
    */
   async processData() {
@@ -157,10 +155,7 @@ class Scheduler {
     const timer = setInterval(() => {
       if (this.urlEntityQueue.length && this.scrapers < this.maxScrapers)
         this.scrapeData()
-      if (
-        this.dataEntityQueue.length &&
-        this.dataProcessors < this.maxDataProcessors
-      )
+      if (this.dataEntityQueue.length && this.dataProcessors < this.maxDataProcessors)
         this.processData()
       if (!this.scrapers && !this.urlEntityQueue.length) clearInterval(timer)
     }, 1)
