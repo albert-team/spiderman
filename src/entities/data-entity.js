@@ -1,11 +1,9 @@
 /**
  * Data entity
+ * @param {Object} data - Data
+ * @param {DataProcessor} dataProcessor - Data processor
  */
 class DataEntity {
-  /**
-   * @param {Object} data - Data
-   * @param {DataProcessor} dataProcessor - Data processor
-   */
   constructor(data, dataProcessor) {
     /** @type {Object} */
     this.data = data

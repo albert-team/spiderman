@@ -7,15 +7,17 @@ class DataProcessor {
    * Process data
    * @protected
    * @abstract
+   * @async
    * @param {Object} data - Data
-   * @return {{ success: boolean }} Result
+   * @returns {{ success: boolean }} Result
    */
   async process(data) {}
 
   /**
    * Run
+   * @async
    * @param {Object} data - Data
-   * @return {Object} Final result
+   * @returns {Object} Final result
    */
   async run(data) {
     const { success } = await this.process(data)

@@ -3,12 +3,10 @@ const { UrlEntity, DataEntity } = require('./entities')
 /**
  * Schedule crawling tasks
  * @abstract
+ * @param {string} initUrl - Initial URL
+ * @param {Object} [options={}] - Options
  */
 class Scheduler {
-  /**
-   * @param {string} initUrl - Initial URL
-   * @param {Object} [options={}] - Options
-   */
   constructor(initUrl, options = {}) {
     /**
      * @private
@@ -59,7 +57,7 @@ class Scheduler {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @return {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
+   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
    */
   classifyUrl(url) {}
 
@@ -67,7 +65,7 @@ class Scheduler {
    * Build URL entity from URL string
    * @private
    * @param {string} url - URL
-   * @return {UrlEntity} URL entity
+   * @returns {UrlEntity} URL entity
    */
   getUrlEntity(url) {
     const { scraper, dataProcessor } = this.classifyUrl(url)
@@ -95,7 +93,7 @@ class Scheduler {
   /**
    * Get next scraping task
    * @private
-   * @return {UrlEntity} URL entity
+   * @returns {UrlEntity} URL entity
    */
   dequeueUrlEntity() {
     return this.urlEntityQueue.shift()
@@ -113,7 +111,7 @@ class Scheduler {
   /**
    * Get next data processing task
    * @private
-   * @return {DataEntity} Data entity
+   * @returns {DataEntity} Data entity
    */
   dequeueDataEntity() {
     return this.dataEntityQueue.shift()
@@ -122,6 +120,7 @@ class Scheduler {
   /**
    * Run a scraping task
    * @private
+   * @async
    */
   async scrapeData() {
     this.scrapers += 1
@@ -137,6 +136,7 @@ class Scheduler {
 
   /**
    * Run a data processing task
+   * @async
    * @private
    */
   async processData() {
