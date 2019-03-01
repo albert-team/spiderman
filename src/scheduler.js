@@ -13,9 +13,7 @@ class Scheduler {
      * @type {Object}
      */
     this.options = Object.assign(
-      {
-        maxTries: 3
-      },
+      { maxTries: 3, maxScrapers: 4, maxDataProcessors: 4 },
       options
     )
     /**
@@ -30,11 +28,6 @@ class Scheduler {
     this.scrapers = 0
     /**
      * @private
-     * @type {number}
-     */
-    this.maxScrapers = 8
-    /**
-     * @private
      * @type {Array<DataEntity>}
      */
     this.dataEntityQueue = []
@@ -43,11 +36,6 @@ class Scheduler {
      * @type {number}
      */
     this.dataProcessors = 0
-    /**
-     * @private
-     * @type {number}
-     */
-    this.maxDataProcessors = 8
 
     this.enqueueUrls(initUrl)
   }
@@ -153,9 +141,12 @@ class Scheduler {
    */
   start() {
     const timer = setInterval(() => {
-      if (this.urlEntityQueue.length && this.scrapers < this.maxScrapers)
+      if (this.urlEntityQueue.length && this.scrapers < this.options.maxScrapers)
         this.scrapeData()
-      if (this.dataEntityQueue.length && this.dataProcessors < this.maxDataProcessors)
+      if (
+        this.dataEntityQueue.length &&
+        this.dataProcessors < this.options.maxDataProcessors
+      )
         this.processData()
       if (!this.scrapers && !this.urlEntityQueue.length) clearInterval(timer)
     }, 1)

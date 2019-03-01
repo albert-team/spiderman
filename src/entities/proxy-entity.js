@@ -11,7 +11,7 @@ class ProxyEntity {
     this.host = host
     /** @type {number} */
     this.port = port
-    /** @type {Object} */
+    /** @type {{ username: string, password: string }} */
     this.auth = { username, password }
   }
 }
