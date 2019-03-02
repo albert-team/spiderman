@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.0-canary.1
+
+- NEW: Add duplicate URL filter
+- NEW: Maximum number of active scrapers and data processors in `Scheduler` are customizable
+- CHANGED: Change some internal behaviors of `Scheduler`
+- CHANGED: Migrate from ESDoc to JSDoc
+
 ## v1.0.0-canary.0
 
 - NEW: `Scheduler` now supports retrying if failed

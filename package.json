@@ -1,7 +1,7 @@
 {
   "name": "@albert-team/spiderman",
   "description": "Minimalist distributed web crawler for JavaScript",
-  "version": "1.0.0-canary.0",
+  "version": "1.0.0-canary.1",
   "main": "src/index.js",
   "files": [
     "src",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "better-docs": "^1.1.5",
-    "eslint": "^5.14.1",
+    "eslint": "^5.15.0",
     "eslint-plugin-jest": "^22.3.0",
     "jest": "^24.1.0",
     "jsdoc": "^3.5.5"
