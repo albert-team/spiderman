@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@albert-team/rebloom@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@albert-team/rebloom/-/rebloom-0.1.1.tgz#f99e8d5b3085e0c2d773b0c9bbf3781e774f45c1"
-  integrity sha512-u23jnYhpO96pYJ6ru5o0IOsn/YhYkmFun7pX9UYmG8EiQEwy5ALQEiuzKRBCz99yY5GZhHqFLTLZWZKKXGFv8g==
+"@albert-team/rebloom@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@albert-team/rebloom/-/rebloom-0.1.2.tgz#9638c2cb0ba4a15363a6fcff0f9f014f025fd375"
+  integrity sha512-ol8FKgtRRZudr4Msg2n25hX1dZKrCedCNAYzZHT61oMBb9XRVNzZ2pm3OpQy9uRx8srcp9aa80TH5934q9DKcw==
   dependencies:
     "@albert-team/red" "^0.3.0"
 

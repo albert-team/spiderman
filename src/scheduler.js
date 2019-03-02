@@ -47,6 +47,12 @@ class Scheduler {
      * @type {BloomFilter}
      */
     this.dupUrlFilter = new BloomFilter('duplicate-url-filter')
+    /**
+     * Interval timer when crawling
+     * @private
+     * @type {number}
+     */
+    this.timer = null
   }
 
   /**
@@ -81,8 +87,8 @@ class Scheduler {
       urlEntities = await Promise.all(
         urlEntities.map(async (urlEntity) => {
           const fp = urlEntity.getFingerprint()
-          if (await this.exists(fp)) return null
-          await this.add(fp)
+          if (await this.dupUrlFilter.exists(fp)) return null
+          await this.dupUrlFilter.add(fp)
           return urlEntity
         })
       )
@@ -141,7 +147,7 @@ class Scheduler {
     this.scrapers += 1
     const urlEntity = this.dequeueUrlEntity()
     if (++urlEntity.attempts > this.options.maxTries) return
-    const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
+    const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
       this.enqueueDataEntities([new DataEntity(data, urlEntity.dataProcessor)])
       await this.enqueueUrls(nextUrls)
@@ -151,8 +157,8 @@ class Scheduler {
 
   /**
    * Run a data processing task
-   * @async
    * @private
+   * @async
    */
   async processData() {
     this.dataProcessors += 1
@@ -173,7 +179,7 @@ class Scheduler {
 
     await this.enqueueUrls([this.initUrl])
 
-    const timer = setInterval(() => {
+    this.timer = setInterval(async () => {
       if (this.urlEntityQueue.length && this.scrapers < this.options.maxScrapers)
         this.scrapeData()
       if (
@@ -181,18 +187,16 @@ class Scheduler {
         this.dataProcessors < this.options.maxDataProcessors
       )
         this.processData()
-      if (!this.scrapers && !this.urlEntityQueue.length) {
-        clearInterval(timer)
-        this.stop()
-      }
+      if (!this.scrapers && !this.urlEntityQueue.length) await this.stop()
     }, 100)
   }
 
   /**
-   * Stop crawling
+   * Stop crawling and clean up
    * @async
    */
   async stop() {
+    clearInterval(this.timer)
     await this.dupUrlFilter.disconnect()
   }
 }
