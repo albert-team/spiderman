@@ -1,5 +1,5 @@
 const { UrlEntity, DataEntity } = require('./entities')
-const DuplicateUrlFilter = require('./duplicate-url-filter')
+const { BloomFilter } = require('@albert-team/rebloom')
 
 /**
  * Schedule crawling tasks
@@ -9,6 +9,11 @@ const DuplicateUrlFilter = require('./duplicate-url-filter')
  */
 class Scheduler {
   constructor(initUrl, options = {}) {
+    /**
+     * @private
+     * @type {string}
+     */
+    this.initUrl = initUrl
     /**
      * @private
      * @type {Object}
@@ -39,11 +44,9 @@ class Scheduler {
     this.dataProcessors = 0
     /**
      * @private
-     * @type {Object}
+     * @type {BloomFilter}
      */
-    this.dupUrlFilter = new DuplicateUrlFilter()
-
-    this.enqueueUrls([initUrl])
+    this.dupUrlFilter = new BloomFilter('duplicate-url-filter')
   }
 
   /**
@@ -69,13 +72,19 @@ class Scheduler {
   /**
    * Schedule scraping tasks
    * @private
+   * @async
    * @param {Array<UrlEntity>} urlEntities - URL entities
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicate URLs or not
    */
-  enqueueUrlEntities(urlEntities, duplicateCheck = true) {
+  async enqueueUrlEntities(urlEntities, duplicateCheck = true) {
     if (duplicateCheck) {
-      urlEntities = Promise.all(
-        urlEntities.map(async (urlEntity) => await this.dupUrlFilter.check(urlEntity))
+      urlEntities = await Promise.all(
+        urlEntities.map(async (urlEntity) => {
+          const fp = urlEntity.getFingerprint()
+          if (await this.exists(fp)) return null
+          await this.add(fp)
+          return urlEntity
+        })
       )
       urlEntities = urlEntities.filter((urlEntity) => urlEntity) // filter out all null items
     }
@@ -85,11 +94,15 @@ class Scheduler {
   /**
    * Schedule scraping tasks
    * @private
+   * @async
    * @param {Array<string>} urls - URLs
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicate URLs or not
    */
-  enqueueUrls(urls, duplicateCheck = true) {
-    this.enqueueUrlEntities(urls.map((url) => this.getUrlEntity(url)), duplicateCheck)
+  async enqueueUrls(urls, duplicateCheck = true) {
+    return this.enqueueUrlEntities(
+      urls.map((url) => this.getUrlEntity(url)),
+      duplicateCheck
+    )
   }
 
   /**
@@ -131,8 +144,8 @@ class Scheduler {
     const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
       this.enqueueDataEntities([new DataEntity(data, urlEntity.dataProcessor)])
-      this.enqueueUrls(nextUrls)
-    } else this.enqueueUrlEntities([urlEntity], false)
+      await this.enqueueUrls(nextUrls)
+    } else await this.enqueueUrlEntities([urlEntity], false)
     this.scrapers -= 1
   }
 
@@ -158,6 +171,8 @@ class Scheduler {
     await this.dupUrlFilter.connect()
     await this.dupUrlFilter.prepare()
 
+    await this.enqueueUrls([this.initUrl])
+
     const timer = setInterval(() => {
       if (this.urlEntityQueue.length && this.scrapers < this.options.maxScrapers)
         this.scrapeData()
@@ -166,8 +181,11 @@ class Scheduler {
         this.dataProcessors < this.options.maxDataProcessors
       )
         this.processData()
-      if (!this.scrapers && !this.urlEntityQueue.length) clearInterval(timer)
-    }, 10)
+      if (!this.scrapers && !this.urlEntityQueue.length) {
+        clearInterval(timer)
+        this.stop()
+      }
+    }, 100)
   }
 
   /**
