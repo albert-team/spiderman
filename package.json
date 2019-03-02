@@ -8,15 +8,19 @@
     "entities.js"
   ],
   "scripts": {
-    "build:docs": "jsdoc -c .jsdoc.json"
+    "build:docs": "jsdoc -c .jsdoc.json",
+    "test": "jest"
   },
   "dependencies": {
+    "@albert-team/rebloom": "^0.1.0",
     "axios": "^0.19.0-beta.1",
     "xxhashjs": "^0.2.2"
   },
   "devDependencies": {
     "better-docs": "^1.1.5",
     "eslint": "^5.14.1",
+    "eslint-plugin-jest": "^22.3.0",
+    "jest": "^24.1.0",
     "jsdoc": "^3.5.5"
   },
   "repository": "github:albert-team/spiderman",

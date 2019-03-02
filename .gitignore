@@ -77,5 +77,3 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-
-tests/

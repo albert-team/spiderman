@@ -1,4 +1,5 @@
 const { UrlEntity, DataEntity } = require('./entities')
+const { BloomFilter } = require('@albert-team/rebloom')
 
 /**
  * Schedule crawling tasks
@@ -10,12 +11,15 @@ class Scheduler {
   constructor(initUrl, options = {}) {
     /**
      * @private
+     * @type {string}
+     */
+    this.initUrl = initUrl
+    /**
+     * @private
      * @type {Object}
      */
     this.options = Object.assign(
-      {
-        maxTries: 3
-      },
+      { maxTries: 3, maxScrapers: 4, maxDataProcessors: 4 },
       options
     )
     /**
@@ -30,11 +34,6 @@ class Scheduler {
     this.scrapers = 0
     /**
      * @private
-     * @type {number}
-     */
-    this.maxScrapers = 8
-    /**
-     * @private
      * @type {Array<DataEntity>}
      */
     this.dataEntityQueue = []
@@ -45,11 +44,9 @@ class Scheduler {
     this.dataProcessors = 0
     /**
      * @private
-     * @type {number}
+     * @type {BloomFilter}
      */
-    this.maxDataProcessors = 8
-
-    this.enqueueUrls(initUrl)
+    this.dupUrlFilter = new BloomFilter('duplicate-url-filter')
   }
 
   /**
@@ -75,19 +72,37 @@ class Scheduler {
   /**
    * Schedule scraping tasks
    * @private
-   * @param {...UrlEntity} urlEntities - URL entities
+   * @async
+   * @param {Array<UrlEntity>} urlEntities - URL entities
+   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicate URLs or not
    */
-  enqueueUrlEntities(...urlEntities) {
+  async enqueueUrlEntities(urlEntities, duplicateCheck = true) {
+    if (duplicateCheck) {
+      urlEntities = await Promise.all(
+        urlEntities.map(async (urlEntity) => {
+          const fp = urlEntity.getFingerprint()
+          if (await this.exists(fp)) return null
+          await this.add(fp)
+          return urlEntity
+        })
+      )
+      urlEntities = urlEntities.filter((urlEntity) => urlEntity) // filter out all null items
+    }
     this.urlEntityQueue.push(...urlEntities)
   }
 
   /**
    * Schedule scraping tasks
    * @private
-   * @param {...string} urls - URLs
+   * @async
+   * @param {Array<string>} urls - URLs
+   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicate URLs or not
    */
-  enqueueUrls(...urls) {
-    this.enqueueUrlEntities(...urls.map((url) => this.getUrlEntity(url)))
+  async enqueueUrls(urls, duplicateCheck = true) {
+    return this.enqueueUrlEntities(
+      urls.map((url) => this.getUrlEntity(url)),
+      duplicateCheck
+    )
   }
 
   /**
@@ -102,9 +117,9 @@ class Scheduler {
   /**
    * Schedule data processing tasks
    * @private
-   * @param {...DataEntity} dataEntities - Data entities
+   * @param {Array<DataEntity>} dataEntities - Data entities
    */
-  enqueueDataEntities(...dataEntities) {
+  enqueueDataEntities(dataEntities) {
     this.dataEntityQueue.push(...dataEntities)
   }
 
@@ -128,9 +143,9 @@ class Scheduler {
     if (++urlEntity.attempts > this.options.maxTries) return
     const { success, data, nextUrls } = await urlEntity.scraper.run(urlEntity.url)
     if (success) {
-      this.enqueueDataEntities(new DataEntity(data, urlEntity.dataProcessor))
-      this.enqueueUrls(...nextUrls)
-    } else this.enqueueUrlEntities(urlEntity)
+      this.enqueueDataEntities([new DataEntity(data, urlEntity.dataProcessor)])
+      await this.enqueueUrls(nextUrls)
+    } else await this.enqueueUrlEntities([urlEntity], false)
     this.scrapers -= 1
   }
 
@@ -144,21 +159,41 @@ class Scheduler {
     const dataEntity = this.dequeueDataEntity()
     if (++dataEntity.attempts > this.options.maxTries) return
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) this.enqueueDataEntities(dataEntity)
+    if (!success) this.enqueueDataEntities([dataEntity])
     this.dataProcessors -= 1
   }
 
   /**
    * Start crawling
+   * @async
    */
-  start() {
+  async start() {
+    await this.dupUrlFilter.connect()
+    await this.dupUrlFilter.prepare()
+
+    await this.enqueueUrls([this.initUrl])
+
     const timer = setInterval(() => {
-      if (this.urlEntityQueue.length && this.scrapers < this.maxScrapers)
+      if (this.urlEntityQueue.length && this.scrapers < this.options.maxScrapers)
         this.scrapeData()
-      if (this.dataEntityQueue.length && this.dataProcessors < this.maxDataProcessors)
+      if (
+        this.dataEntityQueue.length &&
+        this.dataProcessors < this.options.maxDataProcessors
+      )
         this.processData()
-      if (!this.scrapers && !this.urlEntityQueue.length) clearInterval(timer)
-    }, 1)
+      if (!this.scrapers && !this.urlEntityQueue.length) {
+        clearInterval(timer)
+        this.stop()
+      }
+    }, 100)
+  }
+
+  /**
+   * Stop crawling
+   * @async
+   */
+  async stop() {
+    await this.dupUrlFilter.disconnect()
   }
 }
 
