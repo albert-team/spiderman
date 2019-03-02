@@ -81,8 +81,8 @@ class Scheduler {
       urlEntities = await Promise.all(
         urlEntities.map(async (urlEntity) => {
           const fp = urlEntity.getFingerprint()
-          if (await this.exists(fp)) return null
-          await this.add(fp)
+          if (await this.dupUrlFilter.exists(fp)) return null
+          await this.dupUrlFilter.add(fp)
           return urlEntity
         })
       )
@@ -151,8 +151,8 @@ class Scheduler {
 
   /**
    * Run a data processing task
-   * @async
    * @private
+   * @async
    */
   async processData() {
     this.dataProcessors += 1
@@ -173,7 +173,7 @@ class Scheduler {
 
     await this.enqueueUrls([this.initUrl])
 
-    const timer = setInterval(() => {
+    const timer = setInterval(async () => {
       if (this.urlEntityQueue.length && this.scrapers < this.options.maxScrapers)
         this.scrapeData()
       if (
@@ -183,7 +183,7 @@ class Scheduler {
         this.processData()
       if (!this.scrapers && !this.urlEntityQueue.length) {
         clearInterval(timer)
-        this.stop()
+        await this.stop()
       }
     }, 100)
   }
