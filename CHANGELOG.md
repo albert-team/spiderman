@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.0.0-canary.2
+
+- FIXED: Upgrade `@albert-team/rebloom` to fix missing .so file bug
+
 ## v1.0.0-canary.1
 
 - NEW: Add duplicate URL filter
