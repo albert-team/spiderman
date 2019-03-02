@@ -2,7 +2,6 @@ const xxhash = require('xxhashjs')
 
 /**
  * URL entity
- * @private
  * @param {string} url - URL
  * @param {Scraper} scraper - Scraper
  * @param {DataProcessor} dataProcessor - Data processor

@@ -2,7 +2,6 @@ const { BloomFilter } = require('@albert-team/rebloom')
 
 /**
  * Duplicate URL filter using @albert-team/rebloom
- * @private
  */
 class DuplicateUrlFilter extends BloomFilter {
   constructor() {

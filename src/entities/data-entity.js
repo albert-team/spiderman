@@ -1,6 +1,5 @@
 /**
  * Data entity
- * @private
  * @param {Object} data - Data
  * @param {DataProcessor} dataProcessor - Data processor
  */
