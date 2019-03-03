@@ -4,8 +4,8 @@ const { chooseRandom } = require('./utils')
 /**
  * Scraper
  * @abstract
- * @param {Array<string>} userAgents - User agents
- * @param {Array<ProxyEntity>} proxies - Proxies
+ * @param {Array<string>} [userAgents=[]] - User agents
+ * @param {Array<ProxyEntity>} [proxies=[]] - Proxies
  */
 class Scraper {
   constructor(userAgents = [], proxies = []) {

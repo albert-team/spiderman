@@ -1,7 +1,7 @@
 {
   "name": "@albert-team/spiderman",
-  "description": "Minimalist distributed web crawler for JavaScript",
-  "version": "1.0.0-canary.2",
+  "description": "Minimalistic web crawler for Node.js",
+  "version": "1.0.0-beta.0",
   "main": "src/index.js",
   "files": [
     "src",
@@ -26,8 +26,7 @@
   },
   "repository": "github:albert-team/spiderman",
   "keywords": [
-    "minimalist",
-    "distributed",
+    "minimalistic",
     "web",
     "crawler"
   ],
