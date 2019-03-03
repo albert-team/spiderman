@@ -15,7 +15,7 @@ class UrlEntity {
     /** @type {DataProcessor} */
     this.dataProcessor = dataProcessor
     /** @type {number} */
-    this.attempts = 0
+    this.retryCount = -1
     /**
      * @private
      * @type {string} */
