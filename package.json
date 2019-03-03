@@ -14,6 +14,7 @@
   "dependencies": {
     "@albert-team/rebloom": "^0.1.2",
     "axios": "^0.19.0-beta.1",
+    "bottleneck": "^2.17.0",
     "xxhashjs": "^0.2.2"
   },
   "devDependencies": {

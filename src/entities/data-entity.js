@@ -10,7 +10,7 @@ class DataEntity {
     /** @type {DataProcessor} */
     this.dataProcessor = dataProcessor
     /** @type {number} */
-    this.attempts = 0
+    this.retryCount = -1
   }
 }
 
