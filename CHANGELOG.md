@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.0.0-beta.0
+
+- NEW: Simplify `Scheduler` by using `bottleneck`
+- NEW: Start writing tests with Jest
+- CHANGED: Many internal changes
+- CHANGED: `Scheduler` doesn't automatically stop and disconnect once finished anymore
+
 ## v1.0.0-canary.2
 
 - FIXED: Upgrade `@albert-team/rebloom` to fix missing .so file bug
