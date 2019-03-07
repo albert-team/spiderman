@@ -1,6 +1,8 @@
-const { UrlEntity, DataEntity } = require('./entities')
-const { BloomFilter } = require('@albert-team/rebloom')
 const Bottleneck = require('bottleneck').default
+const { BloomFilter } = require('@albert-team/rebloom')
+const pino = require('pino')
+
+const { UrlEntity, DataEntity } = require('./entities')
 
 /**
  * Manage and schedule crawling tasks
@@ -27,7 +29,7 @@ class Scheduler {
      * @private
      * @type {BloomFilter}
      */
-    this.dupUrlFilter = new BloomFilter('duplicate-url-filter')
+    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter')
     /**
      * @private
      * @type {Bottleneck}
@@ -56,6 +58,11 @@ class Scheduler {
     this.dataProcessors.on('failed', async (err, task) => {
       if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
     })
+    /**
+     * @private
+     * @type {Object}
+     */
+    this.logger = pino({ name: 'spiderman-scheduler' })
   }
 
   /**
@@ -95,6 +102,7 @@ class Scheduler {
     if (urlEntity.retryCount >= this.options.longRetries) return
     ++urlEntity.retryCount
     const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
+    this.logger.info({ url: urlEntity.url, success })
     if (success) {
       const dataEntity = new DataEntity(data, urlEntity.dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
