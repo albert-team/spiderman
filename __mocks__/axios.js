@@ -3,6 +3,6 @@ module.exports = {
     return this
   }),
   get: jest.fn(async (url) => {
-    return { data: url }
+    return { status: 200, data: url }
   })
 }
