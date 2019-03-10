@@ -1,6 +1,8 @@
-const { UrlEntity, DataEntity } = require('./entities')
-const { BloomFilter } = require('@albert-team/rebloom')
 const Bottleneck = require('bottleneck').default
+const { BloomFilter } = require('@albert-team/rebloom')
+const pino = require('pino')
+
+const { UrlEntity, DataEntity } = require('./entities')
 
 /**
  * Manage and schedule crawling tasks
@@ -27,7 +29,12 @@ class Scheduler {
      * @private
      * @type {BloomFilter}
      */
-    this.dupUrlFilter = new BloomFilter('duplicate-url-filter')
+    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter')
+    /**
+     * @private
+     * @type {number}
+     */
+    this.activeQueues = 2
     /**
      * @private
      * @type {Bottleneck}
@@ -39,9 +46,11 @@ class Scheduler {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
     })
-    this.scrapers.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
-    })
+    this.scrapers
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+      })
+      .once('idle', () => --this.activeQueues)
     /**
      * @private
      * @type {Bottleneck}
@@ -53,9 +62,16 @@ class Scheduler {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+      })
+      .once('idle', () => --this.activeQueues)
+    /**
+     * @private
+     * @type {Object}
+     */
+    this.logger = pino({ name: 'spiderman-scheduler' })
   }
 
   /**
@@ -92,14 +108,17 @@ class Scheduler {
    * @param {UrlEntity} urlEntity - URL entity
    */
   async scrapeUrlEntity(urlEntity) {
-    if (urlEntity.retryCount >= this.options.longRetries) return
     ++urlEntity.retryCount
     const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
+    this.logger.info({ url: urlEntity.url, success })
     if (success) {
       const dataEntity = new DataEntity(data, urlEntity.dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
       for (const url of nextUrls) this.scrapers.schedule(() => this.scrapeUrl(url))
-    } else this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
+    } else {
+      if (urlEntity.retryCount >= this.options.longRetries) return
+      this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
+    }
   }
 
   /**
@@ -109,10 +128,23 @@ class Scheduler {
    * @param {DataEntity} dataEntity - Data entity
    */
   async processDataEntity(dataEntity) {
-    if (dataEntity.retryCount >= this.options.longRetries) return
     ++dataEntity.retryCount
     const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
-    if (!success) this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
+    if (!success) {
+      if (dataEntity.retryCount >= this.options.longRetries) return
+      this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
+    }
+  }
+
+  /**
+   * Connect to databases and prepare everything
+   * @private
+   * @async
+   */
+  async prepare() {
+    this.logger.info('Preparing')
+    await this.dupUrlFilter.connect()
+    await this.dupUrlFilter.prepare()
   }
 
   /**
@@ -120,9 +152,16 @@ class Scheduler {
    * @async
    */
   async start() {
-    await this.dupUrlFilter.connect()
-    await this.dupUrlFilter.prepare()
+    await this.prepare()
+    this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
+    // automatically stop and disconnect once finished
+    const timer = setInterval(async () => {
+      if (this.activeQueues > 0) return
+      clearInterval(timer)
+      await this.stop()
+      await this.disconnect()
+    }, 1000)
   }
 
   /**
@@ -131,6 +170,7 @@ class Scheduler {
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
   async stop(gracefully = true) {
+    this.logger.info('Stop crawling')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -142,6 +182,7 @@ class Scheduler {
    * @async
    */
   async disconnect() {
+    this.logger.info('Disconnecting')
     return Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
