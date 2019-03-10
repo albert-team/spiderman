@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.0-beta.1
+
+- NEW: Start writing logs with Pino
+- NEW: Reduce package size by not publishing irrelevant files
+- CHANGED: `Scheduler` once again automatically stop and disconnect once finished
+
 ## v1.0.0-beta.0
 
 - NEW: Simplify `Scheduler` by using `bottleneck`
