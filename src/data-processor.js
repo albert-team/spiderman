@@ -20,9 +20,13 @@ class DataProcessor {
    * @returns {Object} Final result
    */
   async run(data) {
-    const { success } = await this.process(data)
-    if (success) return { success: true }
-    return { success: false }
+    try {
+      const { success = true } = await this.process(data)
+      if (success) return { success: true }
+      else throw new Error()
+    } catch (err) {
+      return { success: false }
+    }
   }
 }
 
