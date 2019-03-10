@@ -32,6 +32,11 @@ class Scheduler {
     this.dupUrlFilter = new BloomFilter('spiderman-urlfilter')
     /**
      * @private
+     * @type {number}
+     */
+    this.activeQueues = 2
+    /**
+     * @private
      * @type {Bottleneck}
      */
     this.scrapers = new Bottleneck({
@@ -41,9 +46,11 @@ class Scheduler {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
     })
-    this.scrapers.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
-    })
+    this.scrapers
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+      })
+      .once('idle', () => --this.activeQueues)
     /**
      * @private
      * @type {Bottleneck}
@@ -55,9 +62,11 @@ class Scheduler {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+      })
+      .once('idle', () => --this.activeQueues)
     /**
      * @private
      * @type {Object}
@@ -146,6 +155,13 @@ class Scheduler {
     await this.prepare()
     this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
+    // automatically stop and disconnect once finished
+    const timer = setInterval(async () => {
+      if (this.activeQueues > 0) return
+      clearInterval(timer)
+      await this.stop()
+      await this.disconnect()
+    }, 1000)
   }
 
   /**
