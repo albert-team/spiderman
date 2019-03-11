@@ -29,7 +29,7 @@ class Scheduler {
      * @private
      * @type {BloomFilter}
      */
-    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter')
+    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
     /**
      * @private
      * @type {number}
