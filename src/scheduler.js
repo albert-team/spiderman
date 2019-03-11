@@ -22,14 +22,14 @@ class Scheduler {
      * @type {Object}
      */
     this.options = Object.assign(
-      { shortRetries: 1, longRetries: 1, maxScrapers: 4, maxDataProcessors: 4 },
+      { shortRetries: 1, longRetries: 2, maxScrapers: 4, maxDataProcessors: 4 },
       options
     )
     /**
      * @private
      * @type {BloomFilter}
      */
-    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter')
+    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
     /**
      * @private
      * @type {number}
@@ -41,7 +41,6 @@ class Scheduler {
      */
     this.scrapers = new Bottleneck({
       maxConcurrent: this.options.maxScrapers,
-      minTime: 100,
       reservoir: 60,
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
@@ -57,7 +56,6 @@ class Scheduler {
      */
     this.dataProcessors = new Bottleneck({
       maxConcurrent: this.options.maxDataProcessors,
-      minTime: 100,
       reservoir: 60,
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: 60
@@ -110,7 +108,7 @@ class Scheduler {
   async scrapeUrlEntity(urlEntity) {
     ++urlEntity.retryCount
     const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
-    this.logger.info({ url: urlEntity.url, success })
+    this.logger.info({ url: urlEntity.url, attempt: urlEntity.retryCount + 1, success })
     if (success) {
       const dataEntity = new DataEntity(data, urlEntity.dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
