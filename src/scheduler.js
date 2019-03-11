@@ -120,7 +120,9 @@ class Scheduler {
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) return
-      this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
+      this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
+        this.scrapeUrlEntity(urlEntity)
+      )
     }
   }
 
@@ -132,10 +134,13 @@ class Scheduler {
    */
   async processDataEntity(dataEntity) {
     ++dataEntity.retryCount
-    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
+    const { data, dataProcessor, retryCount } = dataEntity
+    const { success } = await dataProcessor.run(data)
     if (!success) {
-      if (dataEntity.retryCount >= this.options.longRetries) return
-      this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
+      if (retryCount >= this.options.longRetries) return
+      this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
+        this.processDataEntity(dataEntity)
+      )
     }
   }
 
