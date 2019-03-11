@@ -77,7 +77,7 @@ class Scheduler {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
+   * @returns {({ scraper: Scraper, dataProcessor: (DataProcessor|null) }|null)} Scraper and data processor
    */
   classifyUrl(url) {}
 
@@ -89,7 +89,9 @@ class Scheduler {
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
   async scrapeUrl(url, duplicateCheck = true) {
-    const { scraper, dataProcessor } = this.classifyUrl(url)
+    const result = this.classifyUrl(url)
+    if (!result) return // discard
+    const { scraper, dataProcessor } = result
     const urlEntity = new UrlEntity(url, scraper, dataProcessor)
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
@@ -107,14 +109,17 @@ class Scheduler {
    */
   async scrapeUrlEntity(urlEntity) {
     ++urlEntity.retryCount
-    const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
-    this.logger.info({ url: urlEntity.url, attempt: urlEntity.retryCount + 1, success })
+    const { url, scraper, dataProcessor, retryCount } = urlEntity
+    const { success, data, nextUrls = [] } = await scraper.run(url)
+    this.logger.info({ url, attempt: retryCount + 1, success })
     if (success) {
-      const dataEntity = new DataEntity(data, urlEntity.dataProcessor)
+      for (const nextUrl of nextUrls)
+        this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
+      if (!dataProcessor) return
+      const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
-      for (const url of nextUrls) this.scrapers.schedule(() => this.scrapeUrl(url))
     } else {
-      if (urlEntity.retryCount >= this.options.longRetries) return
+      if (retryCount >= this.options.longRetries) return
       this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
     }
   }
