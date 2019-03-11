@@ -19,13 +19,58 @@
 - With npm:
 
 ```bash
-npm i @albert-team/spiderman@beta
+npm i @albert-team/spiderman
 ```
 
 - With yarn:
 
 ```bash
-yarn add @albert-team/spiderman@beta
+yarn add @albert-team/spiderman
+```
+
+## Usage
+
+### Basic Usage
+
+```js
+const { Scheduler, Scraper, DataProcessor } = require('@albert-team/spiderman')
+
+class MyScraper extends Scraper {
+  constructor() {
+    super()
+  }
+
+  async parse(html) {
+    return { data: { html }, nextUrls: [] }
+  }
+}
+
+class MyDataProcessor extends DataProcessor {
+  constructor() {
+    super()
+  }
+
+  async run(data) {
+    console.log(data)
+    return { success: true }
+  }
+}
+
+class MyManager extends Scheduler {
+  constructor() {
+    super('url')
+  }
+
+  classifyUrl(url) {
+    return {
+      scraper: new MyScraper(),
+      dataProcessor: new MyDataProcessor()
+    }
+  }
+}
+
+const manager = new MyManager()
+manager.start()
 ```
 
 ## Documentation

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.0
+
+- CHANGED: Change some default values of `Scheduler`
+- FIXED: Fix `Scraper` and `DataProcessor`
+
 ## v1.0.0-beta.1
 
 - NEW: Start writing logs with Pino
