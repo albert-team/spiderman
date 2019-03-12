@@ -1,4 +1,6 @@
 const axios = require('axios')
+
+const { ScraperOptions } = require('./options')
 const { chooseRandom } = require('./utils')
 
 /**
@@ -26,9 +28,9 @@ class Scraper {
      */
     /**
      * @private
-     * @type {Object}
+     * @type {ScraperOptions}
      */
-    this.options = Object.assign({ timeout: 10000 }, options)
+    this.options = new ScraperOptions(options)
     /**
      * @private
      * @type {Object}

@@ -3,6 +3,7 @@ const { BloomFilter } = require('@albert-team/rebloom')
 const pino = require('pino')
 
 const { UrlEntity, DataEntity } = require('./entities')
+const { SchedulerOptions } = require('./options')
 
 /**
  * Manage and schedule crawling tasks
@@ -19,12 +20,9 @@ class Scheduler {
     this.initUrl = initUrl
     /**
      * @private
-     * @type {Object}
+     * @type {SchedulerOptions}
      */
-    this.options = Object.assign(
-      { shortRetries: 1, longRetries: 2, maxScrapers: 4, maxDataProcessors: 4 },
-      options
-    )
+    this.options = new SchedulerOptions(options)
     /**
      * @private
      * @type {BloomFilter}
@@ -41,9 +39,9 @@ class Scheduler {
      */
     this.scrapers = new Bottleneck({
       maxConcurrent: this.options.maxScrapers,
-      reservoir: 60,
+      reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: 60
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
     this.scrapers
       .on('failed', async (err, task) => {
@@ -56,9 +54,9 @@ class Scheduler {
      */
     this.dataProcessors = new Bottleneck({
       maxConcurrent: this.options.maxDataProcessors,
-      reservoir: 60,
+      reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: 60
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
     this.dataProcessors
       .on('failed', async (err, task) => {
