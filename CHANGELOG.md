@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v1.1.0
+
+- NEW: `Scheduler.classifyUrl()` returns `null` or `undefined` to discard and `dataProcessor` property is optional
+- NEW: Lower the priority of retried tasks
+
+## v1.0.0
+
+- CHANGED: Change some default values of `Scheduler`
+- FIXED: Fix `Scraper` and `DataProcessor`
+
 ## v1.0.0-beta.1
 
 - NEW: Start writing logs with Pino
@@ -8,14 +18,14 @@
 
 ## v1.0.0-beta.0
 
-- NEW: Simplify `Scheduler` by using `bottleneck`
 - NEW: Start writing tests with Jest
+- CHANGED: Simplify `Scheduler` by using `bottleneck`
 - CHANGED: Many internal changes
 - CHANGED: `Scheduler` doesn't automatically stop and disconnect once finished anymore
 
 ## v1.0.0-canary.2
 
-- FIXED: Upgrade `@albert-team/rebloom` to fix missing .so file bug
+- FIXED: Upgrade _@albert-team/rebloom_ to fix missing .so file bug
 
 ## v1.0.0-canary.1
 
@@ -38,7 +48,7 @@
 ## v0.3.0 (Canary)
 
 - NEW: Deploy documentation to GitHub Pages
-- CHANGED: Use xxhashjs instead of metrohash to get URL fingerprint by default
+- CHANGED: Use _xxhashjs_ instead of _metrohash_ to get URL fingerprint by default
 
 ## v0.2.0 (Canary)
 
