@@ -45,7 +45,7 @@ class Scheduler {
     })
     this.scrapers
       .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+        if (task.retryCount < this.options.shortRetries) return 0
       })
       .once('idle', () => --this.activeQueues)
     /**
@@ -60,7 +60,7 @@ class Scheduler {
     })
     this.dataProcessors
       .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return task.retryCount * 1000
+        if (task.retryCount < this.options.shortRetries) return 0
       })
       .once('idle', () => --this.activeQueues)
     /**

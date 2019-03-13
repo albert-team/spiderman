@@ -6,7 +6,7 @@ class SchedulerOptions {
   constructor(options = {}) {
     this.shortRetries = 1
     this.longRetries = 2
-    this.maxScrapers = 4
+    this.maxScrapers = 8
     this.maxDataProcessors = 4
     this.tasksPerMinPerQueue = 100
 
