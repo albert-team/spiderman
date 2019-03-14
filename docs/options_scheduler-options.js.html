@@ -5,7 +5,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: entities/proxy-entity.js</title>
+    <title>JSDoc: options/scheduler-options.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -52,7 +52,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Source</p>
-                        <h1>entities/proxy-entity.js</h1>
+                        <h1>options/scheduler-options.js</h1>
                     </header>
                     
                     
@@ -63,24 +63,22 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Proxy entity
- * @param {string} host - Host
- * @param {number} port - Port number
- * @param {string} [username] - Username
- * @param {string} [password] - Password
+ * Scheduler options
+ * @param {Object} [options={}] - Custom options
  */
-class ProxyEntity {
-  constructor(host, port, username, password) {
-    /** @type {string} */
-    this.host = host
-    /** @type {number} */
-    this.port = port
-    /** @type {{ username: string, password: string }} */
-    this.auth = { username, password }
+class SchedulerOptions {
+  constructor(options = {}) {
+    this.shortRetries = 1
+    this.longRetries = 2
+    this.maxScrapers = 8
+    this.maxDataProcessors = 4
+    this.tasksPerMinPerQueue = 100
+
+    Object.assign(this, options)
   }
 }
 
-module.exports = ProxyEntity
+module.exports = SchedulerOptions
 </code></pre>
         </article>
     </section>

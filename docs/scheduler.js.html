@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="SchedulerOptions.html">SchedulerOptions</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="ScraperOptions.html">ScraperOptions</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -62,20 +62,24 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const Bottleneck = require('bottleneck').default
+            <pre class="prettyprint source linenums"><code>const { EventEmitter } = require('events')
+const Bottleneck = require('bottleneck').default
 const { BloomFilter } = require('@albert-team/rebloom')
 const pino = require('pino')
 
 const { UrlEntity, DataEntity } = require('./entities')
+const { SchedulerOptions } = require('./options')
 
 /**
  * Manage and schedule crawling tasks
  * @abstract
+ * @extends EventEmitter
  * @param {string} initUrl - Initial URL
  * @param {Object} [options={}] - Options
  */
-class Scheduler {
+class Scheduler extends EventEmitter {
   constructor(initUrl, options = {}) {
+    super()
     /**
      * @private
      * @type {string}
@@ -83,12 +87,9 @@ class Scheduler {
     this.initUrl = initUrl
     /**
      * @private
-     * @type {Object}
+     * @type {SchedulerOptions}
      */
-    this.options = Object.assign(
-      { shortRetries: 1, longRetries: 2, maxScrapers: 4, maxDataProcessors: 4 },
-      options
-    )
+    this.options = new SchedulerOptions(options)
     /**
      * @private
      * @type {BloomFilter}
@@ -96,39 +97,32 @@ class Scheduler {
     this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
     /**
      * @private
-     * @type {number}
-     */
-    this.activeQueues = 2
-    /**
-     * @private
      * @type {Bottleneck}
      */
     this.scrapers = new Bottleneck({
       maxConcurrent: this.options.maxScrapers,
-      reservoir: 60,
+      reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: 60
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
     this.scrapers
       .on('failed', async (err, task) => {
-        if (task.retryCount &lt; this.options.shortRetries) return task.retryCount * 1000
+        if (task.retryCount &lt; this.options.shortRetries) return 0
       })
-      .once('idle', () => --this.activeQueues)
+      .once('idle', () => this.dataProcessors.once('idle', () => this.emit('done')))
     /**
      * @private
      * @type {Bottleneck}
      */
     this.dataProcessors = new Bottleneck({
       maxConcurrent: this.options.maxDataProcessors,
-      reservoir: 60,
+      reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: 60
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors
-      .on('failed', async (err, task) => {
-        if (task.retryCount &lt; this.options.shortRetries) return task.retryCount * 1000
-      })
-      .once('idle', () => --this.activeQueues)
+    this.dataProcessors.on('failed', async (err, task) => {
+      if (task.retryCount &lt; this.options.shortRetries) return 0
+    })
     /**
      * @private
      * @type {Object}
@@ -141,7 +135,7 @@ class Scheduler {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor }} Scraper and data processor
+   * @returns {({ scraper: Scraper, dataProcessor: (DataProcessor|null) }|null)} Scraper and data processor
    */
   classifyUrl(url) {}
 
@@ -153,7 +147,9 @@ class Scheduler {
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
   async scrapeUrl(url, duplicateCheck = true) {
-    const { scraper, dataProcessor } = this.classifyUrl(url)
+    const result = this.classifyUrl(url)
+    if (!result) return // discard
+    const { scraper, dataProcessor } = result
     const urlEntity = new UrlEntity(url, scraper, dataProcessor)
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
@@ -171,15 +167,20 @@ class Scheduler {
    */
   async scrapeUrlEntity(urlEntity) {
     ++urlEntity.retryCount
-    const { success, data, nextUrls = [] } = await urlEntity.scraper.run(urlEntity.url)
-    this.logger.info({ url: urlEntity.url, attempt: urlEntity.retryCount + 1, success })
+    const { url, scraper, dataProcessor, retryCount } = urlEntity
+    const { success, data, nextUrls = [] } = await scraper.run(url)
+    this.logger.info({ url, attempt: retryCount + 1, success })
     if (success) {
-      const dataEntity = new DataEntity(data, urlEntity.dataProcessor)
+      for (const nextUrl of nextUrls)
+        this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
+      if (!dataProcessor) return
+      const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
-      for (const url of nextUrls) this.scrapers.schedule(() => this.scrapeUrl(url))
     } else {
-      if (urlEntity.retryCount >= this.options.longRetries) return
-      this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
+      if (retryCount >= this.options.longRetries) return
+      this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
+        this.scrapeUrlEntity(urlEntity)
+      )
     }
   }
 
@@ -191,10 +192,13 @@ class Scheduler {
    */
   async processDataEntity(dataEntity) {
     ++dataEntity.retryCount
-    const { success } = await dataEntity.dataProcessor.run(dataEntity.data)
+    const { data, dataProcessor, retryCount } = dataEntity
+    const { success } = await dataProcessor.run(data)
     if (!success) {
-      if (dataEntity.retryCount >= this.options.longRetries) return
-      this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
+      if (retryCount >= this.options.longRetries) return
+      this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
+        this.processDataEntity(dataEntity)
+      )
     }
   }
 
@@ -217,13 +221,6 @@ class Scheduler {
     await this.prepare()
     this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
-    // automatically stop and disconnect once finished
-    const timer = setInterval(async () => {
-      if (this.activeQueues > 0) return
-      clearInterval(timer)
-      await this.stop()
-      await this.disconnect()
-    }, 1000)
   }
 
   /**
@@ -268,7 +265,7 @@ module.exports = Scheduler
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Mar 11 2019 15:16:12 GMT+0700 (Indochina Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Mar 15 2019 01:05:10 GMT+0700 (Indochina Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
