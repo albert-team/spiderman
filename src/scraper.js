@@ -1,4 +1,6 @@
 const axios = require('axios')
+
+const { ScraperOptions } = require('./options')
 const { chooseRandom } = require('./utils')
 
 /**
@@ -26,9 +28,9 @@ class Scraper {
      */
     /**
      * @private
-     * @type {Object}
+     * @type {ScraperOptions}
      */
-    this.options = Object.assign({ timeout: 10000 }, options)
+    this.options = new ScraperOptions(options)
     /**
      * @private
      * @type {Object}
@@ -47,6 +49,19 @@ class Scraper {
   async parse(html) {}
 
   /**
+   * Process a URL
+   * @param {string} url - URL
+   */
+  async process(url) {
+    const res = await this.axios.get(url, {
+      headers: { 'User-Agent': chooseRandom(this.userAgents) },
+      proxy: chooseRandom(this.proxies)
+    })
+    if (res.status !== 200) throw new Error() // will be catched in run()
+    return this.parse(res.data)
+  }
+
+  /**
    * Run
    * @async
    * @param {string} url - URL
@@ -54,12 +69,7 @@ class Scraper {
    */
   async run(url) {
     try {
-      const res = await this.axios.get(url, {
-        headers: { 'User-Agent': chooseRandom(this.userAgents) },
-        proxy: chooseRandom(this.proxies)
-      })
-      if (res.status !== 200) throw new Error()
-      const { success = true, data, nextUrls } = await this.parse(res.data)
+      const { success = true, data, nextUrls } = await this.process(url)
       return { success, data, nextUrls }
     } catch (err) {
       return { success: false }
