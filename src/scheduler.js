@@ -1,3 +1,4 @@
+const { EventEmitter } = require('events')
 const Bottleneck = require('bottleneck').default
 const { BloomFilter } = require('@albert-team/rebloom')
 const pino = require('pino')
@@ -8,11 +9,13 @@ const { SchedulerOptions } = require('./options')
 /**
  * Manage and schedule crawling tasks
  * @abstract
+ * @extends EventEmitter
  * @param {string} initUrl - Initial URL
  * @param {Object} [options={}] - Options
  */
-class Scheduler {
+class Scheduler extends EventEmitter {
   constructor(initUrl, options = {}) {
+    super()
     /**
      * @private
      * @type {string}
@@ -30,11 +33,6 @@ class Scheduler {
     this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
     /**
      * @private
-     * @type {number}
-     */
-    this.activeQueues = 2
-    /**
-     * @private
      * @type {Bottleneck}
      */
     this.scrapers = new Bottleneck({
@@ -47,7 +45,7 @@ class Scheduler {
       .on('failed', async (err, task) => {
         if (task.retryCount < this.options.shortRetries) return 0
       })
-      .once('idle', () => --this.activeQueues)
+      .once('idle', () => this.dataProcessors.once('idle', () => this.emit('done')))
     /**
      * @private
      * @type {Bottleneck}
@@ -58,11 +56,9 @@ class Scheduler {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors
-      .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return 0
-      })
-      .once('idle', () => --this.activeQueues)
+    this.dataProcessors.on('failed', async (err, task) => {
+      if (task.retryCount < this.options.shortRetries) return 0
+    })
     /**
      * @private
      * @type {Object}
@@ -161,13 +157,6 @@ class Scheduler {
     await this.prepare()
     this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
-    // automatically stop and disconnect once finished
-    const timer = setInterval(async () => {
-      if (this.activeQueues > 0) return
-      clearInterval(timer)
-      await this.stop()
-      await this.disconnect()
-    }, 1000)
   }
 
   /**
