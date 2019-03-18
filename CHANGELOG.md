@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.0
+
+- CHANGED: Change some private APIs of `Scheduler`
+
 ## v1.2.0
 
 - NEW: Add `tasksPerMinPerQueue` option for `Scheduler`

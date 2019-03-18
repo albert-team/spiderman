@@ -11,6 +11,7 @@
 
 - Node.js >= 8.0.0
 - Redis >= 4.0
+- RedisBloom >= 1.1.0
 
 ### Instructions
 
