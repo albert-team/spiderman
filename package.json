@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@albert-team/rebloom": "^0.1.2",
+    "@albert-team/rebloom": "^1.0.0",
     "axios": "^0.19.0-beta.1",
     "bottleneck": "^2.17.1",
     "pino": "^5.11.1",
@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "better-docs": "^1.1.5",
-    "eslint": "^5.15.1",
-    "eslint-plugin-jest": "^22.3.2",
+    "eslint": "^5.15.3",
+    "eslint-plugin-jest": "^22.4.1",
     "jest": "^24.5.0",
     "jsdoc": "^3.5.5"
   },
