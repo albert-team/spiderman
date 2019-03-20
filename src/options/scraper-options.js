@@ -15,7 +15,7 @@ class ScraperOptions {
      * @public
      * @type {boolean}
      */
-    this.useCache = true
+    this.useCache = false
     /**
      * @public
      * @type {number}
