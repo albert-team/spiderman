@@ -104,16 +104,21 @@ class Scheduler extends EventEmitter {
   async scrapeUrlEntity(urlEntity) {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
+    const attempt = retryCount + 1
     const { success, data, nextUrls = [] } = await scraper.run(url)
-    this.logger.info({ url, attempt: retryCount + 1, success })
     if (success) {
+      this.logger.info({ url, attempt, msg: 'SUCCESS' })
       for (const nextUrl of nextUrls)
         this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
-      if (retryCount >= this.options.longRetries) return
+      if (retryCount >= this.options.longRetries) {
+        this.logger.error({ url, attempt, msg: 'HARD FAILURE' })
+        return // discard
+      }
+      this.logger.warn({ url, attempt, msg: 'SOFT FAILURE' })
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.scrapeUrlEntity(urlEntity)
       )
@@ -144,7 +149,7 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async connect() {
-    this.logger.info('Connecting')
+    this.logger.info({ options: this.options, msg: 'STARTING' })
     await this.dupUrlFilter.connect()
   }
 
@@ -154,7 +159,6 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
   }
 
@@ -164,7 +168,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
   async stop(gracefully = true) {
-    this.logger.info('Stop crawling')
+    this.logger.info('STOP CRAWLING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -176,7 +180,7 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async disconnect() {
-    this.logger.info('Disconnecting')
+    this.logger.info('DISCONNECTING')
     return Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
