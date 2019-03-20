@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: options/scheduler-options.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,8 +51,8 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Title</p>
-                        <h1>Home</h1>
+                        <p>Source</p>
+                        <h1>options/scheduler-options.js</h1>
                     </header>
                     
                     
@@ -58,88 +60,28 @@
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p><a href="https://github.com/albert-team/spiderman"><img src="https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square" alt=""></a>
-<a href="https://www.npmjs.com/package/@albert-team/spiderman"><img src="https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square" alt=""></a></p>
-<h1>SPIDERMAN</h1><blockquote>
-<p>Minimalistic web crawler for Node.js</p>
-</blockquote>
-<h2>Installation</h2><h3>Requirements</h3><ul>
-<li>Node.js &gt;= 8.0.0</li>
-<li>Redis &gt;= 4.0</li>
-<li>RedisBloom &gt;= 1.1.0</li>
-</ul>
-<h3>Instructions</h3><ul>
-<li>With npm:</li>
-</ul>
-<pre class="prettyprint source lang-bash"><code>npm i @albert-team/spiderman</code></pre><ul>
-<li>With yarn:</li>
-</ul>
-<pre class="prettyprint source lang-bash"><code>yarn add @albert-team/spiderman</code></pre><h2>Usage</h2><h3>Basic Usage</h3><pre class="prettyprint source lang-js"><code>const { Scheduler, Scraper, DataProcessor } = require('@albert-team/spiderman')
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Scheduler options
+ * @param {Object} [options={}] - Custom options
+ */
+class SchedulerOptions {
+  constructor(options = {}) {
+    this.shortRetries = 1
+    this.longRetries = 2
+    this.maxScrapers = 8
+    this.maxDataProcessors = 4
+    this.tasksPerMinPerQueue = 100
 
-class MyScraper extends Scraper {
-  constructor() {
-    super()
-  }
-
-  async parse(html) {
-    return { data: { html }, nextUrls: [] }
+    Object.assign(this, options)
   }
 }
 
-class MyDataProcessor extends DataProcessor {
-  constructor() {
-    super()
-  }
-
-  async run(data) {
-    console.log(data)
-    return { success: true }
-  }
-}
-
-class MyManager extends Scheduler {
-  constructor() {
-    super('url')
-  }
-
-  classifyUrl(url) {
-    return {
-      scraper: new MyScraper(),
-      dataProcessor: new MyDataProcessor()
-    }
-  }
-}
-
-const manager = new MyManager()
-manager.once('done', async () => {
-  await manager.stop()
-  await manager.disconnect()
-})
-manager.start()</code></pre><h2>Documentation</h2><p>Read more <a href="https://albert-team.github.io/spiderman">here</a>.</p>
-<h2>Changelog</h2><p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md">here</a>.</p>
-<h2>Todo</h2><p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/TODO.md">here</a>.</p></article>
+module.exports = SchedulerOptions
+</code></pre>
+        </article>
     </section>
-
-
 
 
 

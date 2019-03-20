@@ -1,7 +1,5 @@
 [![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)](https://github.com/albert-team/spiderman)
 [![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
-[![](https://img.shields.io/npm/v/@albert-team/spiderman/beta.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
-[![](https://img.shields.io/npm/v/@albert-team/spiderman/canary.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
 
 # SPIDERMAN
 
@@ -13,6 +11,7 @@
 
 - Node.js >= 8.0.0
 - Redis >= 4.0
+- RedisBloom >= 1.1.0
 
 ### Instructions
 
@@ -70,6 +69,10 @@ class MyManager extends Scheduler {
 }
 
 const manager = new MyManager()
+manager.once('done', async () => {
+  await manager.stop()
+  await manager.disconnect()
+})
 manager.start()
 ```
 

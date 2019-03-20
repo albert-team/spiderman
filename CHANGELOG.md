@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v1.3.0
+
+- CHANGED: Change some private APIs of `Scheduler`
+
+## v1.2.0
+
+- NEW: Add `tasksPerMinPerQueue` option for `Scheduler`
+- NEW: Add `Scraper.process()` which can be overrided to manually process a URL
+- CHANGED: Change some default values of `Scheduler` to maximize performance
+- CHANGED: Now `Scheduler` is an `EventEmitter` and has _done_ event. Hence, `Scheduler` doesn't automatically stop and disconnect once finished anymore, again
+
 ## v1.1.0
 
 - NEW: `Scheduler.classifyUrl()` returns `null` or `undefined` to discard and `dataProcessor` property is optional

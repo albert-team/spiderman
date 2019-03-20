@@ -139,14 +139,13 @@ class Scheduler extends EventEmitter {
   }
 
   /**
-   * Connect to databases and prepare everything
+   * Connect to databases
    * @private
    * @async
    */
-  async prepare() {
-    this.logger.info('Preparing')
+  async connect() {
+    this.logger.info('Connecting')
     await this.dupUrlFilter.connect()
-    await this.dupUrlFilter.prepare()
   }
 
   /**
@@ -154,13 +153,13 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async start() {
-    await this.prepare()
+    await this.connect()
     this.logger.info('Start crawling')
     this.scrapeUrl(this.initUrl, false)
   }
 
   /**
-   * Stop crawling and clean up
+   * Stop crawling
    * @async
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
