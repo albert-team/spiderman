@@ -11,7 +11,7 @@ const { SchedulerOptions } = require('./options')
  * @abstract
  * @extends EventEmitter
  * @param {string} initUrl - Initial URL
- * @param {Object} [options={}] - Options
+ * @param {SchedulerOptions} [options={}] - Options
  */
 class Scheduler extends EventEmitter {
   constructor(initUrl, options = {}) {
