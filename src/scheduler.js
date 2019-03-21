@@ -36,6 +36,7 @@ class Scheduler extends EventEmitter {
      * @type {Bottleneck}
      */
     this.scrapers = new Bottleneck({
+      minTime: 100,
       maxConcurrent: this.options.maxScrapers,
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
@@ -51,6 +52,7 @@ class Scheduler extends EventEmitter {
      * @type {Bottleneck}
      */
     this.dataProcessors = new Bottleneck({
+      minTime: 100,
       maxConcurrent: this.options.maxDataProcessors,
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
@@ -63,7 +65,12 @@ class Scheduler extends EventEmitter {
      * @private
      * @type {Object}
      */
-    this.logger = pino({ name: 'spiderman-scheduler' })
+    this.logger = pino({
+      name: 'spiderman-scheduler',
+      level: this.options.verbose ? 'info' : 'warn',
+      base: this.options.verbose ? undefined : null, // undefined: use default value
+      useLevelLabels: true
+    })
   }
 
   /**
@@ -134,9 +141,16 @@ class Scheduler extends EventEmitter {
   async processDataEntity(dataEntity) {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
+    const attempt = retryCount + 1
     const { success } = await dataProcessor.run(data)
-    if (!success) {
-      if (retryCount >= this.options.longRetries) return
+    if (success) {
+      this.logger.info({ data, attempt, msg: 'SUCCESS' })
+    } else {
+      if (retryCount >= this.options.longRetries) {
+        this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
+        return // discard
+      }
+      this.logger.warn({ data, attempt, msg: 'SOFT FAILURE' })
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.processDataEntity(dataEntity)
       )

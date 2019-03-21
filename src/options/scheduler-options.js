@@ -29,6 +29,11 @@ class SchedulerOptions {
      * @type {number}
      */
     this.tasksPerMinPerQueue = 100
+    /**
+     * @public
+     * @type {boolean}
+     */
+    this.verbose = false
 
     Object.assign(this, options)
   }
