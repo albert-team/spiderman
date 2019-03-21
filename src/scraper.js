@@ -8,7 +8,7 @@ const { chooseRandom } = require('./utils')
  * @abstract
  * @param {Array<string>} [userAgents=[]] - User agents
  * @param {Array<ProxyEntity>} [proxies=[]] - Proxies
- * @param {Object} [options={}] - Options
+ * @param {ScraperOptions} [options={}] - Options
  */
 class Scraper {
   constructor(userAgents = [], proxies = [], options = {}) {
@@ -24,10 +24,6 @@ class Scraper {
     this.proxies = proxies
     /**
      * @private
-     * @type {Object}
-     */
-    /**
-     * @private
      * @type {ScraperOptions}
      */
     this.options = new ScraperOptions(options)
@@ -35,7 +31,9 @@ class Scraper {
      * @private
      * @type {Object}
      */
-    this.axios = axios.create({ timeout: this.options.timeout })
+    this.axios = axios.create({
+      timeout: this.options.timeout
+    })
   }
 
   /**
