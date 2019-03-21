@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.4.0
+
+- NEW: Improve `Scheduler` logger. Add `SchedulerOptions.verbose`, which is false by default, to specify level of details of the logger
+- CHANGED: `Scheduler` queues once again wait 100ms before launching another task
+
 ## v1.3.0
 
 - CHANGED: Change some private APIs of `Scheduler`
