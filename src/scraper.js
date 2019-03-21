@@ -1,5 +1,4 @@
 const axios = require('axios')
-const { setupCache } = require('axios-cache-adapter')
 
 const { ScraperOptions } = require('./options')
 const { chooseRandom } = require('./utils')
@@ -28,17 +27,12 @@ class Scraper {
      * @type {ScraperOptions}
      */
     this.options = new ScraperOptions(options)
-
-    const cache = setupCache({
-      maxAge: this.options.cacheTimeout
-    })
     /**
      * @private
      * @type {Object}
      */
     this.axios = axios.create({
-      timeout: this.options.timeout,
-      adapter: this.options.useCache ? cache.adapter : undefined
+      timeout: this.options.timeout
     })
   }
 
