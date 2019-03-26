@@ -77,7 +77,7 @@ class Scheduler extends EventEmitter {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {({ scraper: Scraper, dataProcessor: (DataProcessor|null) }|null)} Scraper and data processor
+   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor, urlEntity: UrlEntity }} Scraper, data processor and optional custom URL entity
    */
   classifyUrl(url) {}
 
@@ -92,7 +92,8 @@ class Scheduler extends EventEmitter {
     const result = this.classifyUrl(url)
     if (!result) return // discard
     const { scraper, dataProcessor } = result
-    const urlEntity = new UrlEntity(url, scraper, dataProcessor)
+    let { urlEntity } = result
+    urlEntity = urlEntity ? urlEntity : new UrlEntity(url, scraper, dataProcessor)
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
