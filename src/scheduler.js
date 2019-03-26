@@ -67,8 +67,7 @@ class Scheduler extends EventEmitter {
      */
     this.logger = pino({
       name: 'spiderman-scheduler',
-      level: this.options.verbose ? 'info' : 'warn',
-      base: this.options.verbose ? undefined : null, // undefined: use default value
+      level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
   }
@@ -114,7 +113,7 @@ class Scheduler extends EventEmitter {
     const attempt = retryCount + 1
     const { success, data, nextUrls = [] } = await scraper.run(url)
     if (success) {
-      this.logger.info({ url, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ url, attempt, msg: 'SUCCESS' })
       for (const nextUrl of nextUrls)
         this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
       if (!dataProcessor) return
@@ -144,7 +143,7 @@ class Scheduler extends EventEmitter {
     const attempt = retryCount + 1
     const { success } = await dataProcessor.run(data)
     if (success) {
-      this.logger.info({ data, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ data, attempt, msg: 'SUCCESS' })
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
