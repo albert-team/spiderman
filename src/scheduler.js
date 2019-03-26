@@ -1,10 +1,10 @@
 const { EventEmitter } = require('events')
 const Bottleneck = require('bottleneck').default
-const { BloomFilter } = require('@albert-team/rebloom')
 const pino = require('pino')
 
 const { UrlEntity, DataEntity } = require('./entities')
 const { SchedulerOptions } = require('./options')
+const DuplicateFilter = require('./dup-filter')
 
 /**
  * Manage and schedule crawling tasks
@@ -28,9 +28,11 @@ class Scheduler extends EventEmitter {
     this.options = new SchedulerOptions(options)
     /**
      * @private
-     * @type {BloomFilter}
+     * @type {DuplicateFilter}
      */
-    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
+    this.dupUrlFilter = new DuplicateFilter('spiderman-urlfilter', {
+      useRedisBloom: this.options.useRedisBloom
+    })
     /**
      * @private
      * @type {Bottleneck}
