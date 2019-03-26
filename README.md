@@ -27,9 +27,7 @@ npm i @albert-team/spiderman
 yarn add @albert-team/spiderman
 ```
 
-## Usage
-
-### Basic Usage
+## Quick Start
 
 ```js
 const { Scheduler, Scraper, DataProcessor } = require('@albert-team/spiderman')
