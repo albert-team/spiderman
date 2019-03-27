@@ -33,6 +33,11 @@ class SchedulerOptions {
      * @public
      * @type {boolean}
      */
+    this.useRedisBloom = false
+    /**
+     * @public
+     * @type {boolean}
+     */
     this.verbose = false
 
     Object.assign(this, options)

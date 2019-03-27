@@ -1,10 +1,10 @@
 const { EventEmitter } = require('events')
 const Bottleneck = require('bottleneck').default
-const { BloomFilter } = require('@albert-team/rebloom')
 const pino = require('pino')
 
 const { UrlEntity, DataEntity } = require('./entities')
 const { SchedulerOptions } = require('./options')
+const DuplicateFilter = require('./dup-filter')
 
 /**
  * Manage and schedule crawling tasks
@@ -28,9 +28,11 @@ class Scheduler extends EventEmitter {
     this.options = new SchedulerOptions(options)
     /**
      * @private
-     * @type {BloomFilter}
+     * @type {DuplicateFilter}
      */
-    this.dupUrlFilter = new BloomFilter('spiderman-urlfilter', { minCapacity: 10 ** 6 })
+    this.dupUrlFilter = new DuplicateFilter('spiderman-urlfilter', {
+      useRedisBloom: this.options.useRedisBloom
+    })
     /**
      * @private
      * @type {Bottleneck}
@@ -58,17 +60,18 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return 0
+      })
+      .once('idle', () => this.scrapers.once('idle', () => this.emit('done')))
     /**
      * @private
      * @type {Object}
      */
     this.logger = pino({
       name: 'spiderman-scheduler',
-      level: this.options.verbose ? 'info' : 'warn',
-      base: this.options.verbose ? undefined : null, // undefined: use default value
+      level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
   }
@@ -78,7 +81,7 @@ class Scheduler extends EventEmitter {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {({ scraper: Scraper, dataProcessor: (DataProcessor|null) }|null)} Scraper and data processor
+   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor, urlEntity: UrlEntity }} Scraper, data processor and optional custom URL entity
    */
   classifyUrl(url) {}
 
@@ -93,11 +96,12 @@ class Scheduler extends EventEmitter {
     const result = this.classifyUrl(url)
     if (!result) return // discard
     const { scraper, dataProcessor } = result
-    const urlEntity = new UrlEntity(url, scraper, dataProcessor)
+    let { urlEntity } = result
+    urlEntity = urlEntity ? urlEntity : new UrlEntity(url, scraper, dataProcessor)
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
-      await this.dupUrlFilter.add(fp)
+      else await this.dupUrlFilter.add(fp)
     }
     return this.scrapeUrlEntity(urlEntity)
   }
@@ -114,7 +118,7 @@ class Scheduler extends EventEmitter {
     const attempt = retryCount + 1
     const { success, data, nextUrls = [] } = await scraper.run(url)
     if (success) {
-      this.logger.info({ url, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ url, attempt, msg: 'SUCCESS' })
       for (const nextUrl of nextUrls)
         this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
       if (!dataProcessor) return
@@ -144,7 +148,7 @@ class Scheduler extends EventEmitter {
     const attempt = retryCount + 1
     const { success } = await dataProcessor.run(data)
     if (success) {
-      this.logger.info({ data, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ data, attempt, msg: 'SUCCESS' })
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
