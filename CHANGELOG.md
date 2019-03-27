@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v1.5.0
+
+- NEW: `Scheduler.classifyUrl()` supports optional custom `UrlEntity` as "urlEntity" in result object
+- CHANGED: Always show "pid" and "hostname" in logs. `SchedulerOptions.verbose` means "debug", not "info"
+- CHANGED: _Redis_ with _RedisBloom_ is now optional and disabled by default
+- FIXED: Fix an edge case where `Scheduler` doesn't automatically stop
+
 ## v1.4.0
 
 - NEW: Improve `Scheduler` logger. Add `SchedulerOptions.verbose`, which is false by default, to specify level of details of the logger

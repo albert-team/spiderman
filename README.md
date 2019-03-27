@@ -9,9 +9,13 @@
 
 ### Requirements
 
+#### Mandatory
+
 - Node.js >= 8.0.0
-- Redis >= 4.0
-- RedisBloom >= 1.1.0
+
+#### Optional
+
+- Redis >= 4.0 with RedisBloom >= 1.1.0
 
 ### Instructions
 
