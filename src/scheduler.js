@@ -60,9 +60,11 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return 0
+      })
+      .once('idle', () => this.scrapers.once('idle', () => this.emit('done')))
     /**
      * @private
      * @type {Object}
@@ -99,7 +101,7 @@ class Scheduler extends EventEmitter {
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
-      await this.dupUrlFilter.add(fp)
+      else await this.dupUrlFilter.add(fp)
     }
     return this.scrapeUrlEntity(urlEntity)
   }
