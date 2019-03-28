@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.5.1
+
+- FIXED: Fix a minor bug in the documentation
+
 ## v1.5.0
 
 - NEW: `Scheduler.classifyUrl()` supports optional custom `UrlEntity` as "urlEntity" in result object
