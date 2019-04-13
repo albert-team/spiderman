@@ -16,8 +16,7 @@
     "@albert-team/rebloom": "^1.0.0",
     "axios": "^0.19.0-beta.1",
     "bottleneck": "^2.17.1",
-    "pino": "^5.12.0",
-    "xxhashjs": "^0.2.2"
+    "pino": "^5.12.0"
   },
   "devDependencies": {
     "better-docs": "^1.1.6",
