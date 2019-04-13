@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.6.0
+
+- CHANGED: `Scheduler.scrapeUrl()` is now public
+- FIXED: Handle idle state of Scheduler properly
+- CHANGED: Remove _xxhashjs_
+- CHANGED: Deprecate _done_ event, use _idle_ instead
+
 ## v1.5.1
 
 - FIXED: Fix a minor bug in the documentation
