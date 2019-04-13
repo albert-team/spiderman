@@ -88,7 +88,7 @@ class Scheduler extends EventEmitter {
 
   /**
    * Run a scraping task
-   * @private
+   * @public
    * @async
    * @param {string} url - URL
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
