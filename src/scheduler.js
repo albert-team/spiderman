@@ -44,11 +44,9 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.scrapers
-      .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return 0
-      })
-      .once('idle', () => this.dataProcessors.once('idle', () => this.emit('done')))
+    this.scrapers.on('failed', async (err, task) => {
+      if (task.retryCount < this.options.shortRetries) return 0
+    })
     /**
      * @private
      * @type {Bottleneck}
@@ -60,11 +58,9 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors
-      .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return 0
-      })
-      .once('idle', () => this.scrapers.once('idle', () => this.emit('done')))
+    this.dataProcessors.on('failed', async (err, task) => {
+      if (task.retryCount < this.options.shortRetries) return 0
+    })
     /**
      * @private
      * @type {Object}
@@ -74,6 +70,11 @@ class Scheduler extends EventEmitter {
       level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
+    /**
+     * @private
+     * @type {number}
+     */
+    this.timer
   }
 
   /**
@@ -162,6 +163,24 @@ class Scheduler extends EventEmitter {
   }
 
   /**
+   * Check if both queues are idle
+   * @private
+   * @async
+   * @returns {Boolean}
+   */
+  async idle() {
+    const running = await Promise.all([
+      this.scrapers.running(),
+      this.dataProcessors.running()
+    ])
+    return (
+      this.scrapers.empty() &&
+      this.dataProcessors.empty() &&
+      running.every((val) => val === 0)
+    )
+  }
+
+  /**
    * Connect to databases
    * @private
    * @async
@@ -178,6 +197,12 @@ class Scheduler extends EventEmitter {
   async start() {
     await this.connect()
     this.scrapeUrl(this.initUrl, false)
+
+    this.timer = setInterval(async () => {
+      if (!(await this.idle())) return
+      this.emit('idle')
+      this.emit('done') // DEPRECATED
+    }, 1000)
   }
 
   /**
@@ -187,6 +212,7 @@ class Scheduler extends EventEmitter {
    */
   async stop(gracefully = true) {
     this.logger.info('STOP CRAWLING')
+    clearInterval(this.timer)
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
