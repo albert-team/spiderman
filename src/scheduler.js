@@ -78,17 +78,17 @@ class Scheduler extends EventEmitter {
   }
 
   /**
-   * Classify URL into its respective scraper and data processor
+   * Classify and return the scraper and data processor of a URL, or a URL entity directy.
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor, urlEntity: UrlEntity }} Scraper, data processor and optional custom URL entity
+   * @returns {Object} An Object with required `scraper` and optional `dataProcessor` and `urlEntity`
    */
   classifyUrl(url) {}
 
   /**
-   * Run a scraping task
-   * @public
+   * Scrape a URL. Deprecated for public use since v1.7.0.
+   * @private
    * @async
    * @param {string} url - URL
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
@@ -110,7 +110,7 @@ class Scheduler extends EventEmitter {
   }
 
   /**
-   * Run a scraping task
+   * Scrape a URL entity
    * @private
    * @async
    * @param {UrlEntity} urlEntity - URL entity
