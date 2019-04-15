@@ -10,7 +10,7 @@ const DuplicateFilter = require('./dup-filter')
  * Manage and schedule crawling tasks
  * @abstract
  * @extends EventEmitter
- * @param {string} initUrl - Initial URL
+ * @param {?string} initUrl - Initial URL
  * @param {SchedulerOptions} [options={}] - Options
  */
 class Scheduler extends EventEmitter {
@@ -87,6 +87,17 @@ class Scheduler extends EventEmitter {
   classifyUrl(url) {}
 
   /**
+   * Schedule a URL to be scraped
+   * @public
+   * @async
+   * @param {string} url - URL
+   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
+   */
+  async scheduleUrl(url, duplicateCheck = true) {
+    return this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+  }
+
+  /**
    * Scrape a URL. Deprecated for public use since v1.7.0.
    * @private
    * @async
@@ -122,8 +133,7 @@ class Scheduler extends EventEmitter {
     const { success, data, nextUrls = [] } = await scraper.run(url)
     if (success) {
       this.logger.debug({ url, attempt, msg: 'SUCCESS' })
-      for (const nextUrl of nextUrls)
-        this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
+      for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
@@ -198,7 +208,7 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    this.scrapeUrl(this.initUrl, false)
+    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
 
     this.timer = setInterval(async () => {
       if (!(await this.idle())) return
