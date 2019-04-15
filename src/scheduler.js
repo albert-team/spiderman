@@ -89,7 +89,7 @@ class Scheduler extends EventEmitter {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {Object} An Object with required `scraper` and optional `dataProcessor` and `urlEntity`
+   * @returns {Object} An Object with required "scraper" and optional "dataProcessor" and "urlEntity"
    */
   classifyUrl(url) {}
 
@@ -122,7 +122,7 @@ class Scheduler extends EventEmitter {
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
-      else await this.dupUrlFilter.add(fp)
+      else this.dupUrlFilter.add(fp)
     }
     return this.scrapeUrlEntity(urlEntity)
   }
@@ -188,7 +188,7 @@ class Scheduler extends EventEmitter {
    */
   async connect() {
     this.logger.info({ options: this.options, msg: 'STARTING' })
-    await this.dupUrlFilter.connect()
+    return this.dupUrlFilter.connect()
   }
 
   /**

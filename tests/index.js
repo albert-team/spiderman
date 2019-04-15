@@ -52,6 +52,6 @@ const manager = new Manager()
 manager.start()
 
 setTimeout(() => {
-  manager.scrapeUrl('url2') // won't do anything
-  manager.scrapeUrl('url4', false) // will scrape url4, but not url6
+  manager.scheduleUrl('url2') // won't do anything
+  manager.scheduleUrl('url4', false) // will scrape url4, but not url6
 }, 3000)
