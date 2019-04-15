@@ -96,9 +96,11 @@ class Scheduler extends EventEmitter {
   async scrapeUrl(url, duplicateCheck = true) {
     const result = this.classifyUrl(url)
     if (!result) return // discard
-    const { scraper, dataProcessor } = result
-    let { urlEntity } = result
-    urlEntity = urlEntity ? urlEntity : new UrlEntity(url, scraper, dataProcessor)
+    const {
+      scraper,
+      dataProcessor,
+      urlEntity = new UrlEntity(url, scraper, dataProcessor)
+    } = result
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
