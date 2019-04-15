@@ -74,7 +74,7 @@ const DuplicateFilter = require('./dup-filter')
  * Manage and schedule crawling tasks
  * @abstract
  * @extends EventEmitter
- * @param {string} initUrl - Initial URL
+ * @param {?string} initUrl - Initial URL
  * @param {SchedulerOptions} [options={}] - Options
  */
 class Scheduler extends EventEmitter {
@@ -108,9 +108,15 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.scrapers.on('failed', async (err, task) => {
-      if (task.retryCount &lt; this.options.shortRetries) return 0
-    })
+    this.scrapers
+      .on('failed', async (err, task) => {
+        if (task.retryCount &lt; this.options.shortRetries) return 0
+      })
+      .on('idle', async () => {
+        if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
     /**
      * @private
      * @type {Bottleneck}
@@ -122,9 +128,15 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount &lt; this.options.shortRetries) return 0
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount &lt; this.options.shortRetries) return 0
+      })
+      .on('idle', async () => {
+        if (!this.scrapers.empty() || (await this.scrapers.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
     /**
      * @private
      * @type {Object}
@@ -134,25 +146,31 @@ class Scheduler extends EventEmitter {
       level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
-    /**
-     * @private
-     * @type {number}
-     */
-    this.timer
   }
 
   /**
-   * Classify URL into its respective scraper and data processor
+   * Classify and return the scraper and data processor of a URL, or a URL entity directy.
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor, urlEntity: UrlEntity }} Scraper, data processor and optional custom URL entity
+   * @returns {Object} An Object with required `scraper` and optional `dataProcessor` and `urlEntity`
    */
   classifyUrl(url) {}
 
   /**
-   * Run a scraping task
+   * Schedule a URL to be scraped
    * @public
+   * @async
+   * @param {string} url - URL
+   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
+   */
+  async scheduleUrl(url, duplicateCheck = true) {
+    return this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+  }
+
+  /**
+   * Scrape a URL. Deprecated for public use since v1.7.0.
+   * @private
    * @async
    * @param {string} url - URL
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
@@ -160,9 +178,11 @@ class Scheduler extends EventEmitter {
   async scrapeUrl(url, duplicateCheck = true) {
     const result = this.classifyUrl(url)
     if (!result) return // discard
-    const { scraper, dataProcessor } = result
-    let { urlEntity } = result
-    urlEntity = urlEntity ? urlEntity : new UrlEntity(url, scraper, dataProcessor)
+    const {
+      scraper,
+      dataProcessor,
+      urlEntity = new UrlEntity(url, scraper, dataProcessor)
+    } = result
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
@@ -172,7 +192,7 @@ class Scheduler extends EventEmitter {
   }
 
   /**
-   * Run a scraping task
+   * Scrape a URL entity
    * @private
    * @async
    * @param {UrlEntity} urlEntity - URL entity
@@ -184,8 +204,7 @@ class Scheduler extends EventEmitter {
     const { success, data, nextUrls = [] } = await scraper.run(url)
     if (success) {
       this.logger.debug({ url, attempt, msg: 'SUCCESS' })
-      for (const nextUrl of nextUrls)
-        this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
+      for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
@@ -227,24 +246,6 @@ class Scheduler extends EventEmitter {
   }
 
   /**
-   * Check if both queues are idle
-   * @private
-   * @async
-   * @returns {Boolean}
-   */
-  async idle() {
-    const running = await Promise.all([
-      this.scrapers.running(),
-      this.dataProcessors.running()
-    ])
-    return (
-      this.scrapers.empty() &amp;&amp;
-      this.dataProcessors.empty() &amp;&amp;
-      running.every((val) => val === 0)
-    )
-  }
-
-  /**
    * Connect to databases
    * @private
    * @async
@@ -260,13 +261,7 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    this.scrapeUrl(this.initUrl, false)
-
-    this.timer = setInterval(async () => {
-      if (!(await this.idle())) return
-      this.emit('idle')
-      this.emit('done') // DEPRECATED
-    }, 1000)
+    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
   }
 
   /**
@@ -276,7 +271,6 @@ class Scheduler extends EventEmitter {
    */
   async stop(gracefully = true) {
     this.logger.info('STOP CRAWLING')
-    clearInterval(this.timer)
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -312,7 +306,7 @@ module.exports = Scheduler
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 13 2019 18:54:25 GMT+0700 (Indochina Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 15 2019 22:07:46 GMT+0700 (Indochina Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

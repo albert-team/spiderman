@@ -1,11 +1,17 @@
 # CHANGELOG
 
+## 1.7.0
+
+- NEW: `Scheduler.initUrl` is nullable now
+- NEW: Add `Scheduler.scheduleUrl()` as an alternative to `Scheduler.scrapeUrl()`, which runs immediately, to take advantage of _bottleneck_ rate limiter
+- CHANGED: Mark `Scheduler.scrapeUrl()` private once again, hence deprecated for public use
+
 ## 1.6.0
 
 - CHANGED: `Scheduler.scrapeUrl()` is now public
-- FIXED: Handle idle state of Scheduler properly
 - CHANGED: Remove _xxhashjs_
 - CHANGED: Deprecate _done_ event, use _idle_ instead
+- FIXED: Handle idle state of Scheduler properly
 
 ## v1.5.1
 
