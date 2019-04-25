@@ -146,7 +146,7 @@ class Scheduler extends EventEmitter {
     const { success, data, nextUrls = [] } = await scraper.run(url)
 
     if (success) {
-      this.logger.debug({ url, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ msg: 'SUCCESS', url, attempt })
       ++this.stats.successfulScrapingTasks
 
       for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
@@ -155,11 +155,11 @@ class Scheduler extends EventEmitter {
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ url, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', url, attempt })
         ++this.stats.hardFailedScrapingTasks
         return // discard
       }
-      this.logger.warn({ url, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', url, attempt })
       ++this.stats.softFailedScrapingTasks
 
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
@@ -181,15 +181,15 @@ class Scheduler extends EventEmitter {
     const { success } = await dataProcessor.run(data)
 
     if (success) {
-      this.logger.debug({ data, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ msg: 'SUCCESS', data, attempt })
       ++this.stats.successfulDataProcessingTasks
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', data, attempt })
         ++this.stats.hardFailedDataProcessingTasks
         return // discard
       }
-      this.logger.warn({ data, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', data, attempt })
       ++this.stats.softFailedDataProcessingTasks
 
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
@@ -204,7 +204,7 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async connect() {
-    this.logger.info({ options: this.options, msg: 'STARTING' })
+    this.logger.info({ msg: 'STARTING', options: this.options })
     return this.dupUrlFilter.connect()
   }
 
@@ -223,7 +223,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
   async stop(gracefully = true) {
-    this.logger.info('STOP CRAWLING')
+    this.logger.info('STOPPING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -236,11 +236,12 @@ class Scheduler extends EventEmitter {
    */
   async disconnect() {
     this.logger.info('DISCONNECTING')
-    return Promise.all([
+    await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
+    this.logger.info({ statistics: this.stats })
   }
 }
 
