@@ -5,6 +5,7 @@ const pino = require('pino')
 const { UrlEntity, DataEntity } = require('./entities')
 const { SchedulerOptions } = require('./options')
 const DuplicateFilter = require('./dup-filter')
+const Statistics = require('./statistics')
 
 /**
  * Manage and schedule crawling tasks
@@ -82,6 +83,11 @@ class Scheduler extends EventEmitter {
       level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
+    /**
+     * @private
+     * @type {Statistics}
+     */
+    this.stats = new Statistics()
   }
 
   /**
@@ -141,6 +147,8 @@ class Scheduler extends EventEmitter {
 
     if (success) {
       this.logger.debug({ url, attempt, msg: 'SUCCESS' })
+      ++this.stats.successfulScrapingTasks
+
       for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
@@ -148,9 +156,12 @@ class Scheduler extends EventEmitter {
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ url, attempt, msg: 'HARD FAILURE' })
+        ++this.stats.hardFailedScrapingTasks
         return // discard
       }
       this.logger.warn({ url, attempt, msg: 'SOFT FAILURE' })
+      ++this.stats.softFailedScrapingTasks
+
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.scrapeUrlEntity(urlEntity)
       )
@@ -171,12 +182,16 @@ class Scheduler extends EventEmitter {
 
     if (success) {
       this.logger.debug({ data, attempt, msg: 'SUCCESS' })
+      ++this.stats.successfulDataProcessingTasks
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
+        ++this.stats.hardFailedDataProcessingTasks
         return // discard
       }
       this.logger.warn({ data, attempt, msg: 'SOFT FAILURE' })
+      ++this.stats.softFailedDataProcessingTasks
+
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.processDataEntity(dataEntity)
       )
