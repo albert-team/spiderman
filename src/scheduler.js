@@ -101,7 +101,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
   async scheduleUrl(url, duplicateCheck = true) {
-    return this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+    this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
   /**
@@ -138,9 +138,10 @@ class Scheduler extends EventEmitter {
     const { url, scraper, dataProcessor, retryCount } = urlEntity
     const attempt = retryCount + 1
     const { success, data, nextUrls = [] } = await scraper.run(url)
+
     if (success) {
       this.logger.debug({ url, attempt, msg: 'SUCCESS' })
-      for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
+      for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
@@ -167,6 +168,7 @@ class Scheduler extends EventEmitter {
     const { data, dataProcessor, retryCount } = dataEntity
     const attempt = retryCount + 1
     const { success } = await dataProcessor.run(data)
+
     if (success) {
       this.logger.debug({ data, attempt, msg: 'SUCCESS' })
     } else {
@@ -197,7 +199,7 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
+    if (this.initUrl) await this.scheduleUrl(this.initUrl, false)
   }
 
   /**
