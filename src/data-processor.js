@@ -21,8 +21,12 @@ class DataProcessor {
    */
   async run(data) {
     try {
+      const start = process.hrtime()
       const { success = true } = await this.process(data)
-      if (success) return { success: true }
+      const end = process.hrtime(start)
+      const executionTime = end[0] * 1e9 + end[1]
+
+      if (success) return { success: true, executionTime }
       else throw new Error()
     } catch (err) {
       return { success: false }

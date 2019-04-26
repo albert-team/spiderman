@@ -143,11 +143,12 @@ class Scheduler extends EventEmitter {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
     const attempt = retryCount + 1
-    const { success, data, nextUrls = [] } = await scraper.run(url)
+    const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
 
     if (success) {
       this.logger.debug({ msg: 'SUCCESS', url, attempt })
       ++this.stats.successfulScrapingTasks
+      this.stats.avgScrapingTime = (this.stats.avgScrapingTime + executionTime) / 2
 
       for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
@@ -178,11 +179,13 @@ class Scheduler extends EventEmitter {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
     const attempt = retryCount + 1
-    const { success } = await dataProcessor.run(data)
+    const { success, executionTime } = await dataProcessor.run(data)
 
     if (success) {
       this.logger.debug({ msg: 'SUCCESS', data, attempt })
       ++this.stats.successfulDataProcessingTasks
+      this.stats.avgDataProcessingTime =
+        (this.stats.avgDataProcessingTime + executionTime) / 2
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ msg: 'HARD FAILURE', data, attempt })
