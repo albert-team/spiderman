@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.8.0
+
+- NEW: Measure performance of scraping and data processing tasks
+- NEW: Collect statistics
+- CHANGED: Improve log messages
+- FIXED: `Scheduler.scheduleUrl()` should return immediately now
+
 ## 1.7.0
 
 - NEW: `Scheduler.initUrl` is nullable now

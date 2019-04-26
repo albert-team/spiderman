@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="DuplicateFilter.html">DuplicateFilter</a></li><li><a href="DuplicateFilterOptions.html">DuplicateFilterOptions</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="SchedulerOptions.html">SchedulerOptions</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="ScraperOptions.html">ScraperOptions</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="DuplicateFilter.html">DuplicateFilter</a></li><li><a href="DuplicateFilterOptions.html">DuplicateFilterOptions</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="SchedulerOptions.html">SchedulerOptions</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="ScraperOptions.html">ScraperOptions</a></li><li><a href="Statistics.html">Statistics</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -69,6 +69,7 @@ const pino = require('pino')
 const { UrlEntity, DataEntity } = require('./entities')
 const { SchedulerOptions } = require('./options')
 const DuplicateFilter = require('./dup-filter')
+const Statistics = require('./statistics')
 
 /**
  * Manage and schedule crawling tasks
@@ -146,6 +147,11 @@ class Scheduler extends EventEmitter {
       level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
+    /**
+     * @private
+     * @type {Statistics}
+     */
+    this.stats = new Statistics()
   }
 
   /**
@@ -153,7 +159,7 @@ class Scheduler extends EventEmitter {
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {Object} An Object with required `scraper` and optional `dataProcessor` and `urlEntity`
+   * @returns {Object} An Object with required "scraper" and optional "dataProcessor" and "urlEntity"
    */
   classifyUrl(url) {}
 
@@ -165,7 +171,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
   async scheduleUrl(url, duplicateCheck = true) {
-    return this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+    this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
   /**
@@ -186,7 +192,7 @@ class Scheduler extends EventEmitter {
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
-      else await this.dupUrlFilter.add(fp)
+      else this.dupUrlFilter.add(fp)
     }
     return this.scrapeUrlEntity(urlEntity)
   }
@@ -201,19 +207,26 @@ class Scheduler extends EventEmitter {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
     const attempt = retryCount + 1
-    const { success, data, nextUrls = [] } = await scraper.run(url)
+    const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
+
     if (success) {
-      this.logger.debug({ url, attempt, msg: 'SUCCESS' })
-      for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
+      this.logger.debug({ msg: 'SUCCESS', url, attempt })
+      ++this.stats.successfulScrapingTasks
+      this.stats.avgScrapingTime = (this.stats.avgScrapingTime + executionTime) / 2
+
+      for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ url, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', url, attempt })
+        ++this.stats.hardFailedScrapingTasks
         return // discard
       }
-      this.logger.warn({ url, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', url, attempt })
+      ++this.stats.softFailedScrapingTasks
+
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.scrapeUrlEntity(urlEntity)
       )
@@ -230,15 +243,22 @@ class Scheduler extends EventEmitter {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
     const attempt = retryCount + 1
-    const { success } = await dataProcessor.run(data)
+    const { success, executionTime } = await dataProcessor.run(data)
+
     if (success) {
-      this.logger.debug({ data, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ msg: 'SUCCESS', data, attempt })
+      ++this.stats.successfulDataProcessingTasks
+      this.stats.avgDataProcessingTime =
+        (this.stats.avgDataProcessingTime + executionTime) / 2
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', data, attempt })
+        ++this.stats.hardFailedDataProcessingTasks
         return // discard
       }
-      this.logger.warn({ data, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', data, attempt })
+      ++this.stats.softFailedDataProcessingTasks
+
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.processDataEntity(dataEntity)
       )
@@ -251,8 +271,8 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async connect() {
-    this.logger.info({ options: this.options, msg: 'STARTING' })
-    await this.dupUrlFilter.connect()
+    this.logger.info({ msg: 'STARTING', options: this.options })
+    return this.dupUrlFilter.connect()
   }
 
   /**
@@ -261,7 +281,7 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
+    if (this.initUrl) await this.scheduleUrl(this.initUrl, false)
   }
 
   /**
@@ -270,7 +290,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
   async stop(gracefully = true) {
-    this.logger.info('STOP CRAWLING')
+    this.logger.info('STOPPING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -283,11 +303,12 @@ class Scheduler extends EventEmitter {
    */
   async disconnect() {
     this.logger.info('DISCONNECTING')
-    return Promise.all([
+    await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
+    this.logger.info({ statistics: this.stats })
   }
 }
 
@@ -306,7 +327,7 @@ module.exports = Scheduler
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Apr 15 2019 22:07:46 GMT+0700 (Indochina Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 27 2019 00:34:36 GMT+0700 (Indochina Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
