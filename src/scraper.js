@@ -67,8 +67,12 @@ class Scraper {
    */
   async run(url) {
     try {
+      const start = process.hrtime()
       const { success = true, data, nextUrls } = await this.process(url)
-      return { success, data, nextUrls }
+      const end = process.hrtime(start)
+      const executionTime = end[0] * 1e9 + end[1]
+
+      return { success, data, nextUrls, executionTime }
     } catch (err) {
       return { success: false }
     }

@@ -5,12 +5,13 @@ const pino = require('pino')
 const { UrlEntity, DataEntity } = require('./entities')
 const { SchedulerOptions } = require('./options')
 const DuplicateFilter = require('./dup-filter')
+const Statistics = require('./statistics')
 
 /**
  * Manage and schedule crawling tasks
  * @abstract
  * @extends EventEmitter
- * @param {string} initUrl - Initial URL
+ * @param {?string} initUrl - Initial URL
  * @param {SchedulerOptions} [options={}] - Options
  */
 class Scheduler extends EventEmitter {
@@ -48,7 +49,11 @@ class Scheduler extends EventEmitter {
       .on('failed', async (err, task) => {
         if (task.retryCount < this.options.shortRetries) return 0
       })
-      .once('idle', () => this.dataProcessors.once('idle', () => this.emit('done')))
+      .on('idle', async () => {
+        if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
     /**
      * @private
      * @type {Bottleneck}
@@ -64,7 +69,11 @@ class Scheduler extends EventEmitter {
       .on('failed', async (err, task) => {
         if (task.retryCount < this.options.shortRetries) return 0
       })
-      .once('idle', () => this.scrapers.once('idle', () => this.emit('done')))
+      .on('idle', async () => {
+        if (!this.scrapers.empty() || (await this.scrapers.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
     /**
      * @private
      * @type {Object}
@@ -74,19 +83,35 @@ class Scheduler extends EventEmitter {
       level: this.options.verbose ? 'debug' : 'info',
       useLevelLabels: true
     })
+    /**
+     * @private
+     * @type {Statistics}
+     */
+    this.stats = new Statistics()
   }
 
   /**
-   * Classify URL into its respective scraper and data processor
+   * Classify and return the scraper and data processor of a URL, or a URL entity directy.
    * @protected
    * @abstract
    * @param {string} url - URL
-   * @returns {{ scraper: Scraper, dataProcessor: DataProcessor, urlEntity: UrlEntity }} Scraper, data processor and optional custom URL entity
+   * @returns {Object} An Object with required "scraper" and optional "dataProcessor" and "urlEntity"
    */
   classifyUrl(url) {}
 
   /**
-   * Run a scraping task
+   * Schedule a URL to be scraped
+   * @public
+   * @async
+   * @param {string} url - URL
+   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
+   */
+  async scheduleUrl(url, duplicateCheck = true) {
+    this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+  }
+
+  /**
+   * Scrape a URL. Deprecated for public use since v1.7.0.
    * @private
    * @async
    * @param {string} url - URL
@@ -95,19 +120,21 @@ class Scheduler extends EventEmitter {
   async scrapeUrl(url, duplicateCheck = true) {
     const result = this.classifyUrl(url)
     if (!result) return // discard
-    const { scraper, dataProcessor } = result
-    let { urlEntity } = result
-    urlEntity = urlEntity ? urlEntity : new UrlEntity(url, scraper, dataProcessor)
+    const {
+      scraper,
+      dataProcessor,
+      urlEntity = new UrlEntity(url, scraper, dataProcessor)
+    } = result
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
       if (await this.dupUrlFilter.exists(fp)) return
-      else await this.dupUrlFilter.add(fp)
+      else this.dupUrlFilter.add(fp)
     }
     return this.scrapeUrlEntity(urlEntity)
   }
 
   /**
-   * Run a scraping task
+   * Scrape a URL entity
    * @private
    * @async
    * @param {UrlEntity} urlEntity - URL entity
@@ -116,20 +143,26 @@ class Scheduler extends EventEmitter {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
     const attempt = retryCount + 1
-    const { success, data, nextUrls = [] } = await scraper.run(url)
+    const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
+
     if (success) {
-      this.logger.debug({ url, attempt, msg: 'SUCCESS' })
-      for (const nextUrl of nextUrls)
-        this.scrapers.schedule(() => this.scrapeUrl(nextUrl))
+      this.logger.debug({ msg: 'SUCCESS', url, attempt })
+      ++this.stats.successfulScrapingTasks
+      this.stats.avgScrapingTime = (this.stats.avgScrapingTime + executionTime) / 2
+
+      for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ url, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', url, attempt })
+        ++this.stats.hardFailedScrapingTasks
         return // discard
       }
-      this.logger.warn({ url, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', url, attempt })
+      ++this.stats.softFailedScrapingTasks
+
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.scrapeUrlEntity(urlEntity)
       )
@@ -146,15 +179,22 @@ class Scheduler extends EventEmitter {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
     const attempt = retryCount + 1
-    const { success } = await dataProcessor.run(data)
+    const { success, executionTime } = await dataProcessor.run(data)
+
     if (success) {
-      this.logger.debug({ data, attempt, msg: 'SUCCESS' })
+      this.logger.debug({ msg: 'SUCCESS', data, attempt })
+      ++this.stats.successfulDataProcessingTasks
+      this.stats.avgDataProcessingTime =
+        (this.stats.avgDataProcessingTime + executionTime) / 2
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ data, attempt, msg: 'HARD FAILURE' })
+        this.logger.error({ msg: 'HARD FAILURE', data, attempt })
+        ++this.stats.hardFailedDataProcessingTasks
         return // discard
       }
-      this.logger.warn({ data, attempt, msg: 'SOFT FAILURE' })
+      this.logger.warn({ msg: 'SOFT FAILURE', data, attempt })
+      ++this.stats.softFailedDataProcessingTasks
+
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.processDataEntity(dataEntity)
       )
@@ -167,8 +207,8 @@ class Scheduler extends EventEmitter {
    * @async
    */
   async connect() {
-    this.logger.info({ options: this.options, msg: 'STARTING' })
-    await this.dupUrlFilter.connect()
+    this.logger.info({ msg: 'STARTING', options: this.options })
+    return this.dupUrlFilter.connect()
   }
 
   /**
@@ -177,7 +217,7 @@ class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    this.scrapeUrl(this.initUrl, false)
+    if (this.initUrl) await this.scheduleUrl(this.initUrl, false)
   }
 
   /**
@@ -186,7 +226,7 @@ class Scheduler extends EventEmitter {
    * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
   async stop(gracefully = true) {
-    this.logger.info('STOP CRAWLING')
+    this.logger.info('STOPPING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -199,11 +239,12 @@ class Scheduler extends EventEmitter {
    */
   async disconnect() {
     this.logger.info('DISCONNECTING')
-    return Promise.all([
+    await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
+    this.logger.info({ statistics: this.stats })
   }
 }
 

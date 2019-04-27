@@ -42,7 +42,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="SchedulerOptions.html">SchedulerOptions</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="ScraperOptions.html">ScraperOptions</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="DataEntity.html">DataEntity</a></li><li><a href="DataProcessor.html">DataProcessor</a></li><li><a href="DuplicateFilter.html">DuplicateFilter</a></li><li><a href="DuplicateFilterOptions.html">DuplicateFilterOptions</a></li><li><a href="ProxyEntity.html">ProxyEntity</a></li><li><a href="Scheduler.html">Scheduler</a></li><li><a href="SchedulerOptions.html">SchedulerOptions</a></li><li><a href="Scraper.html">Scraper</a></li><li><a href="ScraperOptions.html">ScraperOptions</a></li><li><a href="Statistics.html">Statistics</a></li><li><a href="UrlEntity.html">UrlEntity</a></li></ul><h3>Global</h3><ul><li><a href="global.html#chooseRandom">chooseRandom</a></li><li><a href="global.html#wait">wait</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -62,7 +62,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>Scheduler<span class="signature">(initUrl, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature">(abstract) </span></span>Scheduler<span class="signature">(initUrl<span class="signature-attributes">nullable</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
         
             <div class="class-description">Manage and schedule crawling tasks</div>
         
@@ -86,7 +86,7 @@
             
         
         <span class="code-name">
-            new Scheduler<span class="signature">(initUrl, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            new Scheduler<span class="signature">(initUrl<span class="signature-attributes">nullable</span>, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
         </span>
     </h4>
     
@@ -148,6 +148,8 @@
       <td class="attributes">
       
 
+      
+          &lt;nullable><br>
       
 
       
@@ -248,7 +250,7 @@
         <p class="tag-source">
             <a href="scheduler.js.html" class="button">View Source</a>
             <span>
-                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line16">line 16</a>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line17">line 17</a>
             </span>
         </p>
     
@@ -323,7 +325,7 @@
             
         
         <span class="code-name">
-            classifyUrl<span class="signature">(url)</span><span class="type-signature"> &rarr; {Object|null}</span>
+            classifyUrl<span class="signature">(url)</span><span class="type-signature"> &rarr; {Object}</span>
         </span>
     </h4>
     
@@ -331,7 +333,7 @@
     
     
     <div class="description">
-        Classify URL into its respective scraper and data processor
+        Classify and return the scraper and data processor of a URL, or a URL entity directy.
     </div>
     
 
@@ -432,7 +434,7 @@
         <p class="tag-source">
             <a href="scheduler.js.html" class="button">View Source</a>
             <span>
-                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line83">line 83</a>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line100">line 100</a>
             </span>
         </p>
     
@@ -463,16 +465,13 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'>Scraper and data processor</div>
+    <div class='param-desc column is-7'>An Object with required "scraper" and optional "dataProcessor" and "urlEntity"</div>
     
     
     <div class='column is-5 has-text-left'>
         <label>Type: </label>
         
 <span class="param-type">Object</span>
-|
-
-<span class="param-type">null</span>
 
 
     </div>
@@ -557,7 +556,211 @@
         <p class="tag-source">
             <a href="scheduler.js.html" class="button">View Source</a>
             <span>
-                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line196">line 196</a>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line240">line 240</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    
+    <h4 class="name" id="scheduleUrl">
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            scheduleUrl<span class="signature">(url, duplicateCheck<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Schedule a URL to be scraped
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>url</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+      </td>
+  
+
+  <td class="description last">URL</td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>duplicateCheck</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+      <td class="attributes">
+      
+          &lt;optional><br>
+      
+
+      
+
+      
+      </td>
+  
+
+  
+      <td class="default">
+      
+          true
+      
+      </td>
+  
+
+  <td class="description last">Whether filter out duplicates or not</td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="scheduler.js.html" class="button">View Source</a>
+            <span>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line109">line 109</a>
             </span>
         </p>
     
@@ -654,7 +857,7 @@
         <p class="tag-source">
             <a href="scheduler.js.html" class="button">View Source</a>
             <span>
-                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line174">line 174</a>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line218">line 218</a>
             </span>
         </p>
     
@@ -821,7 +1024,7 @@
         <p class="tag-source">
             <a href="scheduler.js.html" class="button">View Source</a>
             <span>
-                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line184">line 184</a>
+                <a href="scheduler.js.html">scheduler.js</a>, <a href="scheduler.js.html#line228">line 228</a>
             </span>
         </p>
     
@@ -870,7 +1073,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Mar 21 2019 22:13:52 GMT+0700 (Indochina Time)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Apr 27 2019 00:34:36 GMT+0700 (Indochina Time)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

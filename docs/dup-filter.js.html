@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: ScraperOptions</title>
+    <title>JSDoc: dup-filter.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,301 +51,82 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Class</p>
-                        <h1>ScraperOptions</h1>
+                        <p>Source</p>
+                        <h1>dup-filter.js</h1>
                     </header>
                     
                     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>ScraperOptions<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">Scraper options</div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class='vertical-section'>
-                <h3 class="title"><span>Constructor</span></h3>
-                <div class="members">
-                    <div class="member">
-
-    
-    <h4 class="name" id="ScraperOptions">
-        
-        <span class="code-name">
-            new ScraperOptions<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
-        </span>
-    </h4>
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-        <th>Default</th>
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        
-<tr class="deep-level-0">
-  
-      <td class="name"><code>options</code></td>
-  
-
-  <td class="type">
-  
-      
-<span class="param-type">Object</span>
-
-
-  
-  </td>
-
-  
-      <td class="attributes">
-      
-          &lt;optional><br>
-      
-
-      
-
-      
-      </td>
-  
-
-  
-      <td class="default">
-      
-          {}
-      
-      </td>
-  
-
-  <td class="description last">Custom options</td>
-</tr>
-
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="options_scraper-options.js.html" class="button">View Source</a>
-            <span>
-                <a href="options_scraper-options.js.html">options/scraper-options.js</a>, <a href="options_scraper-options.js.html#line5">line 5</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-                </div>
-            </div>
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h3 class="title"><span>Members</span></h3>
-            <div class="members">
-            
-                <div class="member">
-
-    <span class="method-parameter is-pulled-right">
-        <label>Type:</label>
-        
-<span class="param-type">number</span>
-
-
-    </span>
-
-<h4 class="name" id="timeout">
-    
-    <span class="code-name">
-        timeout
-    </span>
-</h4>
-
-
-
-
-<div class="description">
-    Request timeout
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="options_scraper-options.js.html" class="button">View Source</a>
-            <span>
-                <a href="options_scraper-options.js.html">options/scraper-options.js</a>, <a href="options_scraper-options.js.html#line12">line 12</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { BloomFilter } = require('@albert-team/rebloom')
+
+const { DuplicateFilterOptions } = require('./options')
+
+/**
+ * Duplicate filter
+ * @param {string} name - Name of the filter
+ * @param {DuplicateFilterOptions} [options={}] - Options
+ */
+class DuplicateFilter {
+  constructor(name, options = {}) {
+    /**
+     * @private
+     * @type {string}
+     */
+    this.name = name
+    /**
+     * @private
+     * @type {DuplicateFilterOptions}
+     */
+    this.options = new DuplicateFilterOptions(options)
+    /**
+     * @private
+     * @type {(BloomFilter|Set)}
+     */
+    this.filter = new Set()
+    /**
+     * @public
+     * @async
+     */
+    this.connect = () => {}
+    /**
+     * @public
+     * @async
+     */
+    this.disconnect = () => {}
+    /**
+     * Add an item to the filter
+     * @public
+     * @async
+     * @param {any} item - Item
+     */
+    this.add = (item) => this.filter.add(item)
+    /**
+     * Check if an item already exists in the filter
+     * @public
+     * @async
+     * @param {any} item - Item
+     */
+    this.exists = (item) => this.filter.has(item)
+
+    if (this.options.useRedisBloom) {
+      this.filter = new BloomFilter(this.name, { minCapacity: 10 ** 6 })
+      this.connect = async () => this.filter.connect()
+      this.disconnect = async () => this.filter.disconnect()
+      this.add = async (item) => this.filter.add(item)
+      this.exists = async (item) => this.filter.exists(item)
+    }
+  }
+}
+
+module.exports = DuplicateFilter
+</code></pre>
+        </article>
+    </section>
 
 
 

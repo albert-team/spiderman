@@ -1,5 +1,3 @@
-const xxhash = require('xxhashjs')
-
 /**
  * URL entity
  * @param {string} url - URL
@@ -16,19 +14,14 @@ class UrlEntity {
     this.dataProcessor = dataProcessor
     /** @type {number} */
     this.retryCount = -1
-    /**
-     * @private
-     * @type {string} */
-    this.fingerprint = ''
   }
 
   /**
-   * Get fingerprint
+   * Get the unique fingerprint of the URL (the URL itself by default)
    * @returns {string} Fingerprint
    */
   getFingerprint() {
-    if (!this.fingerprint) this.fingerprint = xxhash.h64(this.url, 0).toString()
-    return this.fingerprint
+    return this.url
   }
 }
 

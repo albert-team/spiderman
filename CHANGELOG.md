@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## 1.8.0
+
+- NEW: Measure performance of scraping and data processing tasks
+- NEW: Collect statistics
+- CHANGED: Improve log messages
+- FIXED: `Scheduler.scheduleUrl()` should return immediately now
+
+## 1.7.0
+
+- NEW: `Scheduler.initUrl` is nullable now
+- NEW: Add `Scheduler.scheduleUrl()` as an alternative to `Scheduler.scrapeUrl()`, which runs immediately, to take advantage of _bottleneck_ rate limiter
+- CHANGED: Mark `Scheduler.scrapeUrl()` private once again, hence deprecated for public use
+
+## 1.6.0
+
+- CHANGED: `Scheduler.scrapeUrl()` is now public
+- CHANGED: Remove _xxhashjs_
+- CHANGED: Deprecate _done_ event, use _idle_ instead
+- FIXED: Handle idle state of Scheduler properly
+
+## v1.5.1
+
+- FIXED: Fix a minor bug in the documentation
+
+## v1.5.0
+
+- NEW: `Scheduler.classifyUrl()` supports optional custom `UrlEntity` as "urlEntity" in result object
+- CHANGED: Always show "pid" and "hostname" in logs. `SchedulerOptions.verbose` means "debug", not "info"
+- CHANGED: _Redis_ with _RedisBloom_ is now optional and disabled by default
+- FIXED: Fix an edge case where `Scheduler` doesn't automatically stop
+
 ## v1.4.0
 
 - NEW: Improve `Scheduler` logger. Add `SchedulerOptions.verbose`, which is false by default, to specify level of details of the logger

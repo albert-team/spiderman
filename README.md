@@ -9,9 +9,13 @@
 
 ### Requirements
 
+#### Mandatory
+
 - Node.js >= 8.0.0
-- Redis >= 4.0
-- RedisBloom >= 1.1.0
+
+#### Optional
+
+- Redis >= 4.0 with RedisBloom >= 1.1.0
 
 ### Instructions
 
@@ -27,7 +31,9 @@ npm i @albert-team/spiderman
 yarn add @albert-team/spiderman
 ```
 
-## Quick Start
+## Usage
+
+### Quick Start
 
 ```js
 const { Scheduler, Scraper, DataProcessor } = require('@albert-team/spiderman')
@@ -67,12 +73,16 @@ class MyManager extends Scheduler {
 }
 
 const manager = new MyManager()
-manager.once('done', async () => {
+manager.once('idle', async () => {
   await manager.stop()
   await manager.disconnect()
 })
 manager.start()
 ```
+
+### Examples
+
+A working example can be found [here](https://github.com/albert-team/spiderman/blob/master/tests/index.js).
 
 ## Documentation
 
