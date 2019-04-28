@@ -3,9 +3,10 @@
     "allowJs": true,
     "alwaysStrict": true,
     "checkJs": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "outDir": "dist",
-    "target": "es5"
+    "target": "es6"
   },
-  "include": ["entities.js", "src"]
+  "include": ["src"]
 }
