@@ -1,36 +1,33 @@
 const axios = require('axios')
 
-const { ScraperOptions } = require('./options')
-const { chooseRandom } = require('./utils')
+import { ProxyEntity } from './entities'
+import { ScraperOptions } from './options'
+import { chooseRandom } from './utils'
+
+interface ScrapingResult {
+  success: boolean
+  data?: object
+  nextUrls?: string[]
+  executionTime?: number
+}
 
 /**
  * Scraper
- * @abstract
- * @param {Array<string>} [userAgents=[]] - User agents
- * @param {Array<ProxyEntity>} [proxies=[]] - Proxies
- * @param {ScraperOptions} [options={}] - Options
  */
-class Scraper {
-  constructor(userAgents = [], proxies = [], options = {}) {
-    /**
-     * @private
-     * @type {Array<string>}
-     */
+abstract class Scraper {
+  private userAgents: string[]
+  private proxies: ProxyEntity[]
+  private options: ScraperOptions
+  private axios: any
+
+  constructor(
+    userAgents: string[] = [],
+    proxies: ProxyEntity[] = [],
+    options: ScraperOptions = new ScraperOptions()
+  ) {
     this.userAgents = userAgents
-    /**
-     * @private
-     * @type {Array<ProxyEntity>}
-     */
     this.proxies = proxies
-    /**
-     * @private
-     * @type {ScraperOptions}
-     */
     this.options = new ScraperOptions(options)
-    /**
-     * @private
-     * @type {Object}
-     */
     this.axios = axios.create({
       timeout: this.options.timeout
     })
@@ -38,19 +35,17 @@ class Scraper {
 
   /**
    * Parse result from HTML
-   * @protected
-   * @abstract
-   * @async
-   * @param {string} html - HTML
-   * @returns {{ data: Object, nextUrls: Array<string> }} Result
    */
-  async parse(html) {}
+  protected abstract async parse(
+    html: string
+  ): Promise<{ success?: boolean; data?: object; nextUrls?: string[] }>
 
   /**
    * Process a URL
-   * @param {string} url - URL
    */
-  async process(url) {
+  protected async process(
+    url: string
+  ): Promise<{ success?: boolean; data?: object; nextUrls?: string[] }> {
     const res = await this.axios.get(url, {
       headers: { 'User-Agent': chooseRandom(this.userAgents) },
       proxy: chooseRandom(this.proxies)
@@ -61,11 +56,8 @@ class Scraper {
 
   /**
    * Run
-   * @async
-   * @param {string} url - URL
-   * @returns {Object} - Final result
    */
-  async run(url) {
+  async run(url: string): Promise<ScrapingResult> {
     try {
       const start = process.hrtime()
       const { success = true, data, nextUrls } = await this.process(url)
@@ -79,4 +71,4 @@ class Scraper {
   }
 }
 
-module.exports = Scraper
+export default Scraper

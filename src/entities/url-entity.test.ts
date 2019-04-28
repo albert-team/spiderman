@@ -1,4 +1,4 @@
-const UrlEntity = require('./url-entity')
+import UrlEntity from './url-entity'
 
 test('UrlEntity.getFingerprint()', () => {
   const url = 'https://jestjs.io'

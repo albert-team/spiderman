@@ -1,43 +1,50 @@
-const { EventEmitter } = require('events')
-const Bottleneck = require('bottleneck').default
+import { EventEmitter } from 'events'
+import Bottleneck from 'bottleneck'
 const pino = require('pino')
 
-const { UrlEntity, DataEntity } = require('./entities')
-const { SchedulerOptions } = require('./options')
-const DuplicateFilter = require('./dup-filter')
-const Statistics = require('./statistics')
+import { UrlEntity, DataEntity } from './entities'
+import { SchedulerOptions } from './options'
+import DataProcessor from './data-processor'
+import DuplicateFilter from './dup-filter'
+import Scraper from './scraper'
+import Statistics from './statistics'
+
+interface Classified {
+  urlEntity?: UrlEntity
+  scraper?: Scraper
+  dataProcessor?: DataProcessor
+}
 
 /**
  * Manage and schedule crawling tasks
- * @abstract
- * @extends EventEmitter
- * @param {?string} initUrl - Initial URL
- * @param {SchedulerOptions} [options={}] - Options
  */
-class Scheduler extends EventEmitter {
-  constructor(initUrl, options = {}) {
+abstract class Scheduler extends EventEmitter {
+  private initUrl: string | null
+  private options: SchedulerOptions
+  private dupUrlFilter: DuplicateFilter
+  private scrapers: Bottleneck
+  private dataProcessors: Bottleneck
+  private logger: any
+  private stats: Statistics
+
+  constructor(
+    initUrl: string | null,
+    options: SchedulerOptions = new SchedulerOptions()
+  ) {
     super()
-    /**
-     * @private
-     * @type {string}
-     */
+
     this.initUrl = initUrl
-    /**
-     * @private
-     * @type {SchedulerOptions}
-     */
     this.options = new SchedulerOptions(options)
-    /**
-     * @private
-     * @type {DuplicateFilter}
-     */
     this.dupUrlFilter = new DuplicateFilter('spiderman-urlfilter', {
       useRedisBloom: this.options.useRedisBloom
     })
-    /**
-     * @private
-     * @type {Bottleneck}
-     */
+    this.logger = pino({
+      name: 'spiderman-scheduler',
+      level: this.options.verbose ? 'debug' : 'info',
+      useLevelLabels: true
+    })
+    this.stats = new Statistics()
+
     this.scrapers = new Bottleneck({
       minTime: 100,
       maxConcurrent: this.options.maxScrapers,
@@ -45,19 +52,15 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.scrapers
-      .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return 0
-      })
-      .on('idle', async () => {
-        if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
-        this.emit('idle')
-        this.emit('done')
-      })
-    /**
-     * @private
-     * @type {Bottleneck}
-     */
+    this.scrapers.on('failed', async (err, task) => {
+      if (task.retryCount < this.options.shortRetries) return 0
+    })
+    this.scrapers.on('idle', async () => {
+      if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
+      this.emit('idle')
+      this.emit('done')
+    })
+
     this.dataProcessors = new Bottleneck({
       minTime: 100,
       maxConcurrent: this.options.maxDataProcessors,
@@ -65,59 +68,32 @@ class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors
-      .on('failed', async (err, task) => {
-        if (task.retryCount < this.options.shortRetries) return 0
-      })
-      .on('idle', async () => {
-        if (!this.scrapers.empty() || (await this.scrapers.running())) return
-        this.emit('idle')
-        this.emit('done')
-      })
-    /**
-     * @private
-     * @type {Object}
-     */
-    this.logger = pino({
-      name: 'spiderman-scheduler',
-      level: this.options.verbose ? 'debug' : 'info',
-      useLevelLabels: true
+    this.dataProcessors.on('failed', async (err, task) => {
+      if (task.retryCount < this.options.shortRetries) return 0
     })
-    /**
-     * @private
-     * @type {Statistics}
-     */
-    this.stats = new Statistics()
+    this.dataProcessors.on('idle', async () => {
+      if (!this.scrapers.empty() || (await this.scrapers.running())) return
+      this.emit('idle')
+      this.emit('done')
+    })
   }
 
   /**
    * Classify and return the scraper and data processor of a URL, or a URL entity directy.
-   * @protected
-   * @abstract
-   * @param {string} url - URL
-   * @returns {Object} An Object with required "scraper" and optional "dataProcessor" and "urlEntity"
    */
-  classifyUrl(url) {}
+  protected abstract classifyUrl(url: string): Classified
 
   /**
    * Schedule a URL to be scraped
-   * @public
-   * @async
-   * @param {string} url - URL
-   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
-  async scheduleUrl(url, duplicateCheck = true) {
+  async scheduleUrl(url: string, duplicateCheck: boolean = true) {
     this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
   /**
    * Scrape a URL. Deprecated for public use since v1.7.0.
-   * @private
-   * @async
-   * @param {string} url - URL
-   * @param {boolean} [duplicateCheck=true] - Whether filter out duplicates or not
    */
-  async scrapeUrl(url, duplicateCheck = true) {
+  private async scrapeUrl(url: string, duplicateCheck: boolean = true) {
     const result = this.classifyUrl(url)
     if (!result) return // discard
     const {
@@ -135,11 +111,8 @@ class Scheduler extends EventEmitter {
 
   /**
    * Scrape a URL entity
-   * @private
-   * @async
-   * @param {UrlEntity} urlEntity - URL entity
    */
-  async scrapeUrlEntity(urlEntity) {
+  private async scrapeUrlEntity(urlEntity: UrlEntity) {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
     const attempt = retryCount + 1
@@ -171,11 +144,8 @@ class Scheduler extends EventEmitter {
 
   /**
    * Run a data processing task
-   * @private
-   * @async
-   * @param {DataEntity} dataEntity - Data entity
    */
-  async processDataEntity(dataEntity) {
+  private async processDataEntity(dataEntity: DataEntity) {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
     const attempt = retryCount + 1
@@ -203,17 +173,14 @@ class Scheduler extends EventEmitter {
 
   /**
    * Connect to databases
-   * @private
-   * @async
    */
-  async connect() {
+  private async connect() {
     this.logger.info({ msg: 'STARTING', options: this.options })
     return this.dupUrlFilter.connect()
   }
 
   /**
    * Start crawling
-   * @async
    */
   async start() {
     await this.connect()
@@ -222,10 +189,8 @@ class Scheduler extends EventEmitter {
 
   /**
    * Stop crawling
-   * @async
-   * @param {boolean} [gracefully=true] - Whether complete all waiting tasks or not
    */
-  async stop(gracefully = true) {
+  async stop(gracefully: boolean = true) {
     this.logger.info('STOPPING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
@@ -235,7 +200,6 @@ class Scheduler extends EventEmitter {
 
   /**
    * Disconnect all connections
-   * @async
    */
   async disconnect() {
     this.logger.info('DISCONNECTING')
@@ -248,4 +212,4 @@ class Scheduler extends EventEmitter {
   }
 }
 
-module.exports = Scheduler
+export default Scheduler

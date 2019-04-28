@@ -3,6 +3,14 @@
  * @param {Object} [options={}] - Custom options
  */
 class SchedulerOptions {
+  shortRetries: number
+  longRetries: number
+  maxScrapers: number
+  maxDataProcessors: number
+  tasksPerMinPerQueue: number
+  useRedisBloom: boolean
+  verbose: boolean
+
   constructor(options = {}) {
     /**
      * @public
@@ -44,4 +52,4 @@ class SchedulerOptions {
   }
 }
 
-module.exports = SchedulerOptions
+export default SchedulerOptions

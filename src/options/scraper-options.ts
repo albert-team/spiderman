@@ -3,6 +3,8 @@
  * @param {Object} [options={}] - Custom options
  */
 class ScraperOptions {
+  timeout: number
+
   constructor(options = {}) {
     /**
      * Request timeout
@@ -15,4 +17,4 @@ class ScraperOptions {
   }
 }
 
-module.exports = ScraperOptions
+export default ScraperOptions

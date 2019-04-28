@@ -3,6 +3,8 @@
  * @param {Object} [options={}] - Custom options
  */
 class DuplicateFilterOptions {
+  useRedisBloom: boolean
+
   constructor(options = {}) {
     /**
      * @public
@@ -14,4 +16,4 @@ class DuplicateFilterOptions {
   }
 }
 
-module.exports = DuplicateFilterOptions
+export default DuplicateFilterOptions
