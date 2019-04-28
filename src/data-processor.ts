@@ -1,25 +1,21 @@
+interface DataProcessingResult {
+  success: boolean
+  executionTime?: number
+}
+
 /**
  * Data Processor
- * @abstract
  */
-class DataProcessor {
+abstract class DataProcessor {
   /**
    * Process data
-   * @protected
-   * @abstract
-   * @async
-   * @param {Object} data - Data
-   * @returns {{ success: boolean }} Result
    */
-  async process(data) {}
+  protected abstract async process(data: object): Promise<{ success: boolean }>
 
   /**
    * Run
-   * @async
-   * @param {Object} data - Data
-   * @returns {Object} Final result
    */
-  async run(data) {
+  public async run(data: object): Promise<DataProcessingResult> {
     try {
       const start = process.hrtime()
       const { success = true } = await this.process(data)
@@ -34,4 +30,4 @@ class DataProcessor {
   }
 }
 
-module.exports = DataProcessor
+export default DataProcessor

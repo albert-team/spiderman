@@ -1,1 +1,1 @@
-module.exports = require('./src/entities')
+module.exports = require('./dist/entities')

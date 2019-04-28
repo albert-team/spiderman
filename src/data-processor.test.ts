@@ -1,11 +1,11 @@
-const DataProcessor = require('./data-processor')
+import DataProcessor from './data-processor'
 
 class SuccessfulDataProcessor extends DataProcessor {
   constructor() {
     super()
   }
 
-  process() {
+  async process() {
     return { success: true }
   }
 }
@@ -15,7 +15,7 @@ class FailedDataProcessor extends DataProcessor {
     super()
   }
 
-  process() {
+  async process() {
     return { success: false }
   }
 }
@@ -23,11 +23,11 @@ class FailedDataProcessor extends DataProcessor {
 test('SuccessfulDataProcessor.run(null)', async () => {
   const dataProcessor = new SuccessfulDataProcessor()
   const result = await dataProcessor.run(null)
-  expect(result).toEqual({ success: true })
+  expect(result).toMatchObject({ success: true })
 })
 
 test('FailedDataProcessor.run(null)', async () => {
   const dataProcessor = new FailedDataProcessor()
   const result = await dataProcessor.run(null)
-  expect(result).toEqual({ success: false })
+  expect(result).toMatchObject({ success: false })
 })
