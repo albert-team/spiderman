@@ -1,7 +1,7 @@
 /**
  * Proxy entity
  */
-class ProxyEntity {
+export default class ProxyEntity {
   host: string
   port: number
   auth: { username: string; password: string }
@@ -12,5 +12,3 @@ class ProxyEntity {
     this.auth = { username, password }
   }
 }
-
-export default ProxyEntity

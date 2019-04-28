@@ -3,16 +3,13 @@ import DataProcessor from '../data-processor'
 /**
  * Data entity
  */
-class DataEntity {
+export default class DataEntity {
   data: object
   dataProcessor: DataProcessor
-  retryCount: number
+  retryCount: number = -1
 
   constructor(data: object, dataProcessor: DataProcessor) {
     this.data = data
     this.dataProcessor = dataProcessor
-    this.retryCount = -1
   }
 }
-
-export default DataEntity

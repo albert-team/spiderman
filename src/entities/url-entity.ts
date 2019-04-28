@@ -4,17 +4,16 @@ import Scraper from '../scraper'
 /**
  * URL entity
  */
-class UrlEntity {
+export default class UrlEntity {
   url: string
   scraper: Scraper
   dataProcessor: DataProcessor
-  retryCount: number
+  retryCount: number = -1
 
   constructor(url: string, scraper: Scraper, dataProcessor: DataProcessor) {
     this.url = url
     this.scraper = scraper
     this.dataProcessor = dataProcessor
-    this.retryCount = -1
   }
 
   /**
@@ -24,5 +23,3 @@ class UrlEntity {
     return this.url
   }
 }
-
-export default UrlEntity
