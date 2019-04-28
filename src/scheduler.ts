@@ -9,7 +9,7 @@ import DuplicateFilter from './dup-filter'
 import Scraper from './scraper'
 import Statistics from './statistics'
 
-interface Classified {
+interface ClassificationResult {
   urlEntity?: UrlEntity
   scraper?: Scraper
   dataProcessor?: DataProcessor
@@ -78,7 +78,7 @@ abstract class Scheduler extends EventEmitter {
   /**
    * Classify and return the scraper and data processor of a URL, or a URL entity directy.
    */
-  protected abstract classifyUrl(url: string): Classified
+  protected abstract classifyUrl(url: string): ClassificationResult
 
   /**
    * Schedule a URL to be scraped
