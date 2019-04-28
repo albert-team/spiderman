@@ -1,19 +1,17 @@
 /**
- * DuplicateFilter options
- * @param {Object} [options={}] - Custom options
+ * DuplicateFilter options interface
  */
-class DuplicateFilterOptions {
-  useRedisBloom: boolean
+export interface DuplicateFilterOptionsInterface {
+  useRedisBloom?: boolean
+}
 
-  constructor(options = {}) {
-    /**
-     * @public
-     * @type {boolean}
-     */
-    this.useRedisBloom = false
+/**
+ * DuplicateFilter options
+ */
+export default class DuplicateFilterOptions implements DuplicateFilterOptionsInterface {
+  useRedisBloom: boolean = false
 
+  constructor(options: DuplicateFilterOptionsInterface = {}) {
     Object.assign(this, options)
   }
 }
-
-export default DuplicateFilterOptions

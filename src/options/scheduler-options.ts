@@ -1,55 +1,29 @@
 /**
- * Scheduler options
- * @param {Object} [options={}] - Custom options
+ * Scheduler options interface
  */
-class SchedulerOptions {
-  shortRetries: number
-  longRetries: number
-  maxScrapers: number
-  maxDataProcessors: number
-  tasksPerMinPerQueue: number
-  useRedisBloom: boolean
-  verbose: boolean
+export interface SchedulerOptionsInterface {
+  shortRetries?: number
+  longRetries?: number
+  maxScrapers?: number
+  maxDataProcessors?: number
+  tasksPerMinPerQueue?: number
+  useRedisBloom?: boolean
+  verbose?: boolean
+}
 
-  constructor(options = {}) {
-    /**
-     * @public
-     * @type {number}
-     */
-    this.shortRetries = 1
-    /**
-     * @public
-     * @type {number}
-     */
-    this.longRetries = 2
-    /**
-     * @public
-     * @type {number}
-     */
-    this.maxScrapers = 8
-    /**
-     * @public
-     * @type {number}
-     */
-    this.maxDataProcessors = 4
-    /**
-     * @public
-     * @type {number}
-     */
-    this.tasksPerMinPerQueue = 100
-    /**
-     * @public
-     * @type {boolean}
-     */
-    this.useRedisBloom = false
-    /**
-     * @public
-     * @type {boolean}
-     */
-    this.verbose = false
+/**
+ * Scheduler options
+ */
+export default class SchedulerOptions implements SchedulerOptionsInterface {
+  shortRetries: number = 1
+  longRetries: number = 2
+  maxScrapers: number = 8
+  maxDataProcessors: number = 4
+  tasksPerMinPerQueue: number = 100
+  useRedisBloom: boolean = false
+  verbose: boolean = false
 
+  constructor(options: SchedulerOptionsInterface = {}) {
     Object.assign(this, options)
   }
 }
-
-export default SchedulerOptions

@@ -3,7 +3,7 @@ import Bottleneck from 'bottleneck'
 import pino from 'pino'
 
 import { UrlEntity, DataEntity } from './entities'
-import { SchedulerOptions } from './options'
+import { SchedulerOptions, SchedulerOptionsInterface } from './options'
 import DataProcessor from './data-processor'
 import DuplicateFilter from './dup-filter'
 import Scraper from './scraper'
@@ -27,10 +27,7 @@ abstract class Scheduler extends EventEmitter {
   private logger: pino
   private stats: Statistics
 
-  constructor(
-    initUrl: string | null,
-    options: SchedulerOptions = new SchedulerOptions()
-  ) {
+  constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {
     super()
 
     this.initUrl = initUrl

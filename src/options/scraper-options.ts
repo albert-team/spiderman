@@ -1,20 +1,17 @@
 /**
- * Scraper options
- * @param {Object} [options={}] - Custom options
+ * Scraper options interface
  */
-class ScraperOptions {
-  timeout: number
+export interface ScraperOptionsInterface {
+  timeout?: number
+}
 
-  constructor(options = {}) {
-    /**
-     * Request timeout
-     * @public
-     * @type {number}
-     */
-    this.timeout = 10 * 1000
+/**
+ * Scraper options
+ */
+export default class ScraperOptions implements ScraperOptionsInterface {
+  timeout: number = 10 * 1000
 
+  constructor(options: ScraperOptionsInterface = {}) {
     Object.assign(this, options)
   }
 }
-
-export default ScraperOptions

@@ -1,5 +1,5 @@
 import { BloomFilter } from '@albert-team/rebloom'
-import { DuplicateFilterOptions } from './options'
+import { DuplicateFilterOptions, DuplicateFilterOptionsInterface } from './options'
 
 /**
  * Duplicate filter
@@ -9,10 +9,7 @@ class DuplicateFilter {
   private options: DuplicateFilterOptions
   private filter: BloomFilter | Set<any>
 
-  constructor(
-    name: string,
-    options: DuplicateFilterOptions = new DuplicateFilterOptions()
-  ) {
+  constructor(name: string, options: DuplicateFilterOptionsInterface = {}) {
     this.name = name
     this.options = new DuplicateFilterOptions(options)
     this.filter = new Set()

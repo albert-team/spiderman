@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { ProxyEntity } from './entities'
-import { ScraperOptions } from './options'
+import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
 
 interface ScrapingResult {
@@ -23,7 +23,7 @@ abstract class Scraper {
   constructor(
     userAgents: string[] = [],
     proxies: ProxyEntity[] = [],
-    options: ScraperOptions = new ScraperOptions()
+    options: ScraperOptionsInterface = {}
   ) {
     this.userAgents = userAgents
     this.proxies = proxies
