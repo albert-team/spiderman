@@ -1,5 +1,5 @@
 const { Scheduler, Scraper, DataProcessor } = require('..')
-const wait = require('../src/utils/wait')
+const { wait } = require('../dist/utils')
 
 class ProxyScraper extends Scraper {
   constructor() {
@@ -22,7 +22,7 @@ class ProxyDataProcessor extends DataProcessor {
     super()
   }
 
-  async run(data) {
+  async run() {
     return { success: true }
   }
 }

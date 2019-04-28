@@ -12,7 +12,7 @@
     "build": "tsc",
     "build:docs": "jsdoc -c .jsdoc.json",
     "test": "jest",
-    "prepare": "yarn build"
+    "prepare": "rm -rf dist && yarn build"
   },
   "dependencies": {
     "@albert-team/rebloom": "^1.1.0",

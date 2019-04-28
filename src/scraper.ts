@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 
 import { ProxyEntity } from './entities'
 import { ScraperOptions } from './options'

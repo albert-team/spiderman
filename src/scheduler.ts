@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 import Bottleneck from 'bottleneck'
-const pino = require('pino')
+import pino from 'pino'
 
 import { UrlEntity, DataEntity } from './entities'
 import { SchedulerOptions } from './options'
@@ -24,7 +24,7 @@ abstract class Scheduler extends EventEmitter {
   private dupUrlFilter: DuplicateFilter
   private scrapers: Bottleneck
   private dataProcessors: Bottleneck
-  private logger: any
+  private logger: pino
   private stats: Statistics
 
   constructor(
