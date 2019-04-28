@@ -75,7 +75,7 @@ class MyManager extends Scheduler {
 const manager = new MyManager()
 manager.once('idle', async () => {
   await manager.stop()
-  await manager.disconnect()
+  manager.disconnect()
 })
 manager.start()
 ```

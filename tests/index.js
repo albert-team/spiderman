@@ -46,7 +46,7 @@ const manager = new Manager()
 // manager.once('idle', async () => {
 //   console.log('SCHEDULER IS IDLE')
 //   await manager.stop()
-//   await manager.disconnect()
+//   manager.disconnect()
 // })
 
 manager.start()

@@ -16,5 +16,5 @@ test("DuplicateFilter('name', { useRedisBloom: true })", async () => {
   expect(await filter.exists('item1')).toBeTruthy()
   expect(await filter.exists('item2')).toBeFalsy()
 
-  await filter.disconnect()
+  filter.disconnect()
 })

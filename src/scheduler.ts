@@ -120,7 +120,7 @@ abstract class Scheduler extends EventEmitter {
       ++this.stats.successfulScrapingTasks
       this.stats.avgScrapingTime = (this.stats.avgScrapingTime + executionTime) / 2
 
-      for (const nextUrl of nextUrls) await this.scheduleUrl(nextUrl)
+      for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
       const dataEntity = new DataEntity(data, dataProcessor)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
@@ -181,7 +181,7 @@ abstract class Scheduler extends EventEmitter {
    */
   async start() {
     await this.connect()
-    if (this.initUrl) await this.scheduleUrl(this.initUrl, false)
+    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
   }
 
   /**
