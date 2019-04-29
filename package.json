@@ -5,14 +5,12 @@
   "main": "dist/index.js",
   "files": [
     "dist",
-    "!*.test.js",
     "entities.js"
   ],
   "scripts": {
     "build": "tsc",
-    "build:docs": "jsdoc -c .jsdoc.json",
     "test": "jest",
-    "prepare": "rm -rf dist && yarn build"
+    "prepublishOnly": "rm -rf dist && yarn build"
   },
   "dependencies": {
     "@albert-team/rebloom": "^1.1.0",
@@ -25,13 +23,11 @@
     "@types/node": "^11.13.8",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
     "@typescript-eslint/parser": "^1.7.0",
-    "better-docs": "^1.1.6",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.2.0",
     "eslint-plugin-jest": "^22.5.1",
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.7.1",
-    "jsdoc": "^3.5.5",
     "prettier": "^1.17.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"

@@ -4,9 +4,11 @@
     "alwaysStrict": true,
     "checkJs": true,
     "esModuleInterop": true,
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
-    "target": "es5"
+    "target": "es6"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["**/*.test.*"]
 }
