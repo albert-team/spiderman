@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.9.0-canary.0
+
+- CHANGED: Migrate to TypeScript
+- CHANGED: Code optimization
+- CHANGED: Temporarily remove documentation page
+
 ## 1.8.0
 
 - NEW: Measure performance of scraping and data processing tasks

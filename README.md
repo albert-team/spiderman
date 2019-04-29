@@ -84,10 +84,6 @@ manager.start()
 
 A working example can be found [here](https://github.com/albert-team/spiderman/blob/master/tests/index.js).
 
-## Documentation
-
-Read more [here](https://albert-team.github.io/spiderman).
-
 ## Changelog
 
 Read more [here](https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md).
