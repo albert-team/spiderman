@@ -18,7 +18,7 @@ interface ClassificationResult {
 /**
  * Manage and schedule crawling tasks
  */
-abstract class Scheduler extends EventEmitter {
+export default abstract class Scheduler extends EventEmitter {
   private initUrl: string | null
   private options: SchedulerOptions
   private dupUrlFilter: DuplicateFilter
@@ -216,5 +216,3 @@ abstract class Scheduler extends EventEmitter {
     this.logger.info({ statistics: this.stats })
   }
 }
-
-export default Scheduler

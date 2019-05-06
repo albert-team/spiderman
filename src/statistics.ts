@@ -1,7 +1,7 @@
 /**
  * Statistics logger for Scheduler
  */
-class Statistics {
+export default class Statistics {
   successfulScrapingTasks: number = 0
   successfulDataProcessingTasks: number = 0
   softFailedScrapingTasks: number = 0
@@ -13,5 +13,3 @@ class Statistics {
 
   constructor() {}
 }
-
-export default Statistics

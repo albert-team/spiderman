@@ -6,7 +6,7 @@ interface DataProcessingResult {
 /**
  * Data Processor
  */
-abstract class DataProcessor {
+export default abstract class DataProcessor {
   /**
    * Process data
    */
@@ -29,5 +29,3 @@ abstract class DataProcessor {
     }
   }
 }
-
-export default DataProcessor

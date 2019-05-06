@@ -14,7 +14,7 @@ interface ScrapingResult {
 /**
  * Scraper
  */
-abstract class Scraper {
+export default abstract class Scraper {
   private userAgents: string[]
   private proxies: ProxyEntity[]
   private options: ScraperOptions
@@ -70,5 +70,3 @@ abstract class Scraper {
     }
   }
 }
-
-export default Scraper

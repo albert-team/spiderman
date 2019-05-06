@@ -4,7 +4,7 @@ import { DuplicateFilterOptions, DuplicateFilterOptionsInterface } from './optio
 /**
  * Duplicate filter
  */
-class DuplicateFilter {
+export default class DuplicateFilter {
   private name: string
   private options: DuplicateFilterOptions
   private filter: BloomFilter | Set<any>
@@ -47,5 +47,3 @@ class DuplicateFilter {
     return this.filter.has(item)
   }
 }
-
-export default DuplicateFilter
