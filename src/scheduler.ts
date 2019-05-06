@@ -83,8 +83,15 @@ abstract class Scheduler extends EventEmitter {
   /**
    * Schedule a URL to be scraped
    */
-  async scheduleUrl(url: string, duplicateCheck: boolean = true) {
+  public async scheduleUrl(url: string, duplicateCheck: boolean = true) {
     this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
+  }
+
+  /**
+   * Schedule a URL entity to be scraped
+   */
+  public async scheduleUrlEntity(urlEntity: UrlEntity) {
+    this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
   }
 
   /**
@@ -179,7 +186,7 @@ abstract class Scheduler extends EventEmitter {
   /**
    * Start crawling
    */
-  async start() {
+  public async start() {
     await this.connect()
     if (this.initUrl) this.scheduleUrl(this.initUrl, false)
   }
@@ -187,7 +194,7 @@ abstract class Scheduler extends EventEmitter {
   /**
    * Stop crawling
    */
-  async stop(gracefully: boolean = true) {
+  public async stop(gracefully: boolean = true) {
     this.logger.info('STOPPING')
     return Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
@@ -198,7 +205,7 @@ abstract class Scheduler extends EventEmitter {
   /**
    * Disconnect all connections
    */
-  async disconnect() {
+  public async disconnect() {
     this.logger.info('DISCONNECTING')
     await Promise.all([
       this.scrapers.disconnect(),
