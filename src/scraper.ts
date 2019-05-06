@@ -57,7 +57,7 @@ abstract class Scraper {
   /**
    * Run
    */
-  async run(url: string): Promise<ScrapingResult> {
+  public async run(url: string): Promise<ScrapingResult> {
     try {
       const start = process.hrtime()
       const { success = true, data, nextUrls } = await this.process(url)

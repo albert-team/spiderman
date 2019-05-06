@@ -76,7 +76,8 @@ abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Classify and return the scraper and data processor of a URL, or a URL entity directy.
+   * Classify a URL
+   * @returns Classification result, containing a URL entity directy or scraper and optional data processor
    */
   protected abstract classifyUrl(url: string): ClassificationResult
 
