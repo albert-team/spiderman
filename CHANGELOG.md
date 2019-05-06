@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.9.0-beta.0
+
+- NEW: Add _Typedoc_
+- NEW: Add `Scheduler.scheduleUrlEntity()`
+
 ## 1.9.0-canary.0
 
 - CHANGED: Migrate to TypeScript
