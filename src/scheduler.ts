@@ -125,8 +125,8 @@ export default abstract class Scheduler extends EventEmitter {
 
     if (success) {
       this.logger.debug({ msg: 'SUCCESS', url, attempt })
-      ++this.stats.successfulScrapingTasks
-      this.stats.avgScrapingTime = (this.stats.avgScrapingTime + executionTime) / 2
+      this.stats.dumpCounts('scraping', 'success')
+      this.stats.dumpTime('scraping', executionTime)
 
       for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
       if (!dataProcessor) return
@@ -135,11 +135,11 @@ export default abstract class Scheduler extends EventEmitter {
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ msg: 'HARD FAILURE', url, attempt })
-        ++this.stats.hardFailedScrapingTasks
+        this.stats.dumpCounts('scraping', 'hardFailure')
         return // discard
       }
       this.logger.warn({ msg: 'SOFT FAILURE', url, attempt })
-      ++this.stats.softFailedScrapingTasks
+      this.stats.dumpCounts('scraping', 'softFailure')
 
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.scrapeUrlEntity(urlEntity)
@@ -158,17 +158,16 @@ export default abstract class Scheduler extends EventEmitter {
 
     if (success) {
       this.logger.debug({ msg: 'SUCCESS', data, attempt })
-      ++this.stats.successfulDataProcessingTasks
-      this.stats.avgDataProcessingTime =
-        (this.stats.avgDataProcessingTime + executionTime) / 2
+      this.stats.dumpCounts('dataProcessing', 'success')
+      this.stats.dumpTime('dataProcessing', executionTime)
     } else {
       if (retryCount >= this.options.longRetries) {
         this.logger.error({ msg: 'HARD FAILURE', data, attempt })
-        ++this.stats.hardFailedDataProcessingTasks
+        this.stats.dumpCounts('dataProcessing', 'hardFailure')
         return // discard
       }
       this.logger.warn({ msg: 'SOFT FAILURE', data, attempt })
-      ++this.stats.softFailedDataProcessingTasks
+      this.stats.dumpCounts('dataProcessing', 'softFailure')
 
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
         this.processDataEntity(dataEntity)
@@ -213,6 +212,6 @@ export default abstract class Scheduler extends EventEmitter {
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
-    this.logger.info({ statistics: this.stats })
+    this.logger.info({ statistics: this.stats.get() })
   }
 }
