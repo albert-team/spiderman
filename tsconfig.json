@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "alwaysStrict": true,
-    "checkJs": true,
+    "declaration": true,
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "node",
