@@ -17,12 +17,11 @@ export default abstract class DataProcessor {
    */
   public async run(data: object): Promise<DataProcessingResult> {
     try {
-      const start = process.hrtime()
+      const start = Date.now()
       const { success = true } = await this.process(data)
-      const end = process.hrtime(start)
-      const executionTime = end[0] * 1e9 + end[1]
+      const end = Date.now()
 
-      if (success) return { success: true, executionTime }
+      if (success) return { success: true, executionTime: (end - start) / 1000 }
       else throw new Error()
     } catch (err) {
       return { success: false }

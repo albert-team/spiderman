@@ -60,14 +60,12 @@ export default abstract class Scraper {
    */
   public async run(url: string): Promise<ScrapingResult> {
     try {
-      const start = process.hrtime()
+      const start = Date.now()
       this.url = url
       const { success = true, data, nextUrls } = await this.process(url)
-      const end = process.hrtime(start)
+      const end = Date.now()
 
-      const executionTime = end[0] * 1e9 + end[1]
-
-      return { success, data, nextUrls, executionTime }
+      return { success, data, nextUrls, executionTime: (end - start) / 1000 }
     } catch (err) {
       return { success: false }
     }
