@@ -19,6 +19,7 @@ export default abstract class Scraper {
   private proxies: ProxyEntity[]
   private options: ScraperOptions
   private axios: any
+  public url: string
 
   constructor(
     userAgents: string[] = [],
@@ -60,8 +61,10 @@ export default abstract class Scraper {
   public async run(url: string): Promise<ScrapingResult> {
     try {
       const start = process.hrtime()
+      this.url = url
       const { success = true, data, nextUrls } = await this.process(url)
       const end = process.hrtime(start)
+
       const executionTime = end[0] * 1e9 + end[1]
 
       return { success, data, nextUrls, executionTime }
