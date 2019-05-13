@@ -1,35 +1,43 @@
 # CHANGELOG
 
-## 1.9.0-beta.1
+## v1.9.0
+
+- NEW: Revamp `Statistics` class
+- NEW: Add `Scheduler.getStats()`
+- NEW: Use Travis CI
+- NEW: Auto deploy package to NPM, deploy documentation to Github Pages and release new version on Github
+- CHANGED: Use `Date` object instead of `process.hrtime` to collect statistics
+
+## v1.9.0-beta.1
 
 - NEW: Add `Scraper.url`
 - NEW: Support TypeScript packaging better
 
-## 1.9.0-beta.0
+## v1.9.0-beta.0
 
 - NEW: Add _Typedoc_
 - NEW: Add `Scheduler.scheduleUrlEntity()`
 
-## 1.9.0-canary.0
+## v1.9.0-canary.0
 
 - CHANGED: Migrate to TypeScript
 - CHANGED: Code optimization
 - CHANGED: Temporarily remove documentation page
 
-## 1.8.0
+## v1.8.0
 
 - NEW: Measure performance of scraping and data processing tasks
 - NEW: Collect statistics
 - CHANGED: Improve log messages
 - FIXED: `Scheduler.scheduleUrl()` should return immediately now
 
-## 1.7.0
+## v1.7.0
 
 - NEW: `Scheduler.initUrl` is nullable now
 - NEW: Add `Scheduler.scheduleUrl()` as an alternative to `Scheduler.scrapeUrl()`, which runs immediately, to take advantage of _bottleneck_ rate limiter
 - CHANGED: Mark `Scheduler.scrapeUrl()` private once again, hence deprecated for public use
 
-## 1.6.0
+## v1.6.0
 
 - CHANGED: `Scheduler.scrapeUrl()` is now public
 - CHANGED: Remove _xxhashjs_

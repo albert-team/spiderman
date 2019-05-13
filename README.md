@@ -1,5 +1,6 @@
 [![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)](https://github.com/albert-team/spiderman)
 [![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
+[![](https://img.shields.io/travis/com/albert-team/spiderman.svg?style=flat-square)](https://travis-ci.com/albert-team/spiderman)
 
 # SPIDERMAN
 
@@ -44,7 +45,7 @@ class MyScraper extends Scraper {
   }
 
   async parse(html) {
-    return { data: { html }, nextUrls: [] }
+    return { data: {}, nextUrls: [] }
   }
 }
 
@@ -53,7 +54,7 @@ class MyDataProcessor extends DataProcessor {
     super()
   }
 
-  async run(data) {
+  async process(data) {
     console.log(data)
     return { success: true }
   }
@@ -80,9 +81,9 @@ manager.once('idle', async () => {
 manager.start()
 ```
 
-### Examples
+### API
 
-A working example can be found [here](https://github.com/albert-team/spiderman/blob/master/tests/index.js).
+Read more [here](https://albert-team.github.io/spiderman).
 
 ## Changelog
 

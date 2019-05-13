@@ -1,11 +1,29 @@
 language: node_js
-node_js: lts/*
+node_js:
+  - '8'
+  - '10'
+  - '12'
+cache: yarn
 after_success:
   - yarn run build:docs
 deploy:
-  local_dir: docs
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  on:
-    branch: master
+  - provider: npm
+    api_key: $NPM_TOKEN
+    email: 'luongquangmanh85@gmail.com'
+    on:
+      branch: master
+      tags: true
+    skip_cleanup: true
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    on:
+      branch: master
+      tags: true
+    skip_cleanup: true
+  - provider: pages
+    github_token: $GITHUB_TOKEN
+    local_dir: docs
+    on:
+      branch: master
+      tags: true
+    skip_cleanup: true
