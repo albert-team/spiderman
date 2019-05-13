@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.9.0-beta.1
+
+- NEW: Add `Scraper.url`
+- NEW: Support TypeScript packaging better
+
 ## 1.9.0-beta.0
 
 - NEW: Add _Typedoc_
