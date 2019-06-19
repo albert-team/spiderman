@@ -1,6 +1,6 @@
 # DEPRECATED
 
-- _done_ event of `Scheduler`
+- _done_ event of `Scheduler` in favor of _idle_ event
 - `Scheduler.scrapeUrl()` for _public use_
 - `SchedulerOptions.verbose` in favor of `SchedulerOptions.logLevel`
 
@@ -12,10 +12,9 @@
 - Add more tests
 - `DataProcessor` supports pipeline
 - Add `Scheduler.pause()` and `Scheduler.resume()`
-- Add `Scheduler.start(initUrls)`
 
 ## Breaking Changes
 
 - Remove _done_ event of `Scheduler`
-- Remove `initUrl` parameter in `Scheduler` constructor
+- Remove `initUrl` parameter in `Scheduler` constructor in favor of `Scheduler.start(initUrls)`
 - Remove `SchedulerOptions.verbose`
