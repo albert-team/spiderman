@@ -8,6 +8,7 @@ export interface SchedulerOptionsInterface {
   maxDataProcessors?: number
   tasksPerMinPerQueue?: number
   useRedisBloom?: boolean
+  logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
   verbose?: boolean
 }
 
@@ -21,6 +22,7 @@ export default class SchedulerOptions implements SchedulerOptionsInterface {
   maxDataProcessors: number = 4
   tasksPerMinPerQueue: number = 100
   useRedisBloom: boolean = false
+  logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
   verbose: boolean = false
 
   constructor(options: SchedulerOptionsInterface = {}) {

@@ -29,7 +29,7 @@ class ProxyDataProcessor extends DataProcessor {
 
 class Manager extends Scheduler {
   constructor() {
-    super('url1', { verbose: true })
+    super('url1', { logLevel: 'debug' })
   }
 
   classifyUrl() {

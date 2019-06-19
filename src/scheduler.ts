@@ -35,9 +35,14 @@ export default abstract class Scheduler extends EventEmitter {
     this.dupUrlFilter = new DuplicateFilter('spiderman-urlfilter', {
       useRedisBloom: this.options.useRedisBloom
     })
+    const logLevel = this.options.logLevel
+      ? this.options.logLevel
+      : this.options.verbose
+      ? 'debug'
+      : 'info'
     this.logger = pino({
       name: 'spiderman-scheduler',
-      level: this.options.verbose ? 'debug' : 'info',
+      level: logLevel,
       useLevelLabels: true
     })
     this.stats = new Statistics()

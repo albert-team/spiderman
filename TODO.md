@@ -2,6 +2,7 @@
 
 - _done_ event of `Scheduler`
 - `Scheduler.scrapeUrl()` for _public use_
+- `SchedulerOptions.verbose` in favor of `SchedulerOptions.logLevel`
 
 # TODO
 
@@ -12,7 +13,6 @@
 - `DataProcessor` supports pipeline
 - Add `Scheduler.pause()` and `Scheduler.resume()`
 - Add `Scheduler.start(initUrls)`
-- Deprecate `SchedulerOptions.verbose` in favor of `SchedulerOptions.logLevel`
 
 ## Breaking Changes
 
