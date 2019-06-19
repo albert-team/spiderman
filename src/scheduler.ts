@@ -9,7 +9,7 @@ import DuplicateFilter from './dup-filter'
 import Scraper from './scraper'
 import Statistics from './statistics'
 
-interface ClassificationResult {
+export interface ClassificationResult {
   urlEntity?: UrlEntity
   scraper?: Scraper
   dataProcessor?: DataProcessor
