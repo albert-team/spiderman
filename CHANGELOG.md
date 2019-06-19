@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.10.0
+
+- NEW: Add `SchedulerOptions.logLevel`
+- NEW: Improve `Statistics` inner data structures
+- FIXED: `ClassificationResult` interface not recognized in the documentation
+- CHANGED: Deprecate `SchedulerOptions.verbose`
+
 ## v1.9.0
 
 - NEW: Revamp `Statistics` class
