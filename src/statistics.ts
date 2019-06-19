@@ -3,15 +3,14 @@
  */
 export default class Statistics {
   private counts = {
-    scraping: { success: 0, softFailure: 0, hardFailure: 0 },
-    dataProcessing: { success: 0, softFailure: 0, hardFailure: 0 }
+    success: { scraping: 0, dataProcessing: 0 },
+    softFailure: { scraping: 0, dataProcessing: 0 },
+    hardFailure: { scraping: 0, dataProcessing: 0 }
   }
   private time = {
-    scraping: { total: 0, avg: 0 },
-    dataProcessing: { total: 0, avg: 0 }
+    total: { scraping: 0, dataProcessing: 0 },
+    avg: { scraping: 0, dataProcessing: 0 }
   }
-
-  constructor() {}
 
   /**
    * Increase the number of `type` tasks with `state` by 1
@@ -20,15 +19,15 @@ export default class Statistics {
     type: 'scraping' | 'dataProcessing',
     state: 'success' | 'softFailure' | 'hardFailure'
   ) {
-    ++this.counts[type][state]
+    ++this.counts[state][type]
   }
 
   /**
    * Calculate new total and average time of successful `type` tasks
    */
   public dumpTime(type: 'scraping' | 'dataProcessing', t: number) {
-    this.time[type].total += t
-    this.time[type].avg = (this.time[type].avg + t) / 2
+    this.time.total[type] += t
+    this.time.avg[type] = (this.time.avg[type] + t) / 2
   }
 
   /**
