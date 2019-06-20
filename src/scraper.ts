@@ -4,7 +4,7 @@ import { ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
 
-interface ScrapingResult {
+export interface ScrapingResult {
   success: boolean
   data?: object
   nextUrls?: string[]

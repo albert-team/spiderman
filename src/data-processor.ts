@@ -1,4 +1,4 @@
-interface DataProcessingResult {
+export interface DataProcessingResult {
   success: boolean
   executionTime?: number
 }

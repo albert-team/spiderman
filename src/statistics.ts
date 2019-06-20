@@ -33,7 +33,7 @@ export default class Statistics {
   /**
    * Get all collected statistics
    */
-  public get() {
+  public get(): object {
     const { counts, time } = this
     return { counts, time }
   }
