@@ -1,11 +1,16 @@
 # CHANGELOG
 
+## 1.11.0
+
+- CHANGED: `Scheduler.getStats()` returns `Statistics`, not plain object only
+- FIXED: All interfaces are exported and recognized now
+
 ## 1.10.0
 
 - NEW: Add `SchedulerOptions.logLevel`
-- NEW: Improve `Statistics` inner data structures
-- FIXED: `ClassificationResult` interface not recognized in the documentation
+- CHANGED: Improve `Statistics` inner data structures
 - CHANGED: Deprecate `SchedulerOptions.verbose`
+- FIXED: `ClassificationResult` interface not recognized in the documentation
 
 ## v1.9.0
 
