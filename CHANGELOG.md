@@ -1,11 +1,11 @@
 # CHANGELOG
 
-## 1.11.0
+## v1.11.0, v1.11.1
 
 - CHANGED: `Scheduler.getStats()` returns `Statistics`, not plain object only
 - FIXED: All interfaces are exported and recognized now
 
-## 1.10.0
+## v1.10.0
 
 - NEW: Add `SchedulerOptions.logLevel`
 - CHANGED: Improve `Statistics` inner data structures
