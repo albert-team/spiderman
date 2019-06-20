@@ -2,12 +2,12 @@
  * Statistics collector for Scheduler
  */
 export default class Statistics {
-  private counts = {
+  public counts = {
     success: { scraping: 0, dataProcessing: 0 },
     softFailure: { scraping: 0, dataProcessing: 0 },
     hardFailure: { scraping: 0, dataProcessing: 0 }
   }
-  private time = {
+  public time = {
     total: { scraping: 0, dataProcessing: 0 },
     avg: { scraping: 0, dataProcessing: 0 }
   }
@@ -31,7 +31,7 @@ export default class Statistics {
   }
 
   /**
-   * Get all collected statistics
+   * Get all collected statistics as object
    */
   public get(): object {
     const { counts, time } = this

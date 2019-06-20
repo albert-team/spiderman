@@ -185,8 +185,8 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Get statistics
    */
-  public getStats(): object {
-    return this.stats.get()
+  public getStats(): Statistics {
+    return this.stats
   }
 
   /**
@@ -226,6 +226,6 @@ export default abstract class Scheduler extends EventEmitter {
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
-    this.logger.info({ statistics: this.getStats() })
+    this.logger.info({ statistics: this.stats.get() })
   }
 }
