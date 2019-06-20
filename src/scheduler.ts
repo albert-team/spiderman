@@ -22,10 +22,10 @@ export default abstract class Scheduler extends EventEmitter {
   private initUrl: string | null
   private options: SchedulerOptions
   private dupUrlFilter: DuplicateFilter
-  private scrapers: Bottleneck
-  private dataProcessors: Bottleneck
   private logger: pino
   private stats: Statistics
+  private scrapers: Bottleneck
+  private dataProcessors: Bottleneck
 
   constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {
     super()
@@ -54,14 +54,15 @@ export default abstract class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.scrapers.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
-    })
-    this.scrapers.on('idle', async () => {
-      if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
-      this.emit('idle')
-      this.emit('done')
-    })
+    this.scrapers
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return 0
+      })
+      .on('idle', async () => {
+        if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
 
     this.dataProcessors = new Bottleneck({
       minTime: 100,
@@ -70,14 +71,15 @@ export default abstract class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors.on('failed', async (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
-    })
-    this.dataProcessors.on('idle', async () => {
-      if (!this.scrapers.empty() || (await this.scrapers.running())) return
-      this.emit('idle')
-      this.emit('done')
-    })
+    this.dataProcessors
+      .on('failed', async (err, task) => {
+        if (task.retryCount < this.options.shortRetries) return 0
+      })
+      .on('idle', async () => {
+        if (!this.scrapers.empty() || (await this.scrapers.running())) return
+        this.emit('idle')
+        this.emit('done')
+      })
   }
 
   /**
