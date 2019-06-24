@@ -77,7 +77,7 @@ export default abstract class Scheduler extends EventEmitter {
     this.dataProcessors.on('failed', (err, task) => {
       if (task.retryCount < this.options.shortRetries) return 0
     })
-    this.scrapers.on('idle', async () => {
+    this.dataProcessors.on('idle', async () => {
       if (!this.scrapers.empty() || (await this.scrapers.running())) return
       this.emit('idle')
       this.emit('done')
