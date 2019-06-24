@@ -54,7 +54,7 @@ export default abstract class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.scrapers.on('failed', async (err, task) => {
+    this.scrapers.on('failed', (err, task) => {
       if (task.retryCount < this.options.shortRetries) return 0
     })
     this.scrapers.on('idle', async () => {
@@ -70,7 +70,7 @@ export default abstract class Scheduler extends EventEmitter {
       reservoirRefreshInterval: 60 * 1000,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
     })
-    this.dataProcessors.on('failed', async (err, task) => {
+    this.dataProcessors.on('failed', (err, task) => {
       if (task.retryCount < this.options.shortRetries) return 0
     })
     this.scrapers.on('idle', async () => {
@@ -89,14 +89,14 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Schedule a URL to be scraped
    */
-  public async scheduleUrl(url: string, duplicateCheck: boolean = true) {
+  public scheduleUrl(url: string, duplicateCheck: boolean = true) {
     this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
   /**
    * Schedule a URL entity to be scraped
    */
-  public async scheduleUrlEntity(urlEntity: UrlEntity) {
+  public scheduleUrlEntity(urlEntity: UrlEntity) {
     this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
   }
 
@@ -191,14 +191,15 @@ export default abstract class Scheduler extends EventEmitter {
    * Connect to databases
    */
   private async connect() {
-    this.logger.info({ msg: 'STARTING', options: this.options })
-    return this.dupUrlFilter.connect()
+    await this.dupUrlFilter.connect()
+    this.logger.info({ msg: 'CONNECTED' })
   }
 
   /**
    * Start crawling
    */
   public async start() {
+    this.logger.info({ msg: 'STARTING', options: this.options })
     await this.connect()
     if (this.initUrl) this.scheduleUrl(this.initUrl, false)
   }
@@ -207,23 +208,22 @@ export default abstract class Scheduler extends EventEmitter {
    * Stop crawling
    */
   public async stop(gracefully: boolean = true) {
-    this.logger.info('STOPPING')
-    return Promise.all([
+    await Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
     ])
+    this.logger.info('STOPPED')
   }
 
   /**
    * Disconnect all connections
    */
   public async disconnect() {
-    this.logger.info('DISCONNECTING')
     await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
       this.dupUrlFilter.disconnect()
     ])
-    this.logger.info({ statistics: this.stats.get() })
+    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats.get() })
   }
 }
