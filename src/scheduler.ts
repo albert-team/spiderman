@@ -5,7 +5,7 @@ import pino from 'pino'
 import { UrlEntity, DataEntity } from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
 import DataProcessor from './data-processor'
-import DuplicateFilter from './dup-filter'
+import { SetDuplicateFilter, BloomDuplicateFilter } from './dup-filters'
 import Scraper from './scraper'
 import Statistics from './statistics'
 
@@ -21,7 +21,7 @@ export interface ClassificationResult {
 export default abstract class Scheduler extends EventEmitter {
   private initUrl: string | null
   private options: SchedulerOptions
-  private dupUrlFilter: DuplicateFilter
+  private dupUrlFilter: SetDuplicateFilter | BloomDuplicateFilter
   private logger: pino
   private stats: Statistics
   private scrapers: Bottleneck
@@ -32,9 +32,13 @@ export default abstract class Scheduler extends EventEmitter {
 
     this.initUrl = initUrl
     this.options = new SchedulerOptions(options)
-    this.dupUrlFilter = new DuplicateFilter('spiderman-urlfilter', {
-      useRedisBloom: this.options.useRedisBloom
-    })
+    if (this.options.useRedisBloom) {
+      this.dupUrlFilter = new BloomDuplicateFilter('spiderman-urlfilter', {
+        minCapacity: 10 ** 6
+      })
+    } else {
+      this.dupUrlFilter = new SetDuplicateFilter()
+    }
     const logLevel = this.options.logLevel
       ? this.options.logLevel
       : this.options.verbose
