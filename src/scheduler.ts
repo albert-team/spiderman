@@ -157,7 +157,7 @@ export default abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Run a data processing task
+   * Process data
    */
   private async processDataEntity(dataEntity: DataEntity) {
     ++dataEntity.retryCount
@@ -209,6 +209,30 @@ export default abstract class Scheduler extends EventEmitter {
   }
 
   /**
+   * Pause crawling. Finish all running tasks and prevent new tasks from being added
+   */
+  public pause() {
+    this.scrapers.updateSettings({ reservoir: 0, reservoirRefreshAmount: 0 })
+    this.dataProcessors.updateSettings({ reservoir: 0, reservoirRefreshAmount: 0 })
+    this.logger.info({ msg: 'PAUSED' })
+  }
+
+  /**
+   * Resume crawling
+   */
+  public resume() {
+    this.scrapers.updateSettings({
+      reservoir: this.options.tasksPerMinPerQueue,
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
+    })
+    this.dataProcessors.updateSettings({
+      reservoir: this.options.tasksPerMinPerQueue,
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
+    })
+    this.logger.info({ msg: 'RESUMED' })
+  }
+
+  /**
    * Stop crawling
    */
   public async stop(gracefully: boolean = true) {
@@ -216,7 +240,7 @@ export default abstract class Scheduler extends EventEmitter {
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
     ])
-    this.logger.info('STOPPED')
+    this.logger.info({ msg: 'STOPPED' })
   }
 
   /**
