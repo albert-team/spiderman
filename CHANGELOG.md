@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.12.0
+
+- NEW: Add `Scheduler.pause()` and `Scheduler.resume()`
+- CHANGED: Revamp duplicate filter
+- CHANGED: Write logs on events finished instead of events started
+- CHANGED: Fewer unnecessary async in `Scheduler`
+- FIXED: Fix a typo in `Scheduler` _(only affects v1.11.x)_ that sometimes makes it emit _idle/done_ event early
+
 ## v1.11.0, v1.11.1, v1.11.2
 
 - CHANGED: `Scheduler.getStats()` returns `Statistics`, not plain object only

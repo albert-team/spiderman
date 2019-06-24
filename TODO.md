@@ -11,7 +11,6 @@
 - Auto throttle smarter
 - Add more tests
 - `DataProcessor` supports pipeline
-- Add `Scheduler.pause()` and `Scheduler.resume()`
 
 ## Breaking Changes
 
