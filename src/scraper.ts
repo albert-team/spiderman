@@ -19,7 +19,7 @@ export default abstract class Scraper {
   private userAgents: string[]
   private proxies: ProxyEntity[]
   private options: ScraperOptions
-  private logger: pino
+  public readonly logger: pino
   private axios: any
   public url: string
 

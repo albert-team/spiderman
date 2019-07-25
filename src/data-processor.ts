@@ -11,7 +11,7 @@ export interface DataProcessingResult {
  */
 export default abstract class DataProcessor {
   private options: DataProcessorOptions
-  private logger: pino
+  public readonly logger: pino
 
   constructor(options: DataProcessorOptionsInterface) {
     this.options = new DataProcessorOptions(options)

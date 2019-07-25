@@ -22,7 +22,7 @@ export default abstract class Scheduler extends EventEmitter {
   private initUrl: string | null
   private options: SchedulerOptions
   private dupUrlFilter: SetDuplicateFilter | BloomDuplicateFilter
-  private logger: pino
+  public readonly logger: pino
   private stats: Statistics
   private scrapers: Bottleneck
   private dataProcessors: Bottleneck
