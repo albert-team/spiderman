@@ -13,7 +13,7 @@ export default abstract class DataProcessor {
   private options: DataProcessorOptions
   public readonly logger: pino
 
-  constructor(options: DataProcessorOptionsInterface) {
+  constructor(options: DataProcessorOptionsInterface = {}) {
     this.options = new DataProcessorOptions(options)
 
     this.logger = this.options.logger ? this.options.logger : pino({
