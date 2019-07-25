@@ -1,4 +1,5 @@
 import axios from 'axios'
+import pino from 'pino'
 
 import { ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
@@ -18,6 +19,7 @@ export default abstract class Scraper {
   private userAgents: string[]
   private proxies: ProxyEntity[]
   private options: ScraperOptions
+  private logger: pino
   private axios: any
   public url: string
 
@@ -29,6 +31,12 @@ export default abstract class Scraper {
     this.userAgents = userAgents
     this.proxies = proxies
     this.options = new ScraperOptions(options)
+
+    this.logger = this.options.logger ? this.options.logger : pino({
+      name: 'spiderman-scraper',
+      level: this.options.logLevel,
+      useLevelLabels: true
+    })
     this.axios = axios.create({
       timeout: this.options.timeout
     })

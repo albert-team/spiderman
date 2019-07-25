@@ -1,12 +1,28 @@
+import pino from 'pino'
+import { DataProcessorOptions, DataProcessorOptionsInterface } from './options'
+
 export interface DataProcessingResult {
   success: boolean
   executionTime?: number
 }
 
 /**
- * Data Processor
+ * Data processor
  */
 export default abstract class DataProcessor {
+  private options: DataProcessorOptions
+  private logger: pino
+
+  constructor(options: DataProcessorOptionsInterface) {
+    this.options = new DataProcessorOptions(options)
+
+    this.logger = this.options.logger ? this.options.logger : pino({
+      name: 'spiderman-data-processor',
+      level: this.options.logLevel,
+      useLevelLabels: true
+    })
+  }
+
   /**
    * Process data
    */

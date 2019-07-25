@@ -1,23 +1,21 @@
 import pino from 'pino'
 
 /**
- * Scraper options interface
+ * Data processor options interface
  */
-export interface ScraperOptionsInterface {
-  timeout?: number
+export interface DataProcessorOptionsInterface {
   logger?: pino
   logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 }
 
 /**
- * Scraper options
+ * Data processor options
  */
-export default class ScraperOptions implements ScraperOptionsInterface {
-  timeout: number = 10 * 1000
+export default class DataProcessorOptions implements DataProcessorOptionsInterface {
   logger: pino
   logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'
 
-  constructor(options: ScraperOptionsInterface = {}) {
+  constructor(options: DataProcessorOptionsInterface = {}) {
     Object.assign(this, options)
   }
 }
