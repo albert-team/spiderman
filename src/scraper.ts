@@ -59,7 +59,7 @@ export default abstract class Scraper {
       headers: { 'User-Agent': chooseRandom(this.userAgents) },
       proxy: chooseRandom(this.proxies)
     })
-    if (res.status !== 200) throw new Error() // will be catched in run()
+    if (res.status < 200 || res.status >= 300) throw new Error() // will be catched in run()
     return this.parse(res.data)
   }
 
