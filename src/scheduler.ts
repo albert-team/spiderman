@@ -39,16 +39,20 @@ export default abstract class Scheduler extends EventEmitter {
     } else {
       this.dupUrlFilter = new SetDuplicateFilter()
     }
-    const logLevel = this.options.logLevel
-      ? this.options.logLevel
-      : this.options.verbose
-      ? 'debug'
-      : 'info'
-    this.logger = pino({
-      name: 'spiderman-scheduler',
-      level: logLevel,
-      useLevelLabels: true
-    })
+    if (this.options.logger) {
+      this.logger = this.options.logger
+    } else {
+      const logLevel = this.options.logLevel
+        ? this.options.logLevel
+        : this.options.verbose
+        ? 'debug'
+        : 'info'
+      this.logger = pino({
+        name: 'spiderman-scheduler',
+        level: logLevel,
+        useLevelLabels: true
+      })
+    }
     this.stats = new Statistics()
 
     this.scrapers = new Bottleneck({
