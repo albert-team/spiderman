@@ -5,6 +5,12 @@ import { ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
 
+export interface ParsingResult {
+  success?: boolean
+  data?: object
+  nextUrls?: string[]
+}
+
 export interface ScrapingResult {
   success: boolean
   data?: object
@@ -43,18 +49,14 @@ export default abstract class Scraper {
   }
 
   /**
-   * Parse result from HTML
+   * Parse result from the response body
    */
-  protected abstract async parse(
-    html: string
-  ): Promise<{ success?: boolean; data?: object; nextUrls?: string[] }>
+  protected abstract async parse(resBody: string): Promise<ParsingResult>
 
   /**
-   * Process a URL
+   * Process a URL. You can override this method to change its default behavior.
    */
-  protected async process(
-    url: string
-  ): Promise<{ success?: boolean; data?: object; nextUrls?: string[] }> {
+  protected async process(url: string): Promise<ParsingResult> {
     const res = await this.axios.get(url, {
       headers: { 'User-Agent': chooseRandom(this.userAgents) },
       proxy: chooseRandom(this.proxies)
