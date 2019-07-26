@@ -137,7 +137,6 @@ export default abstract class Scheduler extends EventEmitter {
     const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
 
     if (success) {
-      this.logger.debug({ msg: 'SUCCESS', url, attempt })
       this.stats.dumpCounts('scraping', 'success')
       this.stats.dumpTime('scraping', executionTime)
 
@@ -147,11 +146,9 @@ export default abstract class Scheduler extends EventEmitter {
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ msg: 'HARD FAILURE', url, attempt })
         this.stats.dumpCounts('scraping', 'hardFailure')
         return // discard
       }
-      this.logger.warn({ msg: 'SOFT FAILURE', url, attempt })
       this.stats.dumpCounts('scraping', 'softFailure')
 
       this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
@@ -170,16 +167,13 @@ export default abstract class Scheduler extends EventEmitter {
     const { success, executionTime } = await dataProcessor.run(data)
 
     if (success) {
-      this.logger.debug({ msg: 'SUCCESS', data, attempt })
       this.stats.dumpCounts('dataProcessing', 'success')
       this.stats.dumpTime('dataProcessing', executionTime)
     } else {
       if (retryCount >= this.options.longRetries) {
-        this.logger.error({ msg: 'HARD FAILURE', data, attempt })
         this.stats.dumpCounts('dataProcessing', 'hardFailure')
         return // discard
       }
-      this.logger.warn({ msg: 'SOFT FAILURE', data, attempt })
       this.stats.dumpCounts('dataProcessing', 'softFailure')
 
       this.dataProcessors.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>

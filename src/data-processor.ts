@@ -37,9 +37,11 @@ export default abstract class DataProcessor {
       const { success = true } = await this.process(data)
       const end = Date.now()
 
+      this.logger.debug({ msg: 'SUCCESS', data })
       if (success) return { success: true, executionTime: (end - start) / 1000 }
       else throw new Error()
     } catch (err) {
+      this.logger.debug({ msg: 'FAILURE', data })
       return { success: false }
     }
   }
