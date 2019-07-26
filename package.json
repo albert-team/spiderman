@@ -3,7 +3,7 @@
   "description": "Minimalistic web crawler for Node.js",
   "license": "MIT",
   "author": "Albert Team",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

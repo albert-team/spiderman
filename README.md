@@ -1,5 +1,5 @@
 [![](https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square)](https://github.com/albert-team/spiderman)
-[![](https://img.shields.io/npm/v/@albert-team/spiderman/latest.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
+[![](https://img.shields.io/npm/v/@albert-team/spiderman.svg?style=flat-square)](https://www.npmjs.com/package/@albert-team/spiderman)
 [![](https://img.shields.io/travis/com/albert-team/spiderman.svg?style=flat-square)](https://travis-ci.com/albert-team/spiderman)
 
 # SPIDERMAN
@@ -44,7 +44,7 @@ class MyScraper extends Scraper {
     super()
   }
 
-  async parse(html) {
+  async parse(resBody) {
     return { data: {}, nextUrls: [] }
   }
 }
@@ -55,7 +55,6 @@ class MyDataProcessor extends DataProcessor {
   }
 
   async process(data) {
-    console.log(data)
     return { success: true }
   }
 }
