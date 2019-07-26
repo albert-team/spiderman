@@ -78,5 +78,8 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# Lock files
+*.lock
+
 # Build output
 dist
