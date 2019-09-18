@@ -4,21 +4,7 @@ import { BloomFilter } from '@albert-team/rebloom'
  * Duplicate filter using Set
  */
 class SetDuplicateFilter {
-  private filter: Set<any>
-
-  constructor() {
-    this.filter = new Set()
-  }
-
-  /**
-   * Do nothing
-   */
-  public connect() {}
-
-  /**
-   * Do nothing
-   */
-  public disconnect() {}
+  private filter: Set<any> = new Set()
 
   /**
    * Add an item to the filter
