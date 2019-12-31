@@ -1,4 +1,4 @@
-import pino from 'pino'
+import { Logger } from 'pino'
 
 /**
  * Scheduler options interface
@@ -10,7 +10,7 @@ export interface SchedulerOptionsInterface {
   maxDataProcessors?: number
   tasksPerMinPerQueue?: number
   useRedisBloom?: boolean
-  logger?: pino
+  logger?: Logger
   logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 
   /** @deprecated Since v1.14.0. Use [[SchedulerOptionsInterface.logLevel]] instead. */
@@ -27,7 +27,7 @@ export default class SchedulerOptions implements SchedulerOptionsInterface {
   maxDataProcessors = 4
   tasksPerMinPerQueue = 100
   useRedisBloom = false
-  logger: pino
+  logger: Logger
   logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 
   /** @deprecated Since v1.14.0. Use [[SchedulerOptions.logLevel]] instead. */

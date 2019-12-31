@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
-import pino from 'pino'
+import pino, { Logger } from 'pino'
 
 import { ProxyEntityInterface, ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
@@ -36,10 +36,7 @@ abstract class Scraper {
   /** @deprecated Since v1.14.0. Use [[ParsingMeta]] instead. */
   protected url: string
 
-  public static logger = pino({
-    name: 'spiderman-scraper',
-    useLevelLabels: true
-  })
+  public readonly logger: Logger
 
   constructor(
     userAgents: string[] = [],
@@ -49,6 +46,14 @@ abstract class Scraper {
     this.userAgents = userAgents
     this.proxies = proxies
     this.options = new ScraperOptions(options)
+
+    this.logger = this.options.logger
+      ? this.options.logger
+      : pino({
+          name: 'spiderman-scraper',
+          level: this.options.logLevel,
+          useLevelLabels: true
+        })
 
     this.axios = axios.create({
       timeout: this.options.timeout
@@ -87,7 +92,7 @@ abstract class Scraper {
       const { success = true, data, nextUrls } = await this.process(url)
       const end = Date.now()
 
-      Scraper.logger.debug({ msg: 'SUCCESS', url })
+      this.logger.debug({ msg: 'SUCCESS', url })
       return {
         success,
         data,
@@ -95,7 +100,7 @@ abstract class Scraper {
         executionTime: (end - start) / 1000
       }
     } catch (err) {
-      Scraper.logger.debug({ msg: 'FAILURE', url })
+      this.logger.debug({ msg: 'FAILURE', url })
       return { success: false }
     }
   }

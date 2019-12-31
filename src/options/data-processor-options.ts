@@ -1,19 +1,24 @@
+import { Logger } from 'pino'
+
 /**
  * Data processor options interface
  */
-export interface DataProcessorOptionsInterface {
-  /** Unused option */
-  timeout?: number
+interface DataProcessorOptionsInterface {
+  logger?: Logger
+  logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 }
 
 /**
  * Data processor options
  */
-export default class DataProcessorOptions implements DataProcessorOptionsInterface {
-  /** Unused option */
-  timeout: number = 10 * 1000
+class DataProcessorOptions implements DataProcessorOptionsInterface {
+  logger: Logger
+  logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'
 
   constructor(options: DataProcessorOptionsInterface = {}) {
     Object.assign(this, options)
   }
 }
+
+export default DataProcessorOptions
+export { DataProcessorOptionsInterface }

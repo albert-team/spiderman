@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 import Bottleneck from 'bottleneck'
-import pino from 'pino'
+import pino, { Logger } from 'pino'
 import { UrlEntity, DataEntity } from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
 import DataProcessor from './data-processor'
@@ -30,7 +30,7 @@ export default abstract class Scheduler extends EventEmitter {
   private readonly scrapers: Bottleneck
   private readonly dataProcessors: Bottleneck
   public readonly stats = new Statistics()
-  public readonly logger: pino
+  public readonly logger: Logger
 
   constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {
     super()

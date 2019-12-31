@@ -1,4 +1,4 @@
-import pino from 'pino'
+import pino, { Logger } from 'pino'
 import { DataProcessorOptions, DataProcessorOptionsInterface } from './options'
 
 export interface DataProcessingResult {
@@ -11,13 +11,18 @@ export interface DataProcessingResult {
  */
 export default abstract class DataProcessor {
   private readonly options: DataProcessorOptions
-  public static logger = pino({
-    name: 'spiderman-data-processor',
-    useLevelLabels: true
-  })
+  public readonly logger: Logger
 
   constructor(options: DataProcessorOptionsInterface = {}) {
     this.options = new DataProcessorOptions(options)
+
+    this.logger = this.options.logger
+      ? this.options.logger
+      : pino({
+          name: 'spiderman-data-processor',
+          level: this.options.logLevel,
+          useLevelLabels: true
+        })
   }
 
   /**
@@ -34,11 +39,11 @@ export default abstract class DataProcessor {
       const { success = true } = await this.process(data)
       const end = Date.now()
 
-      DataProcessor.logger.debug({ msg: 'SUCCESS', data })
+      this.logger.debug({ msg: 'SUCCESS', data })
       if (success) return { success: true, executionTime: (end - start) / 1000 }
       else throw new Error()
     } catch (err) {
-      DataProcessor.logger.debug({ msg: 'FAILURE', data })
+      this.logger.debug({ msg: 'FAILURE', data })
       return { success: false }
     }
   }
