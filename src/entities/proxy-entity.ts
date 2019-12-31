@@ -1,7 +1,14 @@
+interface ProxyEntityInterface {
+  readonly host: string
+  readonly port: number
+  readonly auth: { readonly username: string; readonly password: string }
+}
+
 /**
  * Proxy entity
+ * @deprecated Since v1.14.0. Use [[ProxyEntityInterface]] instead.
  */
-export default class ProxyEntity {
+class ProxyEntity {
   host: string
   port: number
   auth: { username: string; password: string }
@@ -12,3 +19,5 @@ export default class ProxyEntity {
     this.auth = { username, password }
   }
 }
+
+export { ProxyEntityInterface, ProxyEntity }

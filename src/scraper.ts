@@ -1,7 +1,7 @@
 import axios from 'axios'
 import pino from 'pino'
 
-import { ProxyEntity } from './entities'
+import { ProxyEntityInterface, ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
 
@@ -23,7 +23,7 @@ export interface ScrapingResult {
  */
 export default abstract class Scraper {
   private userAgents: string[]
-  private proxies: ProxyEntity[]
+  private proxies: ProxyEntityInterface[] | ProxyEntity[]
   private options: ScraperOptions
   public readonly logger: pino
   private axios: any
@@ -31,18 +31,20 @@ export default abstract class Scraper {
 
   constructor(
     userAgents: string[] = [],
-    proxies: ProxyEntity[] = [],
+    proxies: ProxyEntityInterface[] | ProxyEntity[] = [],
     options: ScraperOptionsInterface = {}
   ) {
     this.userAgents = userAgents
     this.proxies = proxies
     this.options = new ScraperOptions(options)
 
-    this.logger = this.options.logger ? this.options.logger : pino({
-      name: 'spiderman-scraper',
-      level: this.options.logLevel,
-      useLevelLabels: true
-    })
+    this.logger = this.options.logger
+      ? this.options.logger
+      : pino({
+          name: 'spiderman-scraper',
+          level: this.options.logLevel,
+          useLevelLabels: true
+        })
     this.axios = axios.create({
       timeout: this.options.timeout
     })
@@ -77,7 +79,12 @@ export default abstract class Scraper {
       const end = Date.now()
 
       this.logger.debug({ msg: 'SUCCESS', url })
-      return { success, data, nextUrls, executionTime: (end - start) / 1000 }
+      return {
+        success,
+        data,
+        nextUrls,
+        executionTime: (end - start) / 1000
+      }
     } catch (err) {
       this.logger.debug({ msg: 'FAILURE', url })
       return { success: false }
