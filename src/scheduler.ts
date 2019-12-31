@@ -24,12 +24,12 @@ export interface ClassificationResult {
  * Manage and schedule crawling tasks
  */
 export default abstract class Scheduler extends EventEmitter {
-  public readonly stats = new Statistics()
   private readonly initUrl: string | null
   private readonly options: SchedulerOptions
   private readonly dupUrlFilter: DuplicateFilter
   private readonly scrapers: Bottleneck
   private readonly dataProcessors: Bottleneck
+  public readonly stats = new Statistics()
   public readonly logger: pino
 
   constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {

@@ -10,7 +10,7 @@ export interface DataProcessingResult {
  * Data processor
  */
 export default abstract class DataProcessor {
-  private options: DataProcessorOptions
+  private readonly options: DataProcessorOptions
   public static logger = pino({
     name: 'spiderman-data-processor',
     useLevelLabels: true

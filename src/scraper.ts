@@ -22,15 +22,15 @@ export interface ScrapingResult {
  * Scraper
  */
 export default abstract class Scraper {
-  private userAgents: string[]
-  private proxies: ProxyEntityInterface[] | ProxyEntity[]
-  private options: ScraperOptions
+  private readonly userAgents: string[]
+  private readonly proxies: ProxyEntityInterface[] | ProxyEntity[]
+  private readonly options: ScraperOptions
+  private readonly axios: AxiosInstance
+  protected url: string
   public static logger = pino({
     name: 'spiderman-scraper',
     useLevelLabels: true
   })
-  private axios: AxiosInstance
-  public url: string
 
   constructor(
     userAgents: string[] = [],

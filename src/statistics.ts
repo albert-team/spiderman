@@ -2,12 +2,12 @@
  * Statistics collector for Scheduler
  */
 export default class Statistics {
-  public counts = {
+  public readonly counts = {
     success: { scraping: 0, dataProcessing: 0 },
     softFailure: { scraping: 0, dataProcessing: 0 },
     hardFailure: { scraping: 0, dataProcessing: 0 }
   }
-  public time = {
+  public readonly time = {
     total: { scraping: 0, dataProcessing: 0 },
     avg: { scraping: 0, dataProcessing: 0 }
   }
@@ -18,20 +18,21 @@ export default class Statistics {
   public dumpCounts(
     type: 'scraping' | 'dataProcessing',
     state: 'success' | 'softFailure' | 'hardFailure'
-  ) {
+  ): void {
     ++this.counts[state][type]
   }
 
   /**
    * Calculate new total and average time of successful `type` tasks
    */
-  public dumpTime(type: 'scraping' | 'dataProcessing', t: number) {
+  public dumpTime(type: 'scraping' | 'dataProcessing', t: number): void {
     this.time.total[type] += t
     this.time.avg[type] = (this.time.avg[type] + t) / 2
   }
 
   /**
    * Get all collected statistics as object
+   * @deprecated Since v1.14.0
    */
   public get(): object {
     const { counts, time } = this

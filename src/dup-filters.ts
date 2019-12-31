@@ -4,12 +4,12 @@ import { BloomFilter } from '@albert-team/rebloom'
  * Duplicate filter using Set
  */
 class SetDuplicateFilter {
-  private filter: Set<any> = new Set()
+  private readonly filter: Set<any> = new Set()
 
   /**
    * Add an item to the filter
    */
-  public add(item: any) {
+  public add(item: any): void {
     this.filter.add(item)
   }
 
