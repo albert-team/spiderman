@@ -100,21 +100,21 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Schedule a URL to be scraped
    */
-  public scheduleUrl(url: string, duplicateCheck = true) {
+  public scheduleUrl(url: string, duplicateCheck = true): void {
     this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
   /**
    * Schedule a URL entity to be scraped
    */
-  public scheduleUrlEntity(urlEntity: UrlEntity) {
+  public scheduleUrlEntity(urlEntity: UrlEntity): void {
     this.scrapers.schedule(() => this.scrapeUrlEntity(urlEntity))
   }
 
   /**
    * Scrape a URL. Deprecated for public use since v1.7.0.
    */
-  private async scrapeUrl(url: string, duplicateCheck = true) {
+  private async scrapeUrl(url: string, duplicateCheck = true): Promise<void> {
     const result = this.classifyUrl(url)
     if (!result) return // discard
     const {
@@ -127,16 +127,15 @@ export default abstract class Scheduler extends EventEmitter {
       if (await this.dupUrlFilter.exists(fp)) return
       else this.dupUrlFilter.add(fp)
     }
-    return this.scrapeUrlEntity(urlEntity)
+    await this.scrapeUrlEntity(urlEntity)
   }
 
   /**
    * Scrape a URL entity
    */
-  private async scrapeUrlEntity(urlEntity: UrlEntity) {
+  private async scrapeUrlEntity(urlEntity: UrlEntity): Promise<void> {
     ++urlEntity.retryCount
     const { url, scraper, dataProcessor, retryCount } = urlEntity
-    const attempt = retryCount + 1
     const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
 
     if (success) {
@@ -163,10 +162,9 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Process data
    */
-  private async processDataEntity(dataEntity: DataEntity) {
+  private async processDataEntity(dataEntity: DataEntity): Promise<void> {
     ++dataEntity.retryCount
     const { data, dataProcessor, retryCount } = dataEntity
-    const attempt = retryCount + 1
     const { success, executionTime } = await dataProcessor.run(data)
 
     if (success) {
@@ -195,7 +193,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Connect to databases
    */
-  private async connect() {
+  private async connect(): Promise<void> {
     if (isBloomDuplicateFilter(this.dupUrlFilter)) {
       await this.dupUrlFilter.connect()
       this.dupUrlFilter.reserve(0.001, 10 ** 6)
@@ -206,7 +204,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Start crawling
    */
-  public async start() {
+  public async start(): Promise<void> {
     this.logger.info({ msg: 'STARTING', options: this.options })
     await this.connect()
     if (this.initUrl) this.scheduleUrl(this.initUrl, false)
@@ -215,16 +213,22 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Pause crawling. Finish all running tasks and prevent new tasks from being added
    */
-  public pause() {
-    this.scrapers.updateSettings({ reservoir: 0, reservoirRefreshAmount: 0 })
-    this.dataProcessors.updateSettings({ reservoir: 0, reservoirRefreshAmount: 0 })
+  public pause(): void {
+    this.scrapers.updateSettings({
+      reservoir: 0,
+      reservoirRefreshAmount: 0
+    })
+    this.dataProcessors.updateSettings({
+      reservoir: 0,
+      reservoirRefreshAmount: 0
+    })
     this.logger.info({ msg: 'PAUSED' })
   }
 
   /**
    * Resume crawling
    */
-  public resume() {
+  public resume(): void {
     this.scrapers.updateSettings({
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
@@ -239,7 +243,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Stop crawling
    */
-  public async stop(gracefully = true) {
+  public async stop(gracefully = true): Promise<void> {
     await Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
@@ -250,7 +254,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Disconnect all connections
    */
-  public async disconnect() {
+  public async disconnect(): Promise<void> {
     await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
