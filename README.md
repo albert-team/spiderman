@@ -12,11 +12,11 @@
 
 #### Mandatory
 
-- Node.js >= 8.0.0
+- Node.js >= 10.0.0
 
 #### Optional
 
-- Redis >= 4.0 with RedisBloom >= 1.1.0
+- Redis >= 4.0 with RedisBloom >= 2.2.0
 
 ### Instructions
 
