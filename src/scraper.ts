@@ -1,27 +1,14 @@
 import axios, { AxiosInstance } from 'axios'
 import pino, { Logger } from 'pino'
-import { ProxyEntityInterface, ProxyEntity } from './entities'
+import {
+  ParsingMeta,
+  ParsingResult,
+  ProxyEntityInterface,
+  ProxyEntity,
+  ScrapingResult
+} from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
-
-interface ParsingResult {
-  success?: boolean
-  data?: object
-  nextUrls?: string[]
-}
-
-interface ParsingMeta {
-  url: string
-  reqHeaders: object
-  resHeaders: object
-}
-
-interface ScrapingResult {
-  success: boolean
-  data?: object
-  nextUrls?: string[]
-  executionTime?: number
-}
 
 /**
  * Scraper

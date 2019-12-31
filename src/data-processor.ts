@@ -1,10 +1,6 @@
 import pino, { Logger } from 'pino'
+import { DataProcessingResult } from './entities'
 import { DataProcessorOptions, DataProcessorOptionsInterface } from './options'
-
-interface DataProcessingResult {
-  success: boolean
-  executionTime?: number
-}
 
 /**
  * Data processor

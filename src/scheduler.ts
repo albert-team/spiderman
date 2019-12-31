@@ -1,23 +1,15 @@
 import { EventEmitter } from 'events'
 import Bottleneck from 'bottleneck'
 import pino, { Logger } from 'pino'
-import { UrlEntity, DataEntity } from './entities'
+import { UrlEntity, DataEntity, ClassificationResult } from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
-import { DataProcessor } from './data-processor'
 import { SetDuplicateFilter, BloomDuplicateFilter } from './dup-filters'
-import { Scraper } from './scraper'
 import { Statistics } from './statistics'
 
 type DuplicateFilter = SetDuplicateFilter | BloomDuplicateFilter
 
 function isBloomDuplicateFilter(filter: DuplicateFilter): filter is BloomDuplicateFilter {
   return (filter as BloomDuplicateFilter).connect !== undefined
-}
-
-interface ClassificationResult {
-  urlEntity?: UrlEntity
-  scraper?: Scraper
-  dataProcessor?: DataProcessor
 }
 
 /**
