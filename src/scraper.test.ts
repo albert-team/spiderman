@@ -1,4 +1,4 @@
-import Scraper from './scraper'
+import { Scraper } from './scraper'
 
 class TestingScraper extends Scraper {
   constructor() {

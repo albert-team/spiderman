@@ -3,10 +3,10 @@ import Bottleneck from 'bottleneck'
 import pino, { Logger } from 'pino'
 import { UrlEntity, DataEntity } from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
-import DataProcessor from './data-processor'
+import { DataProcessor } from './data-processor'
 import { SetDuplicateFilter, BloomDuplicateFilter } from './dup-filters'
-import Scraper from './scraper'
-import Statistics from './statistics'
+import { Scraper } from './scraper'
+import { Statistics } from './statistics'
 
 type DuplicateFilter = SetDuplicateFilter | BloomDuplicateFilter
 
@@ -14,7 +14,7 @@ function isBloomDuplicateFilter(filter: DuplicateFilter): filter is BloomDuplica
   return (filter as BloomDuplicateFilter).connect !== undefined
 }
 
-export interface ClassificationResult {
+interface ClassificationResult {
   urlEntity?: UrlEntity
   scraper?: Scraper
   dataProcessor?: DataProcessor
@@ -23,7 +23,7 @@ export interface ClassificationResult {
 /**
  * Manage and schedule crawling tasks
  */
-export default abstract class Scheduler extends EventEmitter {
+export abstract class Scheduler extends EventEmitter {
   private readonly initUrl: string | null
   private readonly options: SchedulerOptions
   private readonly dupUrlFilter: DuplicateFilter

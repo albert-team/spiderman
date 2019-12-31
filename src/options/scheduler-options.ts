@@ -20,7 +20,7 @@ export interface SchedulerOptionsInterface {
 /**
  * Scheduler options
  */
-export default class SchedulerOptions implements SchedulerOptionsInterface {
+export class SchedulerOptions implements SchedulerOptionsInterface {
   shortRetries = 1
   longRetries = 2
   maxScrapers = 8

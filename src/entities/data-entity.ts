@@ -1,12 +1,12 @@
-import DataProcessor from '../data-processor'
+import { DataProcessor } from '..'
 
 /**
  * Data entity
  */
-export default class DataEntity {
+export class DataEntity {
   data: object
   dataProcessor: DataProcessor
-  retryCount: number = -1
+  retryCount = -1
 
   constructor(data: object, dataProcessor: DataProcessor) {
     this.data = data

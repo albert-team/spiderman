@@ -1,5 +1,4 @@
-import DataProcessor from './data-processor'
-import Scheduler from './scheduler'
-import Scraper from './scraper'
-
-export { DataProcessor, Scheduler, Scraper }
+export * from './data-processor'
+export * from './scheduler'
+export * from './scraper'
+export * from './statistics'

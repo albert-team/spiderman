@@ -1,9 +1,9 @@
-import { BloomFilter } from '@albert-team/rebloom'
+export { BloomFilter as BloomDuplicateFilter } from '@albert-team/rebloom'
 
 /**
  * Duplicate filter using Set
  */
-class SetDuplicateFilter {
+export class SetDuplicateFilter {
   private readonly filter: Set<any> = new Set()
 
   /**
@@ -20,5 +20,3 @@ class SetDuplicateFilter {
     return this.filter.has(item)
   }
 }
-
-export { SetDuplicateFilter, BloomFilter as BloomDuplicateFilter }

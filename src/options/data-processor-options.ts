@@ -3,7 +3,7 @@ import { Logger } from 'pino'
 /**
  * Data processor options interface
  */
-interface DataProcessorOptionsInterface {
+export interface DataProcessorOptionsInterface {
   logger?: Logger
   logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
 }
@@ -11,7 +11,7 @@ interface DataProcessorOptionsInterface {
 /**
  * Data processor options
  */
-class DataProcessorOptions implements DataProcessorOptionsInterface {
+export class DataProcessorOptions implements DataProcessorOptionsInterface {
   logger: Logger
   logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'
 
@@ -19,6 +19,3 @@ class DataProcessorOptions implements DataProcessorOptionsInterface {
     Object.assign(this, options)
   }
 }
-
-export default DataProcessorOptions
-export { DataProcessorOptionsInterface }

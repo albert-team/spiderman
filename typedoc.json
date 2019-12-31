@@ -1,7 +1,6 @@
 {
   "exclude": ["**/*.test.*"],
   "excludeExternals": true,
-  "excludeNotExported": true,
   "excludePrivate": true,
   "hideGenerator": true,
   "mode": "file",

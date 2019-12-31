@@ -12,7 +12,7 @@ export interface ScraperOptionsInterface {
 /**
  * Scraper options
  */
-export default class ScraperOptions implements ScraperOptionsInterface {
+export class ScraperOptions implements ScraperOptionsInterface {
   timeout: number = 10 * 1000
   logger: Logger
   logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'

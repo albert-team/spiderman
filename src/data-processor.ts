@@ -1,7 +1,7 @@
 import pino, { Logger } from 'pino'
 import { DataProcessorOptions, DataProcessorOptionsInterface } from './options'
 
-export interface DataProcessingResult {
+interface DataProcessingResult {
   success: boolean
   executionTime?: number
 }
@@ -9,7 +9,7 @@ export interface DataProcessingResult {
 /**
  * Data processor
  */
-export default abstract class DataProcessor {
+export abstract class DataProcessor {
   private readonly options: DataProcessorOptions
   public readonly logger: Logger
 

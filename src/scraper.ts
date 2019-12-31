@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from 'axios'
 import pino, { Logger } from 'pino'
-
 import { ProxyEntityInterface, ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
@@ -27,7 +26,7 @@ interface ScrapingResult {
 /**
  * Scraper
  */
-abstract class Scraper {
+export abstract class Scraper {
   private readonly userAgents: string[]
   private readonly proxies: ProxyEntityInterface[] | ProxyEntity[]
   private readonly options: ScraperOptions
@@ -105,6 +104,3 @@ abstract class Scraper {
     }
   }
 }
-
-export default Scraper
-export { ParsingResult, ScrapingResult }

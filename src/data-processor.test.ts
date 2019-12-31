@@ -1,4 +1,4 @@
-import DataProcessor from './data-processor'
+import { DataProcessor } from './data-processor'
 
 class SuccessfulDataProcessor extends DataProcessor {
   constructor() {

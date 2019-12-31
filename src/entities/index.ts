@@ -1,5 +1,3 @@
-import DataEntity from './data-entity'
-import { ProxyEntityInterface, ProxyEntity } from './proxy-entity'
-import UrlEntity from './url-entity'
-
-export { DataEntity, ProxyEntityInterface, ProxyEntity, UrlEntity }
+export * from './data-entity'
+export * from './proxy-entity'
+export * from './url-entity'

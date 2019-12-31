@@ -15,7 +15,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "entities.js"
+    "entities.js",
+    "options.js"
   ],
   "main": "dist/index.js",
   "scripts": {

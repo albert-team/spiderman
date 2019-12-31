@@ -1,7 +1,7 @@
 /**
  * Statistics collector for Scheduler
  */
-export default class Statistics {
+export class Statistics {
   public readonly counts = {
     success: { scraping: 0, dataProcessing: 0 },
     softFailure: { scraping: 0, dataProcessing: 0 },
