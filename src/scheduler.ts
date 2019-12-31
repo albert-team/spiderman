@@ -100,7 +100,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Schedule a URL to be scraped
    */
-  public scheduleUrl(url: string, duplicateCheck: boolean = true) {
+  public scheduleUrl(url: string, duplicateCheck = true) {
     this.scrapers.schedule(() => this.scrapeUrl(url, duplicateCheck))
   }
 
@@ -114,7 +114,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Scrape a URL. Deprecated for public use since v1.7.0.
    */
-  private async scrapeUrl(url: string, duplicateCheck: boolean = true) {
+  private async scrapeUrl(url: string, duplicateCheck = true) {
     const result = this.classifyUrl(url)
     if (!result) return // discard
     const {
@@ -239,7 +239,7 @@ export default abstract class Scheduler extends EventEmitter {
   /**
    * Stop crawling
    */
-  public async stop(gracefully: boolean = true) {
+  public async stop(gracefully = true) {
     await Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
       this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
