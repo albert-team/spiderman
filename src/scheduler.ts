@@ -24,13 +24,13 @@ export interface ClassificationResult {
  * Manage and schedule crawling tasks
  */
 export default abstract class Scheduler extends EventEmitter {
-  private initUrl: string | null
-  private options: SchedulerOptions
-  private dupUrlFilter: DuplicateFilter
+  public readonly stats = new Statistics()
+  private readonly initUrl: string | null
+  private readonly options: SchedulerOptions
+  private readonly dupUrlFilter: DuplicateFilter
+  private readonly scrapers: Bottleneck
+  private readonly dataProcessors: Bottleneck
   public readonly logger: pino
-  private stats: Statistics
-  private scrapers: Bottleneck
-  private dataProcessors: Bottleneck
 
   constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {
     super()
@@ -56,7 +56,6 @@ export default abstract class Scheduler extends EventEmitter {
         useLevelLabels: true
       })
     }
-    this.stats = new Statistics()
 
     this.scrapers = new Bottleneck({
       minTime: 100,
@@ -185,6 +184,7 @@ export default abstract class Scheduler extends EventEmitter {
 
   /**
    * Get statistics
+   * @deprecated Since v1.14.0. Use [[Scheduler.stats]] instead.
    */
   public getStats(): Statistics {
     return this.stats
@@ -214,14 +214,9 @@ export default abstract class Scheduler extends EventEmitter {
    * Pause crawling. Finish all running tasks and prevent new tasks from being added
    */
   public pause(): void {
-    this.scrapers.updateSettings({
-      reservoir: 0,
-      reservoirRefreshAmount: 0
-    })
-    this.dataProcessors.updateSettings({
-      reservoir: 0,
-      reservoirRefreshAmount: 0
-    })
+    const opts = { reservoir: 0, reservoirRefreshAmount: 0 }
+    this.scrapers.updateSettings(opts)
+    this.dataProcessors.updateSettings(opts)
     this.logger.info({ msg: 'PAUSED' })
   }
 
@@ -229,14 +224,12 @@ export default abstract class Scheduler extends EventEmitter {
    * Resume crawling
    */
   public resume(): void {
-    this.scrapers.updateSettings({
+    const opts = {
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshAmount: this.options.tasksPerMinPerQueue
-    })
-    this.dataProcessors.updateSettings({
-      reservoir: this.options.tasksPerMinPerQueue,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
-    })
+    }
+    this.scrapers.updateSettings(opts)
+    this.dataProcessors.updateSettings(opts)
     this.logger.info({ msg: 'RESUMED' })
   }
 
