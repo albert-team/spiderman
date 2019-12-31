@@ -1,3 +1,6 @@
+/**
+ * Proxy entity interface
+ */
 interface ProxyEntityInterface {
   readonly host: string
   readonly port: number

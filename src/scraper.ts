@@ -5,13 +5,19 @@ import { ProxyEntityInterface, ProxyEntity } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
 
-export interface ParsingResult {
+interface ParsingResult {
   success?: boolean
   data?: object
   nextUrls?: string[]
 }
 
-export interface ScrapingResult {
+interface ParsingMeta {
+  url: string
+  reqHeaders: object
+  resHeaders: object
+}
+
+interface ScrapingResult {
   success: boolean
   data?: object
   nextUrls?: string[]
@@ -21,12 +27,15 @@ export interface ScrapingResult {
 /**
  * Scraper
  */
-export default abstract class Scraper {
+abstract class Scraper {
   private readonly userAgents: string[]
   private readonly proxies: ProxyEntityInterface[] | ProxyEntity[]
   private readonly options: ScraperOptions
   private readonly axios: AxiosInstance
+
+  /** @deprecated Since v1.14.0. Use [[ParsingMeta]] instead. */
   protected url: string
+
   public static logger = pino({
     name: 'spiderman-scraper',
     useLevelLabels: true
@@ -49,18 +58,22 @@ export default abstract class Scraper {
   /**
    * Parse result from the response body
    */
-  protected abstract async parse(resBody: string): Promise<ParsingResult>
+  protected abstract async parse(
+    resBody: string,
+    meta: ParsingMeta
+  ): Promise<ParsingResult>
 
   /**
    * Process a URL. You can override this method to change its default behavior.
    */
   protected async process(url: string): Promise<ParsingResult> {
+    const reqHeaders = { 'User-Agent': chooseRandom(this.userAgents) }
     const res = await this.axios.get(url, {
-      headers: { 'User-Agent': chooseRandom(this.userAgents) },
+      headers: reqHeaders,
       proxy: chooseRandom(this.proxies)
     })
     if (res.status < 200 || res.status >= 300) throw new Error() // will be catched in run()
-    return this.parse(res.data)
+    return this.parse(res.data, { url, reqHeaders, resHeaders: res.headers })
   }
 
   /**
@@ -87,3 +100,6 @@ export default abstract class Scraper {
     }
   }
 }
+
+export default Scraper
+export { ParsingResult, ScrapingResult }
