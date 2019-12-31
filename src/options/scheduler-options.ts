@@ -12,6 +12,8 @@ export interface SchedulerOptionsInterface {
   useRedisBloom?: boolean
   logger?: pino
   logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+
+  /** @deprecated Since v1.14.0. Use [[SchedulerOptionsInterface.logLevel]] instead. */
   verbose?: boolean
 }
 
@@ -19,15 +21,17 @@ export interface SchedulerOptionsInterface {
  * Scheduler options
  */
 export default class SchedulerOptions implements SchedulerOptionsInterface {
-  shortRetries: number = 1
-  longRetries: number = 2
-  maxScrapers: number = 8
-  maxDataProcessors: number = 4
-  tasksPerMinPerQueue: number = 100
-  useRedisBloom: boolean = false
+  shortRetries = 1
+  longRetries = 2
+  maxScrapers = 8
+  maxDataProcessors = 4
+  tasksPerMinPerQueue = 100
+  useRedisBloom = false
   logger: pino
   logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
-  verbose: boolean = false
+
+  /** @deprecated Since v1.14.0. Use [[SchedulerOptions.logLevel]] instead. */
+  verbose = false
 
   constructor(options: SchedulerOptionsInterface = {}) {
     Object.assign(this, options)
