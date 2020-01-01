@@ -4,17 +4,16 @@
 
 ### FEATURES
 
+- Require Node >= 10
 - Upgrade _@albert-team/rebloom_ to v2, which requires _RedisBloom_ v2 too
+- All entity interfaces and classes are exported under `"@albert-team/spiderman/entities"`
+- All option interfaces and classes are exported under `"@albert-team/spiderman/options"`
+- Fix missing non-exported entities in docs
 - Deprecate `ProxyEntity`, use `ProxyEntityInterface` instead. In the future, `ProxyEntity` symbol will be replaced with `ProxyEntityInterface`
 - Deprecate `SchedulerOptions.verbose` in code
 - Deprecate `Scheduler.getStats()`, use `Scheduler.stats` instead
 - Deprecate `Scraper.url`, use `ParsingMeta` instead
 - Deprecate `Statistics.get()`
-- _Spiderman_ requires Node >= v10 now
-- All entity interfaces and classes are exported under "spiderman/entities" now
-- All option interfaces and classes are exported under "spiderman/options" now
-- Many other internal changes and improvements
-- Fix missing non-exported entities in docs
 
 ## v1.13.0
 
