@@ -1,21 +1,27 @@
 import { Logger } from 'pino'
+import { LogLevel } from '../entities'
 
 /**
  * Scraper options interface
  */
 export interface ScraperOptionsInterface {
+  name?: string
+
+  /** In milliseconds */
   timeout?: number
+
   logger?: Logger
-  logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+  logLevel?: LogLevel
 }
 
 /**
  * Scraper options
  */
 export class ScraperOptions implements ScraperOptionsInterface {
-  timeout: number = 10 * 1000
+  name = 'spiderman-scraper'
+  timeout = 10 * 1000
   logger: Logger
-  logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'
+  logLevel: LogLevel = 'info'
 
   constructor(options: ScraperOptionsInterface = {}) {
     Object.assign(this, options)

@@ -15,7 +15,7 @@ export abstract class DataProcessor {
     this.logger = this.options.logger
       ? this.options.logger
       : pino({
-          name: 'spiderman-data-processor',
+          name: this.options.name,
           level: this.options.logLevel,
           useLevelLabels: true
         })

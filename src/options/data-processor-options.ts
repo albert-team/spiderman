@@ -1,19 +1,22 @@
 import { Logger } from 'pino'
+import { LogLevel } from '../entities'
 
 /**
  * Data processor options interface
  */
 export interface DataProcessorOptionsInterface {
+  name?: string
   logger?: Logger
-  logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+  logLevel?: LogLevel
 }
 
 /**
  * Data processor options
  */
 export class DataProcessorOptions implements DataProcessorOptionsInterface {
+  name = 'spiderman-data-processor'
   logger: Logger
-  logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent' = 'info'
+  logLevel: LogLevel = 'info'
 
   constructor(options: DataProcessorOptionsInterface = {}) {
     Object.assign(this, options)

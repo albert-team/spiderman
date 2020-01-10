@@ -26,6 +26,8 @@ export interface DataProcessingResult {
   executionTime?: number
 }
 
+export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+
 /** Parsing meta */
 export interface ParsingMeta {
   url: string

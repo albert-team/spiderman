@@ -36,7 +36,7 @@ export abstract class Scraper {
     this.logger = this.options.logger
       ? this.options.logger
       : pino({
-          name: 'spiderman-scraper',
+          name: this.options.name,
           level: this.options.logLevel,
           useLevelLabels: true
         })
