@@ -195,11 +195,13 @@ export abstract class Scheduler extends EventEmitter {
 
   /**
    * Start crawling
+   * @param initUrls Initial URLs, in addition to the one passed to the constructor
    */
-  public async start(): Promise<void> {
+  public async start(initUrls: string[] = []): Promise<void> {
     this.logger.info({ msg: 'STARTING', options: this.options })
     await this.connect()
     if (this.initUrl) this.scheduleUrl(this.initUrl, false)
+    for (const url of initUrls) this.scheduleUrl(url, false)
   }
 
   /**
