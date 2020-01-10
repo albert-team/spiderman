@@ -1,9 +1,3 @@
-# DEPRECATED
-
-- _done_ event of `Scheduler` in favor of _idle_ event
-- `Scheduler.scrapeUrl()` for _public use_
-- `SchedulerOptions.verbose` in favor of `SchedulerOptions.logLevel`
-
 # TODO
 
 ## New Features
@@ -14,6 +8,5 @@
 
 ## Breaking Changes
 
-- Remove _done_ event of `Scheduler`
 - Remove `initUrl` parameter in `Scheduler` constructor in favor of `Scheduler.start(initUrls)`
-- Remove `SchedulerOptions.verbose`
+- Move `userAgents` and `proxies` parameters in `Scraper` constructor into `options` one
