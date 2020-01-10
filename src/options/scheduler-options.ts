@@ -1,4 +1,5 @@
 import { Logger } from 'pino'
+import { LogLevel } from '../entities'
 
 /**
  * Scheduler options interface
@@ -11,7 +12,7 @@ export interface SchedulerOptionsInterface {
   tasksPerMinPerQueue?: number
   useRedisBloom?: boolean
   logger?: Logger
-  logLevel?: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+  logLevel?: LogLevel
 
   /** @deprecated Since v1.14.0. Use [[SchedulerOptionsInterface.logLevel]] instead. */
   verbose?: boolean
@@ -28,7 +29,7 @@ export class SchedulerOptions implements SchedulerOptionsInterface {
   tasksPerMinPerQueue = 100
   useRedisBloom = false
   logger: Logger
-  logLevel: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent'
+  logLevel: LogLevel
 
   /** @deprecated Since v1.14.0. Use [[SchedulerOptions.logLevel]] instead. */
   verbose = false
