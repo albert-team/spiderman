@@ -1,16 +1,17 @@
 import { EventEmitter } from 'events'
 import Bottleneck from 'bottleneck'
 import pino, { Logger } from 'pino'
-import { UrlEntity, DataEntity, ClassificationResult } from './entities'
+import {
+  BloomDuplicateFilter,
+  ClassificationResult,
+  DataEntity,
+  DuplicateFilter,
+  SetDuplicateFilter,
+  Statistics,
+  UrlEntity
+} from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
-import { SetDuplicateFilter, BloomDuplicateFilter } from './dup-filters'
-import { Statistics } from './statistics'
-
-type DuplicateFilter = SetDuplicateFilter | BloomDuplicateFilter
-
-function isBloomDuplicateFilter(filter: DuplicateFilter): filter is BloomDuplicateFilter {
-  return (filter as BloomDuplicateFilter).connect !== undefined
-}
+import { isBloomDuplicateFilter } from './utils'
 
 /**
  * Manage and schedule crawling tasks

@@ -1,5 +1,4 @@
-import { DataProcessor } from './data-processor'
-import { Scraper } from './scraper'
+import { DataProcessor, Scraper } from '..'
 
 /** Classification result */
 export interface ClassificationResult {
@@ -91,3 +90,6 @@ export class UrlEntity {
     return this.url
   }
 }
+
+export * from './dup-filters'
+export * from './statistics'

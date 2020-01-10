@@ -1,4 +1,4 @@
-export { BloomFilter as BloomDuplicateFilter } from '@albert-team/rebloom'
+import { BloomFilter as BloomDuplicateFilter } from '@albert-team/rebloom'
 
 /**
  * Duplicate filter using Set
@@ -20,3 +20,7 @@ export class SetDuplicateFilter {
     return this.filter.has(item)
   }
 }
+
+export type DuplicateFilter = BloomDuplicateFilter | SetDuplicateFilter
+
+export { BloomDuplicateFilter }
