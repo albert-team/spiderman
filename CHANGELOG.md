@@ -71,7 +71,7 @@
 - Revamp `Statistics` class
 - Add `Scheduler.getStats()`
 - Use _Travis CI_
-- Auto deploy package to NPM, deploy documentation to _Github Pages_ and release new version on Github
+- Auto deploy package to NPM, deploy documentation to Github Pages and release new version on Github
 - Use `Date` object instead of `process.hrtime` to collect statistics
 
 ## v1.9.0-beta.1
@@ -236,7 +236,7 @@
 
 ### FEATURES
 
-- Deploy documentation to _GitHub Pages_
+- Deploy documentation to GitHub Pages
 - Use _xxhashjs_ instead of _metrohash_ to get URL fingerprint by default
 
 ## v0.2.0 (Canary)
