@@ -17,7 +17,11 @@ export abstract class DataProcessor {
       : pino({
           name: this.options.name,
           level: this.options.logLevel,
-          useLevelLabels: true
+          formatters: {
+            level(label): object {
+              return { level: label }
+            },
+          },
         })
   }
 

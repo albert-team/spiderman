@@ -3,9 +3,9 @@ import pino, { Logger } from 'pino'
 import {
   ParsingMeta,
   ParsingResult,
-  ProxyEntityInterface,
   ProxyEntity,
-  ScrapingResult
+  ProxyEntityInterface,
+  ScrapingResult,
 } from './entities'
 import { ScraperOptions, ScraperOptionsInterface } from './options'
 import { chooseRandom } from './utils'
@@ -38,11 +38,15 @@ export abstract class Scraper {
       : pino({
           name: this.options.name,
           level: this.options.logLevel,
-          useLevelLabels: true
+          formatters: {
+            level(label): object {
+              return { level: label }
+            },
+          },
         })
 
     this.axios = axios.create({
-      timeout: this.options.timeout
+      timeout: this.options.timeout,
     })
   }
 
@@ -61,7 +65,7 @@ export abstract class Scraper {
     const reqHeaders = { 'User-Agent': chooseRandom(this.userAgents) }
     const res = await this.axios.get(url, {
       headers: reqHeaders,
-      proxy: chooseRandom(this.proxies)
+      proxy: chooseRandom(this.proxies),
     })
     if (res.status < 200 || res.status >= 300) throw new Error() // will be catched in run()
     return this.parse(res.data, { url, reqHeaders, resHeaders: res.headers })
@@ -83,7 +87,7 @@ export abstract class Scraper {
         success,
         data,
         nextUrls,
-        executionTime: (end - start) / 1000
+        executionTime: (end - start) / 1000,
       }
     } catch (err) {
       this.logger.debug({ msg: 'FAILURE', url })

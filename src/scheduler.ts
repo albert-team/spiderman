@@ -46,7 +46,11 @@ export abstract class Scheduler extends EventEmitter {
       this.logger = pino({
         name: 'spiderman-scheduler',
         level: logLevel,
-        useLevelLabels: true,
+        formatters: {
+          level(label): object {
+            return { level: label }
+          },
+        },
       })
     }
 
