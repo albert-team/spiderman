@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events'
 import Bottleneck from 'bottleneck'
+import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
 import {
   BloomDuplicateFilter,
@@ -8,7 +8,7 @@ import {
   DuplicateFilter,
   SetDuplicateFilter,
   Statistics,
-  UrlEntity
+  UrlEntity,
 } from './entities'
 import { SchedulerOptions, SchedulerOptionsInterface } from './options'
 import { isBloomDuplicateFilter } from './utils'
@@ -46,7 +46,7 @@ export abstract class Scheduler extends EventEmitter {
       this.logger = pino({
         name: 'spiderman-scheduler',
         level: logLevel,
-        useLevelLabels: true
+        useLevelLabels: true,
       })
     }
 
@@ -55,7 +55,7 @@ export abstract class Scheduler extends EventEmitter {
       maxConcurrent: this.options.maxScrapers,
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
     })
     this.scrapers.on('failed', (err, task) => {
       if (task.retryCount < this.options.shortRetries) return 0
@@ -71,7 +71,7 @@ export abstract class Scheduler extends EventEmitter {
       maxConcurrent: this.options.maxDataProcessors,
       reservoir: this.options.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
     })
     this.dataProcessors.on('failed', (err, task) => {
       if (task.retryCount < this.options.shortRetries) return 0
@@ -112,7 +112,7 @@ export abstract class Scheduler extends EventEmitter {
     const {
       scraper,
       dataProcessor,
-      urlEntity = new UrlEntity(url, scraper, dataProcessor)
+      urlEntity = new UrlEntity(url, scraper, dataProcessor),
     } = result
     if (duplicateCheck) {
       const fp = urlEntity.getFingerprint()
@@ -184,9 +184,9 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Connect to databases
+   * Connect to Redis if [[BloomDuplicateFilter]] is used
    */
-  private async connect(): Promise<void> {
+  public async connect(): Promise<void> {
     if (isBloomDuplicateFilter(this.dupUrlFilter)) {
       await this.dupUrlFilter.connect()
       this.dupUrlFilter.reserve(0.001, 10 ** 6)
@@ -195,14 +195,14 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Start crawling
+   * Connect and start crawling
    * @param initUrls Initial URLs, in addition to the one passed to the constructor
    */
   public async start(initUrls: string[] = []): Promise<void> {
-    this.logger.info({ msg: 'STARTING', options: this.options })
     await this.connect()
     if (this.initUrl) this.scheduleUrl(this.initUrl, false)
     for (const url of initUrls) this.scheduleUrl(url, false)
+    this.logger.info({ msg: 'STARTED', options: this.options })
   }
 
   /**
@@ -221,7 +221,7 @@ export abstract class Scheduler extends EventEmitter {
   public resume(): void {
     const opts = {
       reservoir: this.options.tasksPerMinPerQueue,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
     }
     this.scrapers.updateSettings(opts)
     this.dataProcessors.updateSettings(opts)
@@ -234,7 +234,7 @@ export abstract class Scheduler extends EventEmitter {
   public async stop(gracefully = true): Promise<void> {
     await Promise.all([
       this.scrapers.stop({ dropWaitingJobs: !gracefully }),
-      this.dataProcessors.stop({ dropWaitingJobs: !gracefully })
+      this.dataProcessors.stop({ dropWaitingJobs: !gracefully }),
     ])
     this.logger.info({ msg: 'STOPPED' })
   }
@@ -246,7 +246,7 @@ export abstract class Scheduler extends EventEmitter {
     await Promise.all([
       this.scrapers.disconnect(),
       this.dataProcessors.disconnect(),
-      isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null
+      isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null,
     ])
     this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats.get() })
   }
