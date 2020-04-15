@@ -3,7 +3,6 @@ import pino, { Logger } from 'pino'
 import {
   ParsingMeta,
   ParsingResult,
-  ProxyEntity,
   ProxyEntityInterface,
   ScrapingResult,
 } from './entities'
@@ -15,38 +14,36 @@ import { chooseRandom } from './utils'
  */
 export abstract class Scraper {
   private readonly userAgents: string[]
-  private readonly proxies: ProxyEntityInterface[] | ProxyEntity[]
+  private readonly proxies: ProxyEntityInterface[]
   private readonly options: ScraperOptions
   private readonly axios: AxiosInstance
-
-  /** @deprecated Since v1.14.0. Use [[ParsingMeta]] instead. */
-  protected url: string
 
   public readonly logger: Logger
 
   constructor(
     userAgents: string[] = [],
-    proxies: ProxyEntityInterface[] | ProxyEntity[] = [],
+    proxies: ProxyEntityInterface[] = [],
     options: ScraperOptionsInterface = {}
   ) {
     this.userAgents = userAgents
     this.proxies = proxies
     this.options = new ScraperOptions(options)
 
-    this.logger = this.options.logger
-      ? this.options.logger
-      : pino({
-          name: this.options.name,
-          level: this.options.logLevel,
-          formatters: {
-            level(label): object {
-              return { level: label }
-            },
+    this.logger =
+      this.options.logger ??
+      pino({
+        name: this.options.name,
+        level: this.options.logLevel,
+        formatters: {
+          level(label): object {
+            return { level: label }
           },
-        })
+        },
+      })
 
     this.axios = axios.create({
       timeout: this.options.timeout,
+      validateStatus: null,
     })
   }
 
@@ -67,7 +64,8 @@ export abstract class Scraper {
       headers: reqHeaders,
       proxy: chooseRandom(this.proxies),
     })
-    if (res.status < 200 || res.status >= 300) throw new Error() // will be catched in run()
+    if (res.status < 200 || res.status >= 300)
+      throw new Error(`Could not process URL ${url}`)
     return this.parse(res.data, { url, reqHeaders, resHeaders: res.headers })
   }
 
@@ -75,8 +73,6 @@ export abstract class Scraper {
    * Run
    */
   public async run(url: string): Promise<ScrapingResult> {
-    this.url = url
-
     try {
       const start = Date.now()
       const { success = true, data, nextUrls } = await this.process(url)

@@ -30,29 +30,24 @@ export abstract class Scheduler extends EventEmitter {
 
     this.initUrl = initUrl
     this.options = new SchedulerOptions(options)
+
     if (this.options.useRedisBloom) {
       this.dupUrlFilter = new BloomDuplicateFilter('spiderman-urlfilter')
     } else {
       this.dupUrlFilter = new SetDuplicateFilter()
     }
-    if (this.options.logger) {
-      this.logger = this.options.logger
-    } else {
-      const logLevel = this.options.logLevel
-        ? this.options.logLevel
-        : this.options.verbose
-        ? 'debug'
-        : 'info'
-      this.logger = pino({
+
+    this.logger =
+      this.options.logger ??
+      pino({
         name: 'spiderman-scheduler',
-        level: logLevel,
+        level: this.options.logLevel,
         formatters: {
           level(label): object {
             return { level: label }
           },
         },
       })
-    }
 
     this.scrapers = new Bottleneck({
       minTime: 100,
@@ -180,14 +175,6 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Get statistics
-   * @deprecated Since v1.14.0. Use [[Scheduler.stats]] instead.
-   */
-  public getStats(): Statistics {
-    return this.stats
-  }
-
-  /**
    * Connect to Redis if [[BloomDuplicateFilter]] is used
    */
   public async connect(): Promise<void> {
@@ -252,6 +239,6 @@ export abstract class Scheduler extends EventEmitter {
       this.dataProcessors.disconnect(),
       isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null,
     ])
-    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats.get() })
+    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats })
   }
 }

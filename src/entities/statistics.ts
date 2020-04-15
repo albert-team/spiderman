@@ -5,11 +5,11 @@ export class Statistics {
   public readonly counts = {
     success: { scraping: 0, dataProcessing: 0 },
     softFailure: { scraping: 0, dataProcessing: 0 },
-    hardFailure: { scraping: 0, dataProcessing: 0 }
+    hardFailure: { scraping: 0, dataProcessing: 0 },
   }
   public readonly time = {
     total: { scraping: 0, dataProcessing: 0 },
-    avg: { scraping: 0, dataProcessing: 0 }
+    avg: { scraping: 0, dataProcessing: 0 },
   }
 
   /**
@@ -28,14 +28,5 @@ export class Statistics {
   public dumpTime(type: 'scraping' | 'dataProcessing', t: number): void {
     this.time.total[type] += t
     this.time.avg[type] = (this.time.avg[type] + t) / 2
-  }
-
-  /**
-   * Get all collected statistics as object
-   * @deprecated Since v1.14.0
-   */
-  public get(): object {
-    const { counts, time } = this
-    return { counts, time }
   }
 }

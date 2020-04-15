@@ -12,17 +12,17 @@ export abstract class DataProcessor {
   constructor(options: DataProcessorOptionsInterface = {}) {
     this.options = new DataProcessorOptions(options)
 
-    this.logger = this.options.logger
-      ? this.options.logger
-      : pino({
-          name: this.options.name,
-          level: this.options.logLevel,
-          formatters: {
-            level(label): object {
-              return { level: label }
-            },
+    this.logger =
+      this.options.logger ??
+      pino({
+        name: this.options.name,
+        level: this.options.logLevel,
+        formatters: {
+          level(label): object {
+            return { level: label }
           },
-        })
+        },
+      })
   }
 
   /**

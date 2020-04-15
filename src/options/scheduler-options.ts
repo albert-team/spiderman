@@ -13,9 +13,6 @@ export interface SchedulerOptionsInterface {
   useRedisBloom?: boolean
   logger?: Logger
   logLevel?: LogLevel
-
-  /** @deprecated Since v1.14.0. Use [[SchedulerOptionsInterface.logLevel]] instead. */
-  verbose?: boolean
 }
 
 /**
@@ -30,9 +27,6 @@ export class SchedulerOptions implements SchedulerOptionsInterface {
   useRedisBloom = false
   logger: Logger
   logLevel: LogLevel
-
-  /** @deprecated Since v1.14.0. Use [[SchedulerOptions.logLevel]] instead. */
-  verbose = false
 
   constructor(options: SchedulerOptionsInterface = {}) {
     Object.assign(this, options)
