@@ -1,6 +1,7 @@
 {
   "name": "@albert-team/spiderman",
   "description": "Minimalistic web crawler for Node.js",
+  "version": "1.15.0",
   "license": "MIT",
   "author": "Albert Team",
   "repository": "github:albert-team/spiderman",
@@ -9,15 +10,14 @@
     "url": "https://github.com/albert-team/spiderman/issues"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=10"
   },
-  "version": "1.14.0",
-  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "entities.js",
     "options.js"
   ],
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

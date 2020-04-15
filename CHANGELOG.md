@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v1.15.0
+
+### FEATURES
+
+- Add name field to `ScraperOptions` and `DataProcessorOptions`
+- Add `initUrls` param to `Scheduler.start()`
+- Make `Scheduler.connect()` public
+
 ## v1.14.0
 
 ### FEATURES
