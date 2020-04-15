@@ -67,7 +67,7 @@ class MyManager extends Scheduler {
   classifyUrl(url) {
     return {
       scraper: new MyScraper(),
-      dataProcessor: new MyDataProcessor()
+      dataProcessor: new MyDataProcessor(),
     }
   }
 }
