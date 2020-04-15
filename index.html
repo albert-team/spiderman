@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Spiderman</title>
+	<meta name="description" content="Documentation for Spiderman">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Spiderman</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>Spiderman</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://github.com/albert-team/spiderman"><img src="https://img.shields.io/github/license/albert-team/spiderman.svg?style=flat-square" alt=""></a>
+					<a href="https://www.npmjs.com/package/@albert-team/spiderman"><img src="https://img.shields.io/npm/v/@albert-team/spiderman.svg?style=flat-square" alt=""></a>
+				<a href="https://travis-ci.com/albert-team/spiderman"><img src="https://img.shields.io/travis/com/albert-team/spiderman.svg?style=flat-square" alt=""></a></p>
+				<a href="#spiderman" id="spiderman" style="color: inherit; text-decoration: none;">
+					<h1>SPIDERMAN</h1>
+				</a>
+				<blockquote>
+					<p>Minimalistic web crawler for Node.js</p>
+				</blockquote>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
+					<h3>Requirements</h3>
+				</a>
+				<a href="#mandatory" id="mandatory" style="color: inherit; text-decoration: none;">
+					<h4>Mandatory</h4>
+				</a>
+				<ul>
+					<li>Node.js &gt;= 10.0.0</li>
+				</ul>
+				<a href="#optional" id="optional" style="color: inherit; text-decoration: none;">
+					<h4>Optional</h4>
+				</a>
+				<ul>
+					<li>Redis &gt;= 4.0 with RedisBloom &gt;= 2.2.0</li>
+				</ul>
+				<a href="#instructions" id="instructions" style="color: inherit; text-decoration: none;">
+					<h3>Instructions</h3>
+				</a>
+				<ul>
+					<li>With npm:</li>
+				</ul>
+				<pre><code class="language-bash">npm i @albert-team/spiderman</code></pre>
+				<ul>
+					<li>With yarn:</li>
+				</ul>
+				<pre><code class="language-bash">yarn add @albert-team/spiderman</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#quick-start" id="quick-start" style="color: inherit; text-decoration: none;">
+					<h3>Quick Start</h3>
+				</a>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> { Scheduler, Scraper, DataProcessor } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@albert-team/spiderman'</span>)
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyScraper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scraper</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>()
+  }
+
+  <span class="hljs-keyword">async</span> parse(resBody) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: {}, <span class="hljs-attr">nextUrls</span>: [] }
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDataProcessor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DataProcessor</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>()
+  }
+
+  <span class="hljs-keyword">async</span> process(data) {
+    <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span> }
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyManager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scheduler</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-keyword">super</span>(<span class="hljs-string">'url'</span>)
+  }
+
+  classifyUrl(url) {
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">scraper</span>: <span class="hljs-keyword">new</span> MyScraper(),
+      <span class="hljs-attr">dataProcessor</span>: <span class="hljs-keyword">new</span> MyDataProcessor(),
+    }
+  }
+}
+
+<span class="hljs-keyword">const</span> manager = <span class="hljs-keyword">new</span> MyManager()
+manager.once(<span class="hljs-string">'idle'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">await</span> manager.stop()
+  manager.disconnect()
+})
+manager.start()</code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h3>API</h3>
+				</a>
+				<p>Read more <a href="https://albert-team.github.io/spiderman">here</a>.</p>
+				<a href="#changelog" id="changelog" style="color: inherit; text-decoration: none;">
+					<h2>Changelog</h2>
+				</a>
+				<p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md">here</a>.</p>
+				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
+					<h2>Todo</h2>
+				</a>
+				<p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/TODO.md">here</a>.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/dataentity.html" class="tsd-kind-icon">Data<wbr>Entity</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/dataprocessor.html" class="tsd-kind-icon">Data<wbr>Processor</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/dataprocessoroptions.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/proxyentity.html" class="tsd-kind-icon">Proxy<wbr>Entity</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scraper.html" class="tsd-kind-icon">Scraper</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scraperoptions.html" class="tsd-kind-icon">Scraper<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/setduplicatefilter.html" class="tsd-kind-icon">Set<wbr>Duplicate<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/statistics.html" class="tsd-kind-icon">Statistics</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/urlentity.html" class="tsd-kind-icon">Url<wbr>Entity</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/classificationresult.html" class="tsd-kind-icon">Classification<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/proxyentityinterface.html" class="tsd-kind-icon">Proxy<wbr>Entity<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scraperoptionsinterface.html" class="tsd-kind-icon">Scraper<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scrapingresult.html" class="tsd-kind-icon">Scraping<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#duplicatefilter" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="globals.html#chooserandom" class="tsd-kind-icon">choose<wbr>Random</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isbloomduplicatefilter" class="tsd-kind-icon">is<wbr>Bloom<wbr>Duplicate<wbr>Filter</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
