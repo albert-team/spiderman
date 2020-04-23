@@ -1,18 +1,5 @@
 import { Logger } from 'pino'
-import { LogLevel } from '../entities'
-
-/**
- * Scraper options interface
- */
-export interface ScraperOptionsInterface {
-  name?: string
-
-  /** In milliseconds */
-  timeout?: number
-
-  logger?: Logger
-  logLevel?: LogLevel
-}
+import { LogLevel, ScraperOptionsInterface } from '../types'
 
 /**
  * Scraper options

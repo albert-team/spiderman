@@ -1,14 +1,5 @@
 import { Logger } from 'pino'
-import { LogLevel } from '../entities'
-
-/**
- * Data processor options interface
- */
-export interface DataProcessorOptionsInterface {
-  name?: string
-  logger?: Logger
-  logLevel?: LogLevel
-}
+import { DataProcessorOptionsInterface, LogLevel } from '../types'
 
 /**
  * Data processor options

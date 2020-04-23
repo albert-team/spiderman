@@ -3,14 +3,13 @@ import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
 import {
   BloomDuplicateFilter,
-  ClassificationResult,
   DataEntity,
-  DuplicateFilter,
   SetDuplicateFilter,
   Statistics,
   UrlEntity,
 } from './entities'
-import { SchedulerOptions, SchedulerOptionsInterface } from './options'
+import { SchedulerOptions } from './options'
+import { ClassificationResult, DuplicateFilter, SchedulerOptionsInterface } from './types'
 import { isBloomDuplicateFilter } from './utils'
 
 /**
@@ -114,7 +113,7 @@ export abstract class Scheduler extends EventEmitter {
       urlEntity = new UrlEntity(url, scraper, dataProcessor),
     } = result
     if (duplicateCheck) {
-      const fp = urlEntity.getFingerprint()
+      const fp = urlEntity.fingerprint
       if (await this.dupUrlFilter.exists(fp)) return
       else this.dupUrlFilter.add(fp)
     }

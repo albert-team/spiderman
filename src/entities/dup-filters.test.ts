@@ -1,4 +1,4 @@
-import { SetDuplicateFilter, BloomDuplicateFilter } from './dup-filters'
+import { BloomDuplicateFilter, SetDuplicateFilter } from './dup-filters'
 
 test('SetDuplicateFilter', () => {
   const filter = new SetDuplicateFilter()

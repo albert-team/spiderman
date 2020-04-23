@@ -1,4 +1,5 @@
-import { BloomDuplicateFilter, DuplicateFilter } from './entities'
+import { BloomDuplicateFilter } from './entities'
+import { DuplicateFilter } from './types'
 
 /**
  * Choose a random element from an array
