@@ -61,13 +61,27 @@ export abstract class Scraper {
    */
   protected async process(url: string): Promise<ParsingResult> {
     const reqHeaders = { 'User-Agent': chooseRandom(this.userAgents) }
+    const proxy = chooseRandom(this.proxies)
+
     const res = await this.axios.get(url, {
       headers: reqHeaders,
-      proxy: chooseRandom(this.proxies),
+      proxy,
     })
     if (res.status < 200 || res.status >= 300)
       throw new Error(`Could not process URL ${url}`)
-    return this.parse(res.data, { url, reqHeaders, resHeaders: res.headers })
+
+    return this.parse(res.data, {
+      url,
+      request: {
+        headers: reqHeaders,
+        proxy,
+      },
+      response: {
+        headers: res.headers,
+        statusCode: res.status,
+        statusText: res.statusText,
+      },
+    })
   }
 
   /**

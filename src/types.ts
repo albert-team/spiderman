@@ -32,8 +32,15 @@ export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' |
 /** Parsing meta */
 export interface ParsingMeta {
   url: string
-  reqHeaders: object
-  resHeaders: object
+  request: {
+    headers: object
+    proxy: ProxyEntityInterface
+  }
+  response: {
+    headers: object
+    statusCode: number
+    statusText: string
+  }
 }
 
 /** Parsing result */
