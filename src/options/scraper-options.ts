@@ -24,8 +24,8 @@ export class ScraperOptions implements ScraperOptionsInterface {
   timeout = 10 * 1000
   logger: Logger
   logLevel: LogLevel = 'info'
-  userAgents = []
-  proxies = []
+  userAgents: string[] = []
+  proxies: HttpProxy[] = []
 
   constructor(options: ScraperOptionsInterface = {}) {
     Object.assign(this, options)

@@ -25,6 +25,10 @@ export abstract class DataProcessor {
       })
   }
 
+  public get name(): string {
+    return this.options.name
+  }
+
   /**
    * Process data
    */

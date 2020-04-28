@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import pino, { Logger } from 'pino'
 import { ScraperOptions, ScraperOptionsInterface } from '../options'
-import { ParsingMeta, ParsingResult, ScrapingResult } from '../types'
+import { HttpProxy, ParsingMeta, ParsingResult, ScrapingResult } from '../types'
 import { chooseRandom } from '../utils'
 
 /**
@@ -34,6 +34,18 @@ export abstract class Scraper {
     })
   }
 
+  public get name(): string {
+    return this.options.name
+  }
+
+  protected get userAgents(): string[] {
+    return this.options.userAgents
+  }
+
+  protected get proxies(): HttpProxy[] {
+    return this.options.proxies
+  }
+
   /**
    * Parse result from the response body
    */
@@ -46,8 +58,8 @@ export abstract class Scraper {
    * Process a URL. You can override this method to change its default behavior.
    */
   protected async process(url: string): Promise<ParsingResult> {
-    const reqHeaders = { 'User-Agent': chooseRandom(this.options.userAgents) }
-    const proxy = chooseRandom(this.options.proxies)
+    const reqHeaders = { 'User-Agent': chooseRandom(this.userAgents) }
+    const proxy = chooseRandom(this.proxies)
 
     const res = await this.axios.get(url, {
       headers: reqHeaders,
