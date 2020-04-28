@@ -1,5 +1,20 @@
 import { Logger } from 'pino'
-import { LogLevel, ScraperOptionsInterface } from '../types'
+import { HttpProxy, LogLevel } from '../types'
+
+/**
+ * Scraper options interface
+ */
+export interface ScraperOptionsInterface {
+  name?: string
+
+  /** In milliseconds */
+  timeout?: number
+
+  logger?: Logger
+  logLevel?: LogLevel
+  userAgents?: string[]
+  proxies?: HttpProxy[]
+}
 
 /**
  * Scraper options

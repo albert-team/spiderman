@@ -1,6 +1,6 @@
 import pino, { Logger } from 'pino'
-import { DataProcessorOptions } from '../options'
-import { DataProcessingResult, DataProcessorOptionsInterface } from '../types'
+import { DataProcessorOptions, DataProcessorOptionsInterface } from '../options'
+import { DataProcessingResult } from '../types'
 
 /**
  * Data processor

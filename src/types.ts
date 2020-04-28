@@ -1,19 +1,9 @@
-import { Logger } from 'pino'
 import { BloomDuplicateFilter, SetDuplicateFilter } from './entities'
 
 /** Data processing result */
 export interface DataProcessingResult {
   success: boolean
   executionTime?: number
-}
-
-/**
- * Data processor options interface
- */
-export interface DataProcessorOptionsInterface {
-  name?: string
-  logger?: Logger
-  logLevel?: LogLevel
 }
 
 export type DuplicateFilter = BloomDuplicateFilter | SetDuplicateFilter
@@ -25,7 +15,7 @@ export interface ParsingMeta {
   url: string
   request: {
     headers: object
-    proxy: ProxyEntityInterface
+    proxy: HttpProxy
   }
   response: {
     headers: object
@@ -41,40 +31,11 @@ export interface ParsingResult {
   nextUrls?: string[]
 }
 
-/** Proxy entity interface */
-export interface ProxyEntityInterface {
+/** HTTP proxy interface */
+export interface HttpProxy {
   readonly host: string
   readonly port: number
   readonly auth: { readonly username: string; readonly password: string }
-}
-
-/**
- * Scheduler options interface
- */
-export interface SchedulerOptionsInterface {
-  shortRetries?: number
-  longRetries?: number
-  maxScrapers?: number
-  maxDataProcessors?: number
-  tasksPerMinPerQueue?: number
-  useRedisBloom?: boolean
-  logger?: Logger
-  logLevel?: LogLevel
-}
-
-/**
- * Scraper options interface
- */
-export interface ScraperOptionsInterface {
-  name?: string
-
-  /** In milliseconds */
-  timeout?: number
-
-  logger?: Logger
-  logLevel?: LogLevel
-  userAgents?: string[]
-  proxies?: ProxyEntityInterface[]
 }
 
 /** Scraping result */

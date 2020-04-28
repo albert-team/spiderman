@@ -1,12 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import pino, { Logger } from 'pino'
-import { ScraperOptions } from '../options'
-import {
-  ParsingMeta,
-  ParsingResult,
-  ScraperOptionsInterface,
-  ScrapingResult,
-} from '../types'
+import { ScraperOptions, ScraperOptionsInterface } from '../options'
+import { ParsingMeta, ParsingResult, ScrapingResult } from '../types'
 import { chooseRandom } from '../utils'
 
 /**
