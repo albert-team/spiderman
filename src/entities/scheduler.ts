@@ -17,7 +17,6 @@ import { UrlEntity } from './url-entity'
  * Manage and schedule crawling tasks
  */
 export abstract class Scheduler extends EventEmitter {
-  private readonly initUrl: string | null
   private readonly options: SchedulerOptions
   private readonly dupUrlFilter: DuplicateFilter
   private readonly scrapers: Bottleneck
@@ -25,10 +24,9 @@ export abstract class Scheduler extends EventEmitter {
   public readonly stats = new Statistics()
   public readonly logger: Logger
 
-  constructor(initUrl: string | null, options: SchedulerOptionsInterface = {}) {
+  constructor(options: SchedulerOptionsInterface = {}) {
     super()
 
-    this.initUrl = initUrl
     this.options = new SchedulerOptions(options)
 
     if (this.options.useRedisBloom) {
@@ -43,7 +41,7 @@ export abstract class Scheduler extends EventEmitter {
         name: 'spiderman-scheduler',
         level: this.options.logLevel,
         formatters: {
-          level(label): object {
+          level: (label): object => {
             return { level: label }
           },
         },
@@ -191,7 +189,6 @@ export abstract class Scheduler extends EventEmitter {
    */
   public async start(initUrls: string[] = []): Promise<void> {
     await this.connect()
-    if (this.initUrl) this.scheduleUrl(this.initUrl, false)
     for (const url of initUrls) this.scheduleUrl(url, false)
     this.logger.info({ msg: 'STARTED', options: this.options })
   }

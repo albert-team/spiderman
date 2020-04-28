@@ -36,7 +36,7 @@ export abstract class Scraper {
         name: this.options.name,
         level: this.options.logLevel,
         formatters: {
-          level(label): object {
+          level: (label): object => {
             return { level: label }
           },
         },
