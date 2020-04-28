@@ -1,3 +1,4 @@
+import { ParsingResult } from '../types'
 import { Scraper } from './scraper'
 
 class TestingScraper extends Scraper {
@@ -5,18 +6,20 @@ class TestingScraper extends Scraper {
     super()
   }
 
-  async parse(html) {
+  async parse(html): Promise<ParsingResult> {
     return { data: { html }, nextUrls: [] }
   }
 }
 
-test("TestingScraper.run('https://jestjs.io')", async () => {
-  const scraper = new TestingScraper()
-  const url = 'https://jestjs.io'
-  const result = await scraper.run(url)
-  expect(result).toMatchObject({
-    success: true,
-    data: { html: url },
-    nextUrls: [],
+describe('test suit for TestingScraper.run()', () => {
+  test('with https://jestjs.io', async () => {
+    const scraper = new TestingScraper()
+    const url = 'https://jestjs.io'
+    const result = await scraper.run(url)
+    expect(result).toMatchObject({
+      success: true,
+      data: { html: url },
+      nextUrls: [],
+    })
   })
 })

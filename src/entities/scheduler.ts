@@ -2,11 +2,7 @@ import Bottleneck from 'bottleneck'
 import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
 import { SchedulerOptions } from '../options'
-import {
-  ClassificationResult,
-  DuplicateFilter,
-  SchedulerOptionsInterface,
-} from '../types'
+import { DuplicateFilter, SchedulerOptionsInterface } from '../types'
 import { isBloomDuplicateFilter } from '../utils'
 import { DataEntity } from './data-entity'
 import { BloomDuplicateFilter, SetDuplicateFilter } from './dup-filters'
@@ -149,9 +145,17 @@ export abstract class Scheduler extends EventEmitter {
 
   /**
    * Classify a URL
-   * @returns Classification result, containing a URL entity directy or scraper and optional data processor
+   * @param url URL
+   * @returns URL entity
    */
-  protected abstract classifyUrl(url: string): ClassificationResult
+  protected abstract classifyUrl(url: string): UrlEntity
+
+  /**
+   * Classify a data object
+   * @param data Data object
+   * @returns Data entity
+   */
+  protected abstract classifyData(data: object): DataEntity
 
   /**
    * Schedule a URL to be scraped
@@ -171,13 +175,7 @@ export abstract class Scheduler extends EventEmitter {
    * Scrape a URL. Deprecated for public use since v1.7.0.
    */
   private async scrapeUrl(url: string, duplicateCheck = true): Promise<void> {
-    const result = this.classifyUrl(url)
-    if (!result) return // discard
-    const {
-      scraper,
-      dataProcessor,
-      urlEntity = new UrlEntity(url, scraper, dataProcessor),
-    } = result
+    const urlEntity = this.classifyUrl(url)
     if (duplicateCheck) {
       const fp = urlEntity.fingerprint
       if (await this.dupUrlFilter.exists(fp)) return
@@ -191,7 +189,7 @@ export abstract class Scheduler extends EventEmitter {
    */
   private async scrapeUrlEntity(urlEntity: UrlEntity): Promise<void> {
     ++urlEntity.retryCount
-    const { url, scraper, dataProcessor, retryCount } = urlEntity
+    const { url, scraper, retryCount } = urlEntity
     const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
 
     if (success) {
@@ -199,8 +197,7 @@ export abstract class Scheduler extends EventEmitter {
       this.stats.dumpTime('scraping', executionTime)
 
       for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
-      if (!dataProcessor) return
-      const dataEntity = new DataEntity(data, dataProcessor)
+      const dataEntity = this.classifyData(data)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
       if (retryCount >= this.options.longRetries) {
@@ -209,9 +206,8 @@ export abstract class Scheduler extends EventEmitter {
       }
       this.stats.dumpCounts('scraping', 'softFailure')
 
-      this.scrapers.schedule({ priority: 5 + Math.max(retryCount, 4) }, () =>
-        this.scrapeUrlEntity(urlEntity)
-      )
+      const priority = 5 + Math.max(retryCount, 4) // lower priority
+      this.scrapers.schedule({ priority }, () => this.scrapeUrlEntity(urlEntity))
     }
   }
 

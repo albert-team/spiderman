@@ -5,7 +5,7 @@ class SuccessfulDataProcessor extends DataProcessor {
     super()
   }
 
-  async process() {
+  async process(): Promise<{ success: boolean }> {
     return { success: true }
   }
 }
@@ -15,19 +15,21 @@ class FailedDataProcessor extends DataProcessor {
     super()
   }
 
-  async process() {
+  async process(): Promise<{ success: boolean }> {
     return { success: false }
   }
 }
 
-test('SuccessfulDataProcessor.run(null)', async () => {
-  const dataProcessor = new SuccessfulDataProcessor()
-  const result = await dataProcessor.run(null)
-  expect(result).toMatchObject({ success: true })
-})
+describe('test suit for DataProcessor.run()', () => {
+  test('with SuccessfulDataProcessor', async () => {
+    const dataProcessor = new SuccessfulDataProcessor()
+    const result = await dataProcessor.run(null)
+    expect(result).toMatchObject({ success: true })
+  })
 
-test('FailedDataProcessor.run(null)', async () => {
-  const dataProcessor = new FailedDataProcessor()
-  const result = await dataProcessor.run(null)
-  expect(result).toMatchObject({ success: false })
+  test('with FailedDataProcessor', async () => {
+    const dataProcessor = new FailedDataProcessor()
+    const result = await dataProcessor.run(null)
+    expect(result).toMatchObject({ success: false })
+  })
 })

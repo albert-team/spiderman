@@ -1,18 +1,5 @@
 import { Logger } from 'pino'
-import {
-  BloomDuplicateFilter,
-  DataProcessor,
-  Scraper,
-  SetDuplicateFilter,
-  UrlEntity,
-} from './entities'
-
-/** Classification result */
-export interface ClassificationResult {
-  urlEntity?: UrlEntity
-  scraper?: Scraper
-  dataProcessor?: DataProcessor
-}
+import { BloomDuplicateFilter, SetDuplicateFilter } from './entities'
 
 /** Data processing result */
 export interface DataProcessingResult {
