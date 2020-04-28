@@ -86,6 +86,8 @@ export interface ScraperOptionsInterface {
 
   logger?: Logger
   logLevel?: LogLevel
+  userAgents?: string[]
+  proxies?: ProxyEntityInterface[]
 }
 
 /** Scraping result */

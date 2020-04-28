@@ -81,6 +81,73 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
+   * Connect to Redis if [[BloomDuplicateFilter]] is used
+   */
+  public async connect(): Promise<void> {
+    if (isBloomDuplicateFilter(this.dupUrlFilter)) {
+      await this.dupUrlFilter.connect()
+      this.dupUrlFilter.reserve(0.001, 10 ** 6)
+    }
+    this.logger.info({ msg: 'CONNECTED' })
+  }
+
+  /**
+   * Connect and start crawling
+   * @param initUrls Initial URLs, in addition to the one passed to the constructor
+   */
+  public async start(initUrls: string[] = []): Promise<void> {
+    await this.connect()
+    for (const url of initUrls) this.scheduleUrl(url, false)
+    this.logger.info({ msg: 'STARTED', options: this.options })
+  }
+
+  /**
+   * Pause crawling. Finish all running tasks and prevent new tasks from being added
+   */
+  public pause(): void {
+    const opts = { reservoir: 0, reservoirRefreshAmount: 0 }
+    this.scrapers.updateSettings(opts)
+    this.dataProcessors.updateSettings(opts)
+    this.logger.info({ msg: 'PAUSED' })
+  }
+
+  /**
+   * Resume crawling
+   */
+  public resume(): void {
+    const opts = {
+      reservoir: this.options.tasksPerMinPerQueue,
+      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
+    }
+    this.scrapers.updateSettings(opts)
+    this.dataProcessors.updateSettings(opts)
+    this.logger.info({ msg: 'RESUMED' })
+  }
+
+  /**
+   * Stop crawling
+   */
+  public async stop(gracefully = true): Promise<void> {
+    await Promise.all([
+      this.scrapers.stop({ dropWaitingJobs: !gracefully }),
+      this.dataProcessors.stop({ dropWaitingJobs: !gracefully }),
+    ])
+    this.logger.info({ msg: 'STOPPED' })
+  }
+
+  /**
+   * Disconnect all connections
+   */
+  public async disconnect(): Promise<void> {
+    await Promise.all([
+      this.scrapers.disconnect(),
+      this.dataProcessors.disconnect(),
+      isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null,
+    ])
+    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats })
+  }
+
+  /**
    * Classify a URL
    * @returns Classification result, containing a URL entity directy or scraper and optional data processor
    */
@@ -170,72 +237,5 @@ export abstract class Scheduler extends EventEmitter {
         this.processDataEntity(dataEntity)
       )
     }
-  }
-
-  /**
-   * Connect to Redis if [[BloomDuplicateFilter]] is used
-   */
-  public async connect(): Promise<void> {
-    if (isBloomDuplicateFilter(this.dupUrlFilter)) {
-      await this.dupUrlFilter.connect()
-      this.dupUrlFilter.reserve(0.001, 10 ** 6)
-    }
-    this.logger.info({ msg: 'CONNECTED' })
-  }
-
-  /**
-   * Connect and start crawling
-   * @param initUrls Initial URLs, in addition to the one passed to the constructor
-   */
-  public async start(initUrls: string[] = []): Promise<void> {
-    await this.connect()
-    for (const url of initUrls) this.scheduleUrl(url, false)
-    this.logger.info({ msg: 'STARTED', options: this.options })
-  }
-
-  /**
-   * Pause crawling. Finish all running tasks and prevent new tasks from being added
-   */
-  public pause(): void {
-    const opts = { reservoir: 0, reservoirRefreshAmount: 0 }
-    this.scrapers.updateSettings(opts)
-    this.dataProcessors.updateSettings(opts)
-    this.logger.info({ msg: 'PAUSED' })
-  }
-
-  /**
-   * Resume crawling
-   */
-  public resume(): void {
-    const opts = {
-      reservoir: this.options.tasksPerMinPerQueue,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
-    }
-    this.scrapers.updateSettings(opts)
-    this.dataProcessors.updateSettings(opts)
-    this.logger.info({ msg: 'RESUMED' })
-  }
-
-  /**
-   * Stop crawling
-   */
-  public async stop(gracefully = true): Promise<void> {
-    await Promise.all([
-      this.scrapers.stop({ dropWaitingJobs: !gracefully }),
-      this.dataProcessors.stop({ dropWaitingJobs: !gracefully }),
-    ])
-    this.logger.info({ msg: 'STOPPED' })
-  }
-
-  /**
-   * Disconnect all connections
-   */
-  public async disconnect(): Promise<void> {
-    await Promise.all([
-      this.scrapers.disconnect(),
-      this.dataProcessors.disconnect(),
-      isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null,
-    ])
-    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats })
   }
 }

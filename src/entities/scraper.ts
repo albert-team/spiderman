@@ -4,7 +4,6 @@ import { ScraperOptions } from '../options'
 import {
   ParsingMeta,
   ParsingResult,
-  ProxyEntityInterface,
   ScraperOptionsInterface,
   ScrapingResult,
 } from '../types'
@@ -14,20 +13,12 @@ import { chooseRandom } from '../utils'
  * Scraper
  */
 export abstract class Scraper {
-  private readonly userAgents: string[]
-  private readonly proxies: ProxyEntityInterface[]
   private readonly options: ScraperOptions
   private readonly axios: AxiosInstance
 
   public readonly logger: Logger
 
-  constructor(
-    userAgents: string[] = [],
-    proxies: ProxyEntityInterface[] = [],
-    options: ScraperOptionsInterface = {}
-  ) {
-    this.userAgents = userAgents
-    this.proxies = proxies
+  constructor(options: ScraperOptionsInterface = {}) {
     this.options = new ScraperOptions(options)
 
     this.logger =
@@ -60,8 +51,8 @@ export abstract class Scraper {
    * Process a URL. You can override this method to change its default behavior.
    */
   protected async process(url: string): Promise<ParsingResult> {
-    const reqHeaders = { 'User-Agent': chooseRandom(this.userAgents) }
-    const proxy = chooseRandom(this.proxies)
+    const reqHeaders = { 'User-Agent': chooseRandom(this.options.userAgents) }
+    const proxy = chooseRandom(this.options.proxies)
 
     const res = await this.axios.get(url, {
       headers: reqHeaders,
