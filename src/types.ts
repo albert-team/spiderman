@@ -1,7 +1,11 @@
 import { Logger } from 'pino'
-import { DataProcessor } from './data-processor'
-import { BloomDuplicateFilter, SetDuplicateFilter, UrlEntity } from './entities'
-import { Scraper } from './scraper'
+import {
+  BloomDuplicateFilter,
+  DataProcessor,
+  Scraper,
+  SetDuplicateFilter,
+  UrlEntity,
+} from './entities'
 
 /** Classification result */
 export interface ClassificationResult {

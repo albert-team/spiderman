@@ -1,4 +1,7 @@
 export * from './data-entity'
+export * from './data-processor'
 export * from './dup-filters'
+export * from './scheduler'
+export * from './scraper'
 export * from './statistics'
 export * from './url-entity'

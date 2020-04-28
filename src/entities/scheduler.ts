@@ -1,16 +1,17 @@
 import Bottleneck from 'bottleneck'
 import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
+import { SchedulerOptions } from '../options'
 import {
-  BloomDuplicateFilter,
-  DataEntity,
-  SetDuplicateFilter,
-  Statistics,
-  UrlEntity,
-} from './entities'
-import { SchedulerOptions } from './options'
-import { ClassificationResult, DuplicateFilter, SchedulerOptionsInterface } from './types'
-import { isBloomDuplicateFilter } from './utils'
+  ClassificationResult,
+  DuplicateFilter,
+  SchedulerOptionsInterface,
+} from '../types'
+import { isBloomDuplicateFilter } from '../utils'
+import { DataEntity } from './data-entity'
+import { BloomDuplicateFilter, SetDuplicateFilter } from './dup-filters'
+import { Statistics } from './statistics'
+import { UrlEntity } from './url-entity'
 
 /**
  * Manage and schedule crawling tasks

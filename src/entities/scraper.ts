@@ -1,14 +1,14 @@
 import axios, { AxiosInstance } from 'axios'
 import pino, { Logger } from 'pino'
-import { ScraperOptions } from './options'
+import { ScraperOptions } from '../options'
 import {
   ParsingMeta,
   ParsingResult,
   ProxyEntityInterface,
   ScraperOptionsInterface,
   ScrapingResult,
-} from './types'
-import { chooseRandom } from './utils'
+} from '../types'
+import { chooseRandom } from '../utils'
 
 /**
  * Scraper

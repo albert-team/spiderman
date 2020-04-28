@@ -17,6 +17,6 @@ test("TestingScraper.run('https://jestjs.io')", async () => {
   expect(result).toMatchObject({
     success: true,
     data: { html: url },
-    nextUrls: []
+    nextUrls: [],
   })
 })

@@ -13,9 +13,7 @@
     "node": ">=10"
   },
   "files": [
-    "dist",
-    "entities.js",
-    "options.js"
+    "dist"
   ],
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
