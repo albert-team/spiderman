@@ -57,7 +57,6 @@ export abstract class Scheduler extends EventEmitter {
     this.scrapers.on('idle', async () => {
       if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
       this.emit('idle')
-      this.emit('done')
     })
 
     this.dataProcessors = new Bottleneck({
@@ -73,7 +72,6 @@ export abstract class Scheduler extends EventEmitter {
     this.dataProcessors.on('idle', async () => {
       if (!this.scrapers.empty() || (await this.scrapers.running())) return
       this.emit('idle')
-      this.emit('done')
     })
   }
 
