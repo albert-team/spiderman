@@ -45,3 +45,9 @@ export interface ScrapingResult {
   nextUrls?: string[]
   executionTime?: number
 }
+
+export interface QueueSettings {
+  tasksPerMinPerQueue: number
+  shortRetries: number
+  longRetries: number
+}

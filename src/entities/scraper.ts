@@ -8,42 +8,26 @@ import { chooseRandom } from '../utils'
  * Scraper
  */
 export abstract class Scraper {
-  private readonly options: ScraperOptions
   private readonly axios: AxiosInstance
-
-  public readonly logger: Logger
+  private readonly logger: Logger
+  protected readonly userAgents: string[]
+  protected readonly proxies: HttpProxy[]
 
   constructor(options: ScraperOptionsInterface = {}) {
-    this.options = new ScraperOptions(options)
+    const opts = new ScraperOptions(options)
 
+    this.axios = axios.create({ timeout: opts.timeout, validateStatus: null })
     this.logger =
-      this.options.logger ??
+      opts.logger ??
       pino({
-        name: this.options.name,
-        level: this.options.logLevel,
+        name: opts.name,
+        level: opts.logLevel,
         formatters: {
-          level: (label): object => {
-            return { level: label }
-          },
+          level: (label): object => new Object({ level: label }),
         },
       })
-
-    this.axios = axios.create({
-      timeout: this.options.timeout,
-      validateStatus: null,
-    })
-  }
-
-  public get name(): string {
-    return this.options.name
-  }
-
-  protected get userAgents(): string[] {
-    return this.options.userAgents
-  }
-
-  protected get proxies(): HttpProxy[] {
-    return this.options.proxies
+    this.userAgents = opts.userAgents
+    this.proxies = opts.proxies
   }
 
   /**

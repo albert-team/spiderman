@@ -2,7 +2,7 @@ import Bottleneck from 'bottleneck'
 import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
 import { SchedulerOptions, SchedulerOptionsInterface } from '../options'
-import { DuplicateFilter } from '../types'
+import { DuplicateFilter, QueueSettings } from '../types'
 import { isBloomDuplicateFilter } from '../utils'
 import { DataEntity } from './data-entity'
 import { BloomDuplicateFilter, SetDuplicateFilter } from './dup-filters'
@@ -13,45 +13,46 @@ import { UrlEntity } from './url-entity'
  * Manage and schedule crawling tasks
  */
 export abstract class Scheduler extends EventEmitter {
-  private readonly options: SchedulerOptions
   private readonly dupUrlFilter: DuplicateFilter
   private readonly scrapers: Bottleneck
   private readonly dataProcessors: Bottleneck
+  private readonly queueSettings: QueueSettings
   public readonly stats = new Statistics()
   public readonly logger: Logger
 
   constructor(options: SchedulerOptionsInterface = {}) {
     super()
+    const opts = new SchedulerOptions(options)
 
-    this.options = new SchedulerOptions(options)
-
-    if (this.options.useRedisBloom) {
-      this.dupUrlFilter = new BloomDuplicateFilter('spiderman-urlfilter')
-    } else {
-      this.dupUrlFilter = new SetDuplicateFilter()
+    this.queueSettings = {
+      tasksPerMinPerQueue: opts.tasksPerMinPerQueue,
+      shortRetries: opts.shortRetries,
+      longRetries: opts.longRetries,
     }
 
+    this.dupUrlFilter = opts.useRedisBloom
+      ? new BloomDuplicateFilter('spiderman-urlfilter')
+      : new SetDuplicateFilter()
+
     this.logger =
-      this.options.logger ??
+      opts.logger ??
       pino({
         name: 'spiderman-scheduler',
-        level: this.options.logLevel,
+        level: opts.logLevel,
         formatters: {
-          level: (label): object => {
-            return { level: label }
-          },
+          level: (label): object => new Object({ level: label }),
         },
       })
 
     this.scrapers = new Bottleneck({
       minTime: 100,
-      maxConcurrent: this.options.maxScrapers,
-      reservoir: this.options.tasksPerMinPerQueue,
+      maxConcurrent: opts.maxScrapers,
+      reservoir: opts.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
+      reservoirRefreshAmount: opts.tasksPerMinPerQueue,
     })
     this.scrapers.on('failed', (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
+      if (task.retryCount < opts.shortRetries) return 0
     })
     this.scrapers.on('idle', async () => {
       if (!this.dataProcessors.empty() || (await this.dataProcessors.running())) return
@@ -61,13 +62,13 @@ export abstract class Scheduler extends EventEmitter {
 
     this.dataProcessors = new Bottleneck({
       minTime: 100,
-      maxConcurrent: this.options.maxDataProcessors,
-      reservoir: this.options.tasksPerMinPerQueue,
+      maxConcurrent: opts.maxDataProcessors,
+      reservoir: opts.tasksPerMinPerQueue,
       reservoirRefreshInterval: 60 * 1000,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
+      reservoirRefreshAmount: opts.tasksPerMinPerQueue,
     })
     this.dataProcessors.on('failed', (err, task) => {
-      if (task.retryCount < this.options.shortRetries) return 0
+      if (task.retryCount < opts.shortRetries) return 0
     })
     this.dataProcessors.on('idle', async () => {
       if (!this.scrapers.empty() || (await this.scrapers.running())) return
@@ -94,7 +95,7 @@ export abstract class Scheduler extends EventEmitter {
   public async start(initUrls: string[] = []): Promise<void> {
     await this.connect()
     for (const url of initUrls) this.scheduleUrl(url, false)
-    this.logger.info({ msg: 'STARTED', options: this.options })
+    this.logger.info({ msg: 'STARTED' })
   }
 
   /**
@@ -111,9 +112,10 @@ export abstract class Scheduler extends EventEmitter {
    * Resume crawling
    */
   public resume(): void {
+    const { tasksPerMinPerQueue } = this.queueSettings
     const opts = {
-      reservoir: this.options.tasksPerMinPerQueue,
-      reservoirRefreshAmount: this.options.tasksPerMinPerQueue,
+      reservoir: tasksPerMinPerQueue,
+      reservoirRefreshAmount: tasksPerMinPerQueue,
     }
     this.scrapers.updateSettings(opts)
     this.dataProcessors.updateSettings(opts)
@@ -200,7 +202,7 @@ export abstract class Scheduler extends EventEmitter {
       const dataEntity = this.classifyData(data)
       this.dataProcessors.schedule(() => this.processDataEntity(dataEntity))
     } else {
-      if (retryCount >= this.options.longRetries) {
+      if (retryCount >= this.queueSettings.longRetries) {
         this.stats.dumpCounts('scraping', 'hardFailure')
         return // discard
       }
@@ -223,7 +225,7 @@ export abstract class Scheduler extends EventEmitter {
       this.stats.dumpCounts('dataProcessing', 'success')
       this.stats.dumpTime('dataProcessing', executionTime)
     } else {
-      if (retryCount >= this.options.longRetries) {
+      if (retryCount >= this.queueSettings.longRetries) {
         this.stats.dumpCounts('dataProcessing', 'hardFailure')
         return // discard
       }

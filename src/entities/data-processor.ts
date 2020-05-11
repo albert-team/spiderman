@@ -6,27 +6,20 @@ import { DataProcessingResult } from '../types'
  * Data processor
  */
 export abstract class DataProcessor {
-  private readonly options: DataProcessorOptions
-  public readonly logger: Logger
+  private readonly logger: Logger
 
   constructor(options: DataProcessorOptionsInterface = {}) {
-    this.options = new DataProcessorOptions(options)
+    const opts = new DataProcessorOptions(options)
 
     this.logger =
-      this.options.logger ??
+      opts.logger ??
       pino({
-        name: this.options.name,
-        level: this.options.logLevel,
+        name: opts.name,
+        level: opts.logLevel,
         formatters: {
-          level: (label): object => {
-            return { level: label }
-          },
+          level: (label): object => new Object({ level: label }),
         },
       })
-  }
-
-  public get name(): string {
-    return this.options.name
   }
 
   /**
