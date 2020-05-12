@@ -17,8 +17,8 @@ export abstract class Scheduler extends EventEmitter {
   private readonly scrapers: Bottleneck
   private readonly dataProcessors: Bottleneck
   private readonly queueSettings: QueueSettings
+  private readonly logger: Logger
   public readonly stats = new Statistics()
-  public readonly logger: Logger
 
   constructor(options: SchedulerOptionsInterface = {}) {
     super()
