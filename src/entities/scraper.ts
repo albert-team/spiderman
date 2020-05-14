@@ -80,7 +80,7 @@ export abstract class Scraper {
         success,
         data,
         nextUrls,
-        executionTime: (end - start) / 1000,
+        executionTime: end - start,
       }
     } catch (err) {
       this.logger.debug({ msg: 'FAILURE', url })

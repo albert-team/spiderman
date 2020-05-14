@@ -37,7 +37,7 @@ export abstract class DataProcessor {
       const end = Date.now()
 
       this.logger.debug({ msg: 'SUCCESS', data })
-      if (success) return { success: true, executionTime: (end - start) / 1000 }
+      if (success) return { success: true, executionTime: end - start }
       else throw new Error()
     } catch (err) {
       this.logger.debug({ msg: 'FAILURE', data })
