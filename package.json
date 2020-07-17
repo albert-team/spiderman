@@ -10,7 +10,7 @@
     "url": "https://github.com/albert-team/spiderman/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "files": [
     "dist"

@@ -4,7 +4,7 @@
 
 # Spiderman
 
-> Minimalistic web crawler for Node.js
+Minimalistic web crawler for Node.js
 
 ## INSTALLATION
 
@@ -12,7 +12,7 @@
 
 #### Mandatory
 
-- Node.js >= 10
+- Node.js >= 14
 
 #### Optional
 
@@ -22,13 +22,13 @@
 
 - With npm:
 
-```bash
+```sh
 npm i @albert-team/spiderman
 ```
 
 - With yarn:
 
-```bash
+```sh
 yarn add @albert-team/spiderman
 ```
 
@@ -36,62 +36,11 @@ yarn add @albert-team/spiderman
 
 ### Quick Start
 
-```js
-const {
-  Scheduler,
-  Scraper,
-  DataProcessor,
-  UrlEntity,
-  DataEntity,
-} = require('@albert-team/spiderman')
-
-class MyManager extends Scheduler {
-  constructor() {
-    super('url')
-  }
-
-  classifyUrl(url) {
-    return new UrlEntity(url, new MyScraper())
-  }
-
-  classifyData(data) {
-    return new DataEntity(data, new MyDataProcessor())
-  }
-}
-
-class MyScraper extends Scraper {
-  constructor() {
-    super()
-  }
-
-  async parse(resBody) {
-    return { data: {}, nextUrls: [] }
-  }
-}
-
-class MyDataProcessor extends DataProcessor {
-  constructor() {
-    super()
-  }
-
-  async process(data) {
-    return { success: true }
-  }
-}
-
-const manager = new MyManager()
-manager.once('idle', async () => {
-  await manager.stop()
-  manager.disconnect()
-})
-manager.start(['https://github.com/albert-team/spiderman'])
-```
-
 ### Examples
 
 See [here](https://github.com/albert-team/spiderman/blob/master/examples).
 
-### API
+### API Documentation
 
 Read more [here](https://albert-team.github.io/spiderman).
 
