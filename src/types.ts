@@ -14,11 +14,11 @@ export type LogLevel = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' |
 export interface ParsingMeta {
   url: string
   request: {
-    headers: object
+    headers: Record<string, string>
     proxy: HttpProxy
   }
   response: {
-    headers: object
+    headers: Record<string, string>
     statusCode: number
     statusText: string
   }
