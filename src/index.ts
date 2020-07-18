@@ -1,3 +1,5 @@
 export { DataProcessor } from './modules/data-processor/data-processor.class'
+export { DataEntity } from './modules/scheduler/data-entity.class'
 export { Scheduler } from './modules/scheduler/scheduler.class'
+export { UrlEntity } from './modules/scheduler/url-entity.class'
 export { Scraper } from './modules/scraper/scraper.class'
