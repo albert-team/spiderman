@@ -1,4 +1,4 @@
-import { Scraper } from './scraper'
+import { Scraper } from '../scraper/scraper.class'
 
 /** URL entity */
 export class UrlEntity {

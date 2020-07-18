@@ -1,22 +1,14 @@
 import { Logger } from 'pino'
-import { LogLevel } from '../types'
+import { LogLevel } from '../common/log-level.type'
+import { DataProcessorOptionsInterface } from './data-processor-options.interface'
 
 /**
- * Data processor options interface
- */
-export interface DataProcessorOptionsInterface {
-  name?: string
-  logger?: Logger
-  logLevel?: LogLevel
-}
-
-/**
- * Data processor options
+ * Data processor options class
  */
 export class DataProcessorOptions implements DataProcessorOptionsInterface {
   name = 'spiderman-data-processor'
-  logger: Logger
   logLevel: LogLevel = 'info'
+  logger?: Logger
 
   constructor(options: DataProcessorOptionsInterface = {}) {
     Object.assign(this, options)

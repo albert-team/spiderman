@@ -1,3 +1,3 @@
-export * from './entities'
-export * from './options'
-export * from './types'
+export { DataProcessor } from './modules/data-processor/data-processor.class'
+export { Scheduler } from './modules/scheduler/scheduler.class'
+export { Scraper } from './modules/scraper/scraper.class'

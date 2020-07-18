@@ -1,4 +1,4 @@
-import { DataProcessor } from './data-processor'
+import { DataProcessor } from '../data-processor/data-processor.class'
 
 /** Data entity */
 export class DataEntity {

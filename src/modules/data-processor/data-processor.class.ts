@@ -1,6 +1,7 @@
 import pino, { Logger } from 'pino'
-import { DataProcessorOptions, DataProcessorOptionsInterface } from '../options'
-import { DataProcessingResult } from '../types'
+import { DataProcessingResult } from './data-processing-result.interface'
+import { DataProcessorOptions } from './data-processor-options.class'
+import { DataProcessorOptionsInterface } from './data-processor-options.interface'
 
 /**
  * Data processor
@@ -16,16 +17,9 @@ export abstract class DataProcessor {
       pino({
         name: opts.name,
         level: opts.logLevel,
-        formatters: {
-          level: (label): object => new Object({ level: label }),
-        },
+        useLevelLabels: true,
       })
   }
-
-  /**
-   * Process data
-   */
-  protected abstract async process(data: object): Promise<{ success: boolean }>
 
   /**
    * Run
@@ -36,12 +30,18 @@ export abstract class DataProcessor {
       const { success = true } = await this.process(data)
       const end = Date.now()
 
-      this.logger.debug({ msg: 'SUCCESS', data })
-      if (success) return { success: true, executionTime: end - start }
-      else throw new Error()
+      if (success) {
+        this.logger.debug({ msg: 'SUCCESS', data })
+        return { success: true, executionTime: end - start }
+      } else throw new Error()
     } catch (err) {
       this.logger.debug({ msg: 'FAILURE', data })
       return { success: false }
     }
   }
+
+  /**
+   * Process data
+   */
+  protected abstract async process(data: object): Promise<{ success: boolean }>
 }

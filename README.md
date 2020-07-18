@@ -10,13 +10,7 @@ Minimalistic web crawler for Node.js
 
 ### Requirements
 
-#### Mandatory
-
 - Node.js >= 14
-
-#### Optional
-
-- Redis >= 4.0 with RedisBloom >= 2.2.0
 
 ### Instructions
 

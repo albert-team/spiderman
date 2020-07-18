@@ -1,27 +1,28 @@
 import Bottleneck from 'bottleneck'
 import { EventEmitter } from 'events'
 import pino, { Logger } from 'pino'
-import { SchedulerOptions, SchedulerOptionsInterface } from '../options'
-import { DuplicateFilter, QueueSettings } from '../types'
-import { isBloomDuplicateFilter } from '../utils'
-import { DataEntity } from './data-entity'
-import { BloomDuplicateFilter, SetDuplicateFilter } from './dup-filters'
-import { Statistics } from './statistics'
-import { UrlEntity } from './url-entity'
+import { SetDuplicateFilter } from '../dup-filter/set-dup-filter.class'
+import { DataEntity } from './data-entity.class'
+import { QueueSettings } from './queue-settings.interface'
+import { SchedulerOptions } from './scheduler-options.class'
+import { SchedulerOptionsInterface } from './scheduler-options.interface'
+import { Statistics } from './statistics.class'
+import { UrlEntity } from './url-entity.class'
 
 /**
  * Manage and schedule crawling tasks
  */
 export abstract class Scheduler extends EventEmitter {
-  private readonly dupUrlFilter: DuplicateFilter
   private readonly scrapers: Bottleneck
   private readonly dataProcessors: Bottleneck
   private readonly queueSettings: QueueSettings
-  private readonly logger: Logger
+  private readonly urlFilter = new SetDuplicateFilter<string>()
   public readonly stats = new Statistics()
+  private readonly logger: Logger
 
   constructor(options: SchedulerOptionsInterface = {}) {
     super()
+
     const opts = new SchedulerOptions(options)
 
     this.queueSettings = {
@@ -30,25 +31,19 @@ export abstract class Scheduler extends EventEmitter {
       longRetries: opts.longRetries,
     }
 
-    this.dupUrlFilter = opts.useRedisBloom
-      ? new BloomDuplicateFilter('spiderman-urlfilter')
-      : new SetDuplicateFilter()
-
     this.logger =
       opts.logger ??
       pino({
         name: 'spiderman-scheduler',
         level: opts.logLevel,
-        formatters: {
-          level: (label): object => new Object({ level: label }),
-        },
+        useLevelLabels: true,
       })
 
     this.scrapers = new Bottleneck({
       minTime: 100,
       maxConcurrent: opts.maxScrapers,
       reservoir: opts.tasksPerMinPerQueue,
-      reservoirRefreshInterval: 60 * 1000,
+      reservoirRefreshInterval: 60000,
       reservoirRefreshAmount: opts.tasksPerMinPerQueue,
     })
     this.scrapers.on('failed', (err, task) => {
@@ -63,7 +58,7 @@ export abstract class Scheduler extends EventEmitter {
       minTime: 100,
       maxConcurrent: opts.maxDataProcessors,
       reservoir: opts.tasksPerMinPerQueue,
-      reservoirRefreshInterval: 60 * 1000,
+      reservoirRefreshInterval: 60000,
       reservoirRefreshAmount: opts.tasksPerMinPerQueue,
     })
     this.dataProcessors.on('failed', (err, task) => {
@@ -76,23 +71,13 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Connect to Redis if [[BloomDuplicateFilter]] is used
-   */
-  public async connect(): Promise<void> {
-    if (isBloomDuplicateFilter(this.dupUrlFilter)) {
-      await this.dupUrlFilter.connect()
-      this.dupUrlFilter.reserve(0.001, 10 ** 6)
-    }
-    this.logger.info({ msg: 'CONNECTED' })
-  }
-
-  /**
-   * Connect and start crawling
-   * @param initUrls Initial URLs, in addition to the one passed to the constructor
+   * Start crawling
+   * @param initUrls Initial URLs
    */
   public async start(initUrls: string[] = []): Promise<void> {
-    await this.connect()
-    for (const url of initUrls) this.scheduleUrl(url, false)
+    for (const url of initUrls) {
+      this.scheduleUrl(url, false)
+    }
     this.logger.info({ msg: 'STARTED' })
   }
 
@@ -132,18 +117,6 @@ export abstract class Scheduler extends EventEmitter {
   }
 
   /**
-   * Disconnect all connections
-   */
-  public async disconnect(): Promise<void> {
-    await Promise.all([
-      this.scrapers.disconnect(),
-      this.dataProcessors.disconnect(),
-      isBloomDuplicateFilter(this.dupUrlFilter) ? this.dupUrlFilter.disconnect() : null,
-    ])
-    this.logger.info({ msg: 'DISCONNECTED', statistics: this.stats })
-  }
-
-  /**
    * Classify a URL
    * @param url URL
    * @returns URL entity
@@ -178,8 +151,8 @@ export abstract class Scheduler extends EventEmitter {
     const urlEntity = this.classifyUrl(url)
     if (duplicateCheck) {
       const fp = urlEntity.fingerprint
-      if (await this.dupUrlFilter.exists(fp)) return
-      else this.dupUrlFilter.add(fp)
+      if (await this.urlFilter.exists(fp)) return
+      else this.urlFilter.add(fp)
     }
     await this.scrapeUrlEntity(urlEntity)
   }
@@ -190,11 +163,11 @@ export abstract class Scheduler extends EventEmitter {
   private async scrapeUrlEntity(urlEntity: UrlEntity): Promise<void> {
     ++urlEntity.retryCount
     const { url, scraper, retryCount } = urlEntity
-    const { success, data, nextUrls = [], executionTime } = await scraper.run(url)
+    const { success, data = {}, nextUrls = [], executionTime } = await scraper.run(url)
 
     if (success) {
       this.stats.dumpCounts('scraping', 'success')
-      this.stats.dumpTime('scraping', executionTime)
+      this.stats.dumpTime('scraping', executionTime as number)
 
       for (const nextUrl of nextUrls) this.scheduleUrl(nextUrl)
       const dataEntity = this.classifyData(data)
@@ -221,7 +194,7 @@ export abstract class Scheduler extends EventEmitter {
 
     if (success) {
       this.stats.dumpCounts('dataProcessing', 'success')
-      this.stats.dumpTime('dataProcessing', executionTime)
+      this.stats.dumpTime('dataProcessing', executionTime as number)
     } else {
       if (retryCount >= this.queueSettings.longRetries) {
         this.stats.dumpCounts('dataProcessing', 'hardFailure')
