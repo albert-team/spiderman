@@ -1,5 +1,4 @@
-import { Logger } from 'pino'
-import { LogLevel } from '../common/log-level.type'
+import { Level as LogLevel, Logger } from 'pino'
 
 /**
  * Data processor options interface
