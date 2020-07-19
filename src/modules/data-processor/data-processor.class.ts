@@ -2,11 +2,12 @@ import pino, { Logger } from 'pino'
 import { DataProcessingResult } from './data-processing-result.interface'
 import { DataProcessorOptions } from './data-processor-options.class'
 import { DataProcessorOptionsInterface } from './data-processor-options.interface'
+import { DataProcessorInterface } from './data-processor.interface'
 
 /**
- * Data processor
+ * Data processor class
  */
-export abstract class DataProcessor {
+export abstract class DataProcessor implements DataProcessorInterface {
   private readonly logger: Logger
 
   constructor(options: DataProcessorOptionsInterface = {}) {

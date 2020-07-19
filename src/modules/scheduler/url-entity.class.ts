@@ -1,12 +1,12 @@
-import { Scraper } from '../scraper/scraper.class'
+import { ScraperInterface } from '../scraper/scraper.interface'
 
 /** URL entity */
 export class UrlEntity {
   url: string
-  scraper: Scraper
+  scraper: ScraperInterface
   retryCount = -1
 
-  constructor(url: string, scraper: Scraper) {
+  constructor(url: string, scraper: ScraperInterface) {
     this.url = url
     this.scraper = scraper
   }

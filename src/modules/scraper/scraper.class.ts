@@ -6,12 +6,13 @@ import { ParsingMeta } from './parsing-meta.interface'
 import { ParsingResult } from './parsing-result.interface'
 import { ScraperOptions } from './scraper-options.class'
 import { ScraperOptionsInterface } from './scraper-options.interface'
+import { ScraperInterface } from './scraper.interface'
 import { ScrapingResult } from './scraping-result.interface'
 
 /**
- * Scraper
+ * Scraper class
  */
-export abstract class Scraper {
+export abstract class Scraper implements ScraperInterface {
   private readonly axios: AxiosInstance
   protected readonly userAgents: string[]
   protected readonly proxies: HttpProxy[]

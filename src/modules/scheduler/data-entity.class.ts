@@ -1,12 +1,12 @@
-import { DataProcessor } from '../data-processor/data-processor.class'
+import { DataProcessorInterface } from '../data-processor/data-processor.interface'
 
 /** Data entity */
 export class DataEntity {
   data: object
-  dataProcessor: DataProcessor
+  dataProcessor: DataProcessorInterface
   retryCount = -1
 
-  constructor(data: object, dataProcessor: DataProcessor) {
+  constructor(data: object, dataProcessor: DataProcessorInterface) {
     this.data = data
     this.dataProcessor = dataProcessor
   }
