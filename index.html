@@ -66,28 +66,17 @@
 					<a href="https://www.npmjs.com/package/@albert-team/spiderman"><img src="https://img.shields.io/npm/v/@albert-team/spiderman.svg?style=flat-square" alt=""></a>
 				<a href="https://travis-ci.com/albert-team/spiderman"><img src="https://img.shields.io/travis/com/albert-team/spiderman.svg?style=flat-square" alt=""></a></p>
 				<a href="#spiderman" id="spiderman" style="color: inherit; text-decoration: none;">
-					<h1>SPIDERMAN</h1>
+					<h1>Spiderman</h1>
 				</a>
-				<blockquote>
-					<p>Minimalistic web crawler for Node.js</p>
-				</blockquote>
+				<p>Minimalistic web crawler for Node.js</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-					<h2>Installation</h2>
+					<h2>INSTALLATION</h2>
 				</a>
 				<a href="#requirements" id="requirements" style="color: inherit; text-decoration: none;">
 					<h3>Requirements</h3>
 				</a>
-				<a href="#mandatory" id="mandatory" style="color: inherit; text-decoration: none;">
-					<h4>Mandatory</h4>
-				</a>
 				<ul>
-					<li>Node.js &gt;= 10.0.0</li>
-				</ul>
-				<a href="#optional" id="optional" style="color: inherit; text-decoration: none;">
-					<h4>Optional</h4>
-				</a>
-				<ul>
-					<li>Redis &gt;= 4.0 with RedisBloom &gt;= 2.2.0</li>
+					<li>Node.js &gt;= 14</li>
 				</ul>
 				<a href="#instructions" id="instructions" style="color: inherit; text-decoration: none;">
 					<h3>Instructions</h3>
@@ -95,68 +84,32 @@
 				<ul>
 					<li>With npm:</li>
 				</ul>
-				<pre><code class="language-bash">npm i @albert-team/spiderman</code></pre>
+				<pre><code class="language-sh">$ npm i @albert-team/spiderman</code></pre>
 				<ul>
 					<li>With yarn:</li>
 				</ul>
-				<pre><code class="language-bash">yarn add @albert-team/spiderman</code></pre>
+				<pre><code class="language-sh">$ yarn add @albert-team/spiderman</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
-					<h2>Usage</h2>
+					<h2>USAGE</h2>
 				</a>
 				<a href="#quick-start" id="quick-start" style="color: inherit; text-decoration: none;">
 					<h3>Quick Start</h3>
 				</a>
-				<pre><code class="language-js"><span class="hljs-keyword">const</span> { Scheduler, Scraper, DataProcessor } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@albert-team/spiderman'</span>)
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyScraper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scraper</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>()
-  }
-
-  <span class="hljs-keyword">async</span> parse(resBody) {
-    <span class="hljs-keyword">return</span> { <span class="hljs-attr">data</span>: {}, <span class="hljs-attr">nextUrls</span>: [] }
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyDataProcessor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DataProcessor</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>()
-  }
-
-  <span class="hljs-keyword">async</span> process(data) {
-    <span class="hljs-keyword">return</span> { <span class="hljs-attr">success</span>: <span class="hljs-literal">true</span> }
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyManager</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Scheduler</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">super</span>(<span class="hljs-string">'url'</span>)
-  }
-
-  classifyUrl(url) {
-    <span class="hljs-keyword">return</span> {
-      <span class="hljs-attr">scraper</span>: <span class="hljs-keyword">new</span> MyScraper(),
-      <span class="hljs-attr">dataProcessor</span>: <span class="hljs-keyword">new</span> MyDataProcessor(),
-    }
-  }
-}
-
-<span class="hljs-keyword">const</span> manager = <span class="hljs-keyword">new</span> MyManager()
-manager.once(<span class="hljs-string">'idle'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-  <span class="hljs-keyword">await</span> manager.stop()
-  manager.disconnect()
-})
-manager.start()</code></pre>
-				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
-					<h3>API</h3>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h3>Examples</h3>
+				</a>
+				<p>See <a href="https://github.com/albert-team/spiderman/blob/master/examples">here</a>.</p>
+				<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">
+					<h3>API Documentation</h3>
 				</a>
 				<p>Read more <a href="https://albert-team.github.io/spiderman">here</a>.</p>
-				<a href="#changelog" id="changelog" style="color: inherit; text-decoration: none;">
-					<h2>Changelog</h2>
+				<a href="#changelogs" id="changelogs" style="color: inherit; text-decoration: none;">
+					<h2>Changelogs</h2>
 				</a>
-				<p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md">here</a>.</p>
-				<a href="#todo" id="todo" style="color: inherit; text-decoration: none;">
-					<h2>Todo</h2>
+				<p>For the latest major version, read more <a href="https://github.com/albert-team/spiderman/blob/master/changelogs/v2.md">here</a>.
+				For older versions, read more <a href="https://github.com/albert-team/spiderman/tree/master/changelogs">here</a>.</p>
+				<a href="#todos" id="todos" style="color: inherit; text-decoration: none;">
+					<h2>Todos</h2>
 				</a>
 				<p>Read more <a href="https://github.com/albert-team/spiderman/blob/master/TODO.md">here</a>.</p>
 			</div>
@@ -181,9 +134,6 @@ manager.start()</code></pre>
 						<a href="classes/dataprocessoroptions.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/proxyentity.html" class="tsd-kind-icon">Proxy<wbr>Entity</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -195,7 +145,7 @@ manager.start()</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/scraperoptions.html" class="tsd-kind-icon">Scraper<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/setduplicatefilter.html" class="tsd-kind-icon">Set<wbr>Duplicate<wbr>Filter</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -205,13 +155,19 @@ manager.start()</code></pre>
 						<a href="classes/urlentity.html" class="tsd-kind-icon">Url<wbr>Entity</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/classificationresult.html" class="tsd-kind-icon">Classification<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/dataprocessorinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/duplicatefilter.html" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/httpproxy.html" class="tsd-kind-icon">Http<wbr>Proxy</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
@@ -220,10 +176,13 @@ manager.start()</code></pre>
 						<a href="interfaces/parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/proxyentityinterface.html" class="tsd-kind-icon">Proxy<wbr>Entity<wbr>Interface</a>
+						<a href="interfaces/queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/scraperinterface.html" class="tsd-kind-icon">Scraper<wbr>Interface</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/scraperoptionsinterface.html" class="tsd-kind-icon">Scraper<wbr>Options<wbr>Interface</a>
@@ -231,17 +190,8 @@ manager.start()</code></pre>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/scrapingresult.html" class="tsd-kind-icon">Scraping<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#duplicatefilter" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="globals.html#chooserandom" class="tsd-kind-icon">choose<wbr>Random</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#isbloomduplicatefilter" class="tsd-kind-icon">is<wbr>Bloom<wbr>Duplicate<wbr>Filter</a>
 					</li>
 				</ul>
 			</nav>
@@ -258,11 +208,12 @@ manager.start()</code></pre>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
@@ -272,6 +223,5 @@ manager.start()</code></pre>
 </footer>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

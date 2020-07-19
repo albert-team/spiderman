@@ -57,7 +57,7 @@
 					<a href="setduplicatefilter.html">SetDuplicateFilter</a>
 				</li>
 			</ul>
-			<h1>Class SetDuplicateFilter</h1>
+			<h1>Class SetDuplicateFilter&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -71,12 +71,26 @@
 					</div>
 				</div>
 			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">SetDuplicateFilter</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/duplicatefilter.html" class="tsd-signature-type">DuplicateFilter</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -99,24 +113,20 @@
 					<a name="add" class="tsd-anchor"></a>
 					<h3>add</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/duplicatefilter.html">DuplicateFilter</a>.<a href="../interfaces/duplicatefilter.html#add">add</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/dup-filters.ts#L12">src/entities/dup-filters.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/dup-filter/set-dup-filter.class.ts#L9">src/modules/dup-filter/set-dup-filter.class.ts:9</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Add an item to the filter</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>item: <span class="tsd-signature-type">any</span></h5>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -127,24 +137,20 @@
 					<a name="exists" class="tsd-anchor"></a>
 					<h3>exists</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">exists<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">exists<span class="tsd-signature-symbol">(</span>item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/duplicatefilter.html">DuplicateFilter</a>.<a href="../interfaces/duplicatefilter.html#exists">exists</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/dup-filters.ts#L19">src/entities/dup-filters.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/dup-filter/set-dup-filter.class.ts#L13">src/modules/dup-filter/set-dup-filter.class.ts:13</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Check if an item already exists in the filter</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>item: <span class="tsd-signature-type">any</span></h5>
+									<h5>item: <span class="tsd-signature-type">T</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -173,9 +179,6 @@
 						<a href="dataprocessoroptions.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="proxyentity.html" class="tsd-kind-icon">Proxy<wbr>Entity</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="scheduler.html" class="tsd-kind-icon">Scheduler</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -189,7 +192,7 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class="current tsd-kind-class tsd-has-type-parameter">
 						<a href="setduplicatefilter.html" class="tsd-kind-icon">Set<wbr>Duplicate<wbr>Filter</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -209,13 +212,19 @@
 						<a href="urlentity.html" class="tsd-kind-icon">Url<wbr>Entity</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/classificationresult.html" class="tsd-kind-icon">Classification<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="../interfaces/dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="../interfaces/dataprocessorinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="../interfaces/dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/duplicatefilter.html" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/httpproxy.html" class="tsd-kind-icon">Http<wbr>Proxy</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
@@ -224,10 +233,13 @@
 						<a href="../interfaces/parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/proxyentityinterface.html" class="tsd-kind-icon">Proxy<wbr>Entity<wbr>Interface</a>
+						<a href="../interfaces/queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/scraperinterface.html" class="tsd-kind-icon">Scraper<wbr>Interface</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scraperoptionsinterface.html" class="tsd-kind-icon">Scraper<wbr>Options<wbr>Interface</a>
@@ -235,17 +247,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scrapingresult.html" class="tsd-kind-icon">Scraping<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#duplicatefilter" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#chooserandom" class="tsd-kind-icon">choose<wbr>Random</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#isbloomduplicatefilter" class="tsd-kind-icon">is<wbr>Bloom<wbr>Duplicate<wbr>Filter</a>
 					</li>
 				</ul>
 			</nav>
@@ -262,11 +265,12 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
@@ -276,6 +280,5 @@
 </footer>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

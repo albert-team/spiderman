@@ -92,16 +92,15 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="urlentity.html#dataprocessor" class="tsd-kind-icon">data<wbr>Processor</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="urlentity.html#retrycount" class="tsd-kind-icon">retry<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="urlentity.html#scraper" class="tsd-kind-icon">scraper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="urlentity.html#url" class="tsd-kind-icon">url</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Methods</h3>
+							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="urlentity.html#getfingerprint" class="tsd-kind-icon">get<wbr>Fingerprint</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="urlentity.html#fingerprint" class="tsd-kind-icon">fingerprint</a></li>
 							</ul>
 						</section>
 					</div>
@@ -113,13 +112,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Url<wbr>Entity<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, scraper<span class="tsd-signature-symbol">: </span><a href="scraper.html" class="tsd-signature-type">Scraper</a>, dataProcessor<span class="tsd-signature-symbol">: </span><a href="dataprocessor.html" class="tsd-signature-type">DataProcessor</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="urlentity.html" class="tsd-signature-type">UrlEntity</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Url<wbr>Entity<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, scraper<span class="tsd-signature-symbol">: </span><a href="../interfaces/scraperinterface.html" class="tsd-signature-type">ScraperInterface</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="urlentity.html" class="tsd-signature-type">UrlEntity</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L80">src/entities/index.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/url-entity.class.ts#L7">src/modules/scheduler/url-entity.class.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -128,10 +127,7 @@
 									<h5>url: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>scraper: <a href="scraper.html" class="tsd-signature-type">Scraper</a></h5>
-								</li>
-								<li>
-									<h5>dataProcessor: <a href="dataprocessor.html" class="tsd-signature-type">DataProcessor</a></h5>
+									<h5>scraper: <a href="../interfaces/scraperinterface.html" class="tsd-signature-type">ScraperInterface</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="urlentity.html" class="tsd-signature-type">UrlEntity</a></h4>
@@ -142,32 +138,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="dataprocessor" class="tsd-anchor"></a>
-					<h3>data<wbr>Processor</h3>
-					<div class="tsd-signature tsd-kind-icon">data<wbr>Processor<span class="tsd-signature-symbol">:</span> <a href="dataprocessor.html" class="tsd-signature-type">DataProcessor</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L79">src/entities/index.ts:79</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="retrycount" class="tsd-anchor"></a>
 					<h3>retry<wbr>Count</h3>
 					<div class="tsd-signature tsd-kind-icon">retry<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L80">src/entities/index.ts:80</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/url-entity.class.ts#L7">src/modules/scheduler/url-entity.class.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="scraper" class="tsd-anchor"></a>
 					<h3>scraper</h3>
-					<div class="tsd-signature tsd-kind-icon">scraper<span class="tsd-signature-symbol">:</span> <a href="scraper.html" class="tsd-signature-type">Scraper</a></div>
+					<div class="tsd-signature tsd-kind-icon">scraper<span class="tsd-signature-symbol">:</span> <a href="../interfaces/scraperinterface.html" class="tsd-signature-type">ScraperInterface</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L78">src/entities/index.ts:78</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/url-entity.class.ts#L6">src/modules/scheduler/url-entity.class.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,29 +163,29 @@
 					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L77">src/entities/index.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/url-entity.class.ts#L5">src/modules/scheduler/url-entity.class.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getfingerprint" class="tsd-anchor"></a>
-					<h3>get<wbr>Fingerprint</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Fingerprint<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="fingerprint" class="tsd-anchor"></a>
+					<h3>fingerprint</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> fingerprint<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L89">src/entities/index.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/url-entity.class.ts#L15">src/modules/scheduler/url-entity.class.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get the unique fingerprint of the URL (the URL itself by default)</p>
+									<p>Unique fingerprint of the URL (the URL itself by default)</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -228,9 +214,6 @@
 						<a href="dataprocessoroptions.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="proxyentity.html" class="tsd-kind-icon">Proxy<wbr>Entity</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="scheduler.html" class="tsd-kind-icon">Scheduler</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -242,7 +225,7 @@
 					<li class=" tsd-kind-class">
 						<a href="scraperoptions.html" class="tsd-kind-icon">Scraper<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="setduplicatefilter.html" class="tsd-kind-icon">Set<wbr>Duplicate<wbr>Filter</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -257,9 +240,6 @@
 								<a href="urlentity.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="urlentity.html#dataprocessor" class="tsd-kind-icon">data<wbr>Processor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="urlentity.html#retrycount" class="tsd-kind-icon">retry<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -268,21 +248,27 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="urlentity.html#url" class="tsd-kind-icon">url</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="urlentity.html#getfingerprint" class="tsd-kind-icon">get<wbr>Fingerprint</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="urlentity.html#fingerprint" class="tsd-kind-icon">fingerprint</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/classificationresult.html" class="tsd-kind-icon">Classification<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="../interfaces/dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="../interfaces/dataprocessorinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="../interfaces/dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/duplicatefilter.html" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/httpproxy.html" class="tsd-kind-icon">Http<wbr>Proxy</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
@@ -291,10 +277,13 @@
 						<a href="../interfaces/parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/proxyentityinterface.html" class="tsd-kind-icon">Proxy<wbr>Entity<wbr>Interface</a>
+						<a href="../interfaces/queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/scraperinterface.html" class="tsd-kind-icon">Scraper<wbr>Interface</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scraperoptionsinterface.html" class="tsd-kind-icon">Scraper<wbr>Options<wbr>Interface</a>
@@ -302,17 +291,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/scrapingresult.html" class="tsd-kind-icon">Scraping<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#duplicatefilter" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#chooserandom" class="tsd-kind-icon">choose<wbr>Random</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#isbloomduplicatefilter" class="tsd-kind-icon">is<wbr>Bloom<wbr>Duplicate<wbr>Filter</a>
 					</li>
 				</ul>
 			</nav>
@@ -329,11 +309,12 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
@@ -343,6 +324,5 @@
 </footer>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

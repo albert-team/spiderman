@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ParsingResult | Spiderman</title>
+	<title>QueueSettings | Spiderman</title>
 	<meta name="description" content="Documentation for Spiderman">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,28 +54,21 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="parsingresult.html">ParsingResult</a>
+					<a href="queuesettings.html">QueueSettings</a>
 				</li>
 			</ul>
-			<h1>Interface ParsingResult</h1>
+			<h1>Interface QueueSettings</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Parsing result</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ParsingResult</span>
+						<span class="target">QueueSettings</span>
 					</li>
 				</ul>
 			</section>
@@ -86,9 +79,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parsingresult.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parsingresult.html#nexturls" class="tsd-kind-icon">next<wbr>Urls</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parsingresult.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="queuesettings.html#longretries" class="tsd-kind-icon">long<wbr>Retries</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="queuesettings.html#shortretries" class="tsd-kind-icon">short<wbr>Retries</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="queuesettings.html#tasksperminperqueue" class="tsd-kind-icon">tasks<wbr>Per<wbr>Min<wbr>Per<wbr>Queue</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,32 +90,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="data" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
+					<a name="longretries" class="tsd-anchor"></a>
+					<h3>long<wbr>Retries</h3>
+					<div class="tsd-signature tsd-kind-icon">long<wbr>Retries<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/parsing-result.interface.ts#L4">src/modules/scraper/parsing-result.interface.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/queue-settings.interface.ts#L4">src/modules/scheduler/queue-settings.interface.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="nexturls" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> next<wbr>Urls</h3>
-					<div class="tsd-signature tsd-kind-icon">next<wbr>Urls<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="shortretries" class="tsd-anchor"></a>
+					<h3>short<wbr>Retries</h3>
+					<div class="tsd-signature tsd-kind-icon">short<wbr>Retries<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/parsing-result.interface.ts#L5">src/modules/scraper/parsing-result.interface.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/queue-settings.interface.ts#L3">src/modules/scheduler/queue-settings.interface.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<a name="tasksperminperqueue" class="tsd-anchor"></a>
+					<h3>tasks<wbr>Per<wbr>Min<wbr>Per<wbr>Queue</h3>
+					<div class="tsd-signature tsd-kind-icon">tasks<wbr>Per<wbr>Min<wbr>Per<wbr>Queue<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/parsing-result.interface.ts#L3">src/modules/scraper/parsing-result.interface.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scheduler/queue-settings.interface.ts#L2">src/modules/scheduler/queue-settings.interface.ts:2</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,27 +179,27 @@
 					<li class=" tsd-kind-interface">
 						<a href="parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
+						<a href="queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="parsingresult.html#data" class="tsd-kind-icon">data</a>
+								<a href="queuesettings.html#longretries" class="tsd-kind-icon">long<wbr>Retries</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="parsingresult.html#nexturls" class="tsd-kind-icon">next<wbr>Urls</a>
+								<a href="queuesettings.html#shortretries" class="tsd-kind-icon">short<wbr>Retries</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="parsingresult.html#success" class="tsd-kind-icon">success</a>
+								<a href="queuesettings.html#tasksperminperqueue" class="tsd-kind-icon">tasks<wbr>Per<wbr>Min<wbr>Per<wbr>Queue</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
 					</li>

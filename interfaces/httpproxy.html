@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ClassificationResult | Spiderman</title>
+	<title>HttpProxy | Spiderman</title>
 	<meta name="description" content="Documentation for Spiderman">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="classificationresult.html">ClassificationResult</a>
+					<a href="httpproxy.html">HttpProxy</a>
 				</li>
 			</ul>
-			<h1>Interface ClassificationResult</h1>
+			<h1>Interface HttpProxy</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Classification result</p>
+						<p>HTTP proxy</p>
 					</div>
 				</div>
 			</section>
@@ -75,7 +75,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ClassificationResult</span>
+						<span class="target">HttpProxy</span>
 					</li>
 				</ul>
 			</section>
@@ -86,9 +86,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="classificationresult.html#dataprocessor" class="tsd-kind-icon">data<wbr>Processor</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="classificationresult.html#scraper" class="tsd-kind-icon">scraper</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="classificationresult.html#urlentity" class="tsd-kind-icon">url<wbr>Entity</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpproxy.html#auth" class="tsd-kind-icon">auth</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpproxy.html#host" class="tsd-kind-icon">host</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="httpproxy.html#port" class="tsd-kind-icon">port</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,32 +97,43 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="dataprocessor" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> data<wbr>Processor</h3>
-					<div class="tsd-signature tsd-kind-icon">data<wbr>Processor<span class="tsd-signature-symbol">:</span> <a href="../classes/dataprocessor.html" class="tsd-signature-type">DataProcessor</a></div>
+					<a name="auth" class="tsd-anchor"></a>
+					<h3>auth</h3>
+					<div class="tsd-signature tsd-kind-icon">auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L7">src/entities/index.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/http-proxy.interface.ts#L5">src/modules/scraper/http-proxy.interface.ts:5</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="host" class="tsd-anchor"></a>
+					<h3>host</h3>
+					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/http-proxy.interface.ts#L3">src/modules/scraper/http-proxy.interface.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scraper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scraper</h3>
-					<div class="tsd-signature tsd-kind-icon">scraper<span class="tsd-signature-symbol">:</span> <a href="../classes/scraper.html" class="tsd-signature-type">Scraper</a></div>
+					<a name="port" class="tsd-anchor"></a>
+					<h3>port</h3>
+					<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L6">src/entities/index.ts:6</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="urlentity" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> url<wbr>Entity</h3>
-					<div class="tsd-signature tsd-kind-icon">url<wbr>Entity<span class="tsd-signature-symbol">:</span> <a href="../classes/urlentity.html" class="tsd-signature-type">UrlEntity</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/61c5ec6/src/entities/index.ts#L5">src/entities/index.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/albert-team/spiderman/blob/d13ef73/src/modules/scraper/http-proxy.interface.ts#L4">src/modules/scraper/http-proxy.interface.ts:4</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -148,9 +159,6 @@
 						<a href="../classes/dataprocessoroptions.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/proxyentity.html" class="tsd-kind-icon">Proxy<wbr>Entity</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="../classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -162,7 +170,7 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/scraperoptions.html" class="tsd-kind-icon">Scraper<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/setduplicatefilter.html" class="tsd-kind-icon">Set<wbr>Duplicate<wbr>Filter</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -171,30 +179,36 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/urlentity.html" class="tsd-kind-icon">Url<wbr>Entity</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="dataprocessorinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="duplicatefilter.html" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="classificationresult.html" class="tsd-kind-icon">Classification<wbr>Result</a>
+						<a href="httpproxy.html" class="tsd-kind-icon">Http<wbr>Proxy</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="classificationresult.html#dataprocessor" class="tsd-kind-icon">data<wbr>Processor</a>
+								<a href="httpproxy.html#auth" class="tsd-kind-icon">auth</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="classificationresult.html#scraper" class="tsd-kind-icon">scraper</a>
+								<a href="httpproxy.html#host" class="tsd-kind-icon">host</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="classificationresult.html#urlentity" class="tsd-kind-icon">url<wbr>Entity</a>
+								<a href="httpproxy.html#port" class="tsd-kind-icon">port</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="dataprocessingresult.html" class="tsd-kind-icon">Data<wbr>Processing<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="dataprocessoroptionsinterface.html" class="tsd-kind-icon">Data<wbr>Processor<wbr>Options<wbr>Interface</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="parsingmeta.html" class="tsd-kind-icon">Parsing<wbr>Meta</a>
 					</li>
@@ -202,10 +216,13 @@
 						<a href="parsingresult.html" class="tsd-kind-icon">Parsing<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="proxyentityinterface.html" class="tsd-kind-icon">Proxy<wbr>Entity<wbr>Interface</a>
+						<a href="queuesettings.html" class="tsd-kind-icon">Queue<wbr>Settings</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="scheduleroptionsinterface.html" class="tsd-kind-icon">Scheduler<wbr>Options<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="scraperinterface.html" class="tsd-kind-icon">Scraper<wbr>Interface</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="scraperoptionsinterface.html" class="tsd-kind-icon">Scraper<wbr>Options<wbr>Interface</a>
@@ -213,17 +230,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="scrapingresult.html" class="tsd-kind-icon">Scraping<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#duplicatefilter" class="tsd-kind-icon">Duplicate<wbr>Filter</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../globals.html#chooserandom" class="tsd-kind-icon">choose<wbr>Random</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#isbloomduplicatefilter" class="tsd-kind-icon">is<wbr>Bloom<wbr>Duplicate<wbr>Filter</a>
 					</li>
 				</ul>
 			</nav>
@@ -240,11 +248,12 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
@@ -254,6 +263,5 @@
 </footer>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>
