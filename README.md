@@ -17,13 +17,13 @@ Minimalistic web crawler for Node.js
 - With npm:
 
 ```sh
-npm i @albert-team/spiderman
+$ npm i @albert-team/spiderman
 ```
 
 - With yarn:
 
 ```sh
-yarn add @albert-team/spiderman
+$ yarn add @albert-team/spiderman
 ```
 
 ## USAGE
@@ -38,10 +38,11 @@ See [here](https://github.com/albert-team/spiderman/blob/master/examples).
 
 Read more [here](https://albert-team.github.io/spiderman).
 
-## Changelog
+## Changelogs
 
-Read more [here](https://github.com/albert-team/spiderman/blob/master/CHANGELOG.md).
+For the latest major version, read more [here](https://github.com/albert-team/spiderman/blob/master/changelogs/v2.md).
+For older versions, read more [here](https://github.com/albert-team/spiderman/tree/master/changelogs).
 
-## Todo
+## Todos
 
 Read more [here](https://github.com/albert-team/spiderman/blob/master/TODO.md).
